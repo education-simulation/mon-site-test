@@ -22,7 +22,9 @@ Patience : la première ouverture prend 5 à 10 minutes.
    Première fois : clique « Continuer avec Mistral AI ».
    Une fenêtre demande « Voulez-vous que Code ouvre le site web externe ? »
    (console.mistral.ai) : clique sur le bouton vert « Ouvrir »,
-   puis connecte-toi à ton compte Mistral dans l'onglet qui s'ouvre.
+   Un nouvel onglet s'ouvre : connecte-toi à ton compte Mistral
+   (par exemple avec ton adresse académique), puis REVIENS sur
+   l'onglet de ton atelier « RASF — Atelier … ».
    Si un bouton « Dossier non approuvé » apparaît en bas du panneau,
    clique dessus, puis sur le bouton vert « Faire confiance au dossier ».
    Sans ce clic, l'assistant ne peut rien modifier.
