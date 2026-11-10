@@ -14,6 +14,9 @@
         "files.autoSave": "afterDelay",
         // Un seul assistant : Mistral. On coupe le chat Copilot intégré à VS Code.
         "chat.disableAIFeatures": true,
+        // Ne pas encadrer les lettres accentuées comme des caractères suspects.
+        "editor.unicodeHighlight.nonBasicASCII": false,
+        "editor.unicodeHighlight.ambiguousCharacters": false,
         // Habillage RASF (couleurs du logo : bleu #336fa3, violet #666493).
         "window.title": "RASF — Atelier ${rootName}",
         "workbench.colorCustomizations": {

@@ -15,9 +15,10 @@ Tu es sur **ton** site. Ouvre ton atelier :
 
 1. Bouton vert **Code** (au-dessus de la liste des fichiers) → onglet **Codespaces** → **Create codespace on main**.
 
-   > ⏳ **La première ouverture prend 3 à 5 minutes.**
+   > ⏳ **La première ouverture prend 5 à 10 minutes.**
    > Pendant ce temps, l'écran reste **vide et gris** : c'est normal, ne ferme pas l'onglet et ne clique nulle part.
-   > C'est prêt quand la **barre du bas devient bleue (RASF)** et qu'un texte « Bienvenue » apparaît dans le terminal.
+   > C'est prêt quand la **barre du bas devient bleue (RASF)** et que la page `DEMARRER.md` s'affiche.
+   > Une fenêtre « Faites-vous confiance aux auteurs des fichiers de ce dossier ? » apparaît ? Clique sur le bouton vert **Approuver le dossier et continuer**.
 
 2. Dans le panneau de droite, **Mistral Vibe**, écris : **« Lis AGENTS.md et guide-moi. »**
 

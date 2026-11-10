@@ -2,7 +2,9 @@ RASF · ATELIER DE SITE POUR PROFS
 =================================
 
 Tu n'as rien à installer. Tout se passe dans cet onglet.
-Patience : à la première ouverture, chaque étape peut prendre une minute.
+Patience : la première ouverture prend 5 à 10 minutes.
+Si une fenêtre demande « Faites-vous confiance aux auteurs des fichiers ? »,
+clique sur le bouton vert « Approuver le dossier et continuer ».
 
 
 1) TON ASSISTANT
