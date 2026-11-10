@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adhésifs — Simulations · Formu au labo</title>
+<style>
+  :root { --cat:#b45309; --texte:#3c3644; --bord:#eadfd2; --fond:#fffdf9; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:16px/1.5 system-ui,sans-serif; color:var(--texte); background:var(--fond);
+         background-image: radial-gradient(#f3e7d8 1px, transparent 1px); background-size: 22px 22px; }
+  header { padding: 26px 22px 6px; }
+  .chip { display:inline-block; background:var(--cat); color:#fff; font-size:13px; font-weight:700;
+          padding:4px 12px; border-radius:999px; letter-spacing:.4px; animation: pop .45s cubic-bezier(.2,1.6,.4,1) both; }
+  h1 { font-size:30px; margin:10px 0 4px; animation: fadeUp .5s .06s ease both; }
+  .desc { color:#8a7f70; margin:0; max-width:660px; animation: fadeUp .5s .12s ease both; }
+  .grille { display:grid; grid-template-columns: repeat(auto-fill,minmax(235px,1fr)); gap:16px; padding:20px 22px 30px; }
+  .tile { display:block; text-decoration:none; color:inherit; background:#fff; border:2px solid var(--bord);
+          border-radius:16px; padding:18px; position:relative; overflow:hidden;
+          transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+          animation: fadeUp .5s ease both; }
+  .tile:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 14px 30px rgba(180,83,9,.20); border-color: var(--cat); }
+  .tile .emoji { font-size:34px; display:inline-block; transition: transform .25s cubic-bezier(.2,1.6,.4,1); }
+  .tile:hover .emoji { transform: rotate(-10deg) scale(1.2); }
+  .tile h2 { font-size:17px; margin:10px 0 4px; }
+  .tile p { margin:0; font-size:13.5px; color:#8a7f70; }
+  .badge { position:absolute; top:12px; right:12px; font-size:11px; background:#eef7f0; color:#1f9d55;
+           border:1px solid #bfe6cd; padding:2px 8px; border-radius:999px; font-weight:600; }
+  .tile::after { content:""; position:absolute; inset:0; pointer-events:none;
+                  background:linear-gradient(120deg, transparent 30%, rgba(180,83,9,.08) 50%, transparent 70%);
+                  transform: translateX(-110%); transition: transform .55s ease; }
+  .tile:hover::after { transform: translateX(110%); }
+  @keyframes fadeUp { from { opacity:0; transform: translateY(16px); } to { opacity:1; transform:none; } }
+  @keyframes pop { from { opacity:0; transform: scale(.6); } to { opacity:1; transform: scale(1); } }
+</style>
+</head>
+<body>
+<header>
+  <span class="chip">🧪 SIMULATIONS</span>
+  <h1>🩹 Adhésifs</h1>
+  <p class="desc">Contrôle des adhésifs : propriétés du produit, durcissement et performances du collage. Choisis un module pour lancer sa simulation interactive.</p>
+</header>
+<div class="grille">
+  <a class="tile" style="animation-delay:.15s" href="../#/module-masse-volumique" target="_parent">
+    <span class="badge">🧪 simulation</span><span class="emoji">⚖️</span>
+    <h2>Masse volumique</h2><p>Pycnomètre Hubbard, table de l'eau, moyenne et écart type.</p>
+  </a>
+  <a class="tile" style="animation-delay:.25s" href="../#/module-extrait-sec" target="_parent">
+    <span class="badge">🧪 simulation</span><span class="emoji">🔥</span>
+    <h2>Extrait sec</h2><p>Conventionnel (NF EN 827) ou à masse constante.</p>
+  </a>
+  <a class="tile" style="animation-delay:.35s" href="../#/module-bille-anneau" target="_parent">
+    <span class="badge">🧪 simulation</span><span class="emoji">🟠</span>
+    <h2>Point de ramollissement bille-anneau</h2><p>Hot melt : bain chauffé à 5 °C/min, deux anneaux.</p>
+  </a>
+  <a class="tile" style="animation-delay:.45s" href="../#/module-dpu" target="_parent">
+    <span class="badge">🧪 simulation</span><span class="emoji">⏳</span>
+    <h2>Durée pratique d'utilisation (DPU)</h2><p>Pot life d'un bicomposant : la viscosité double.</p>
+  </a>
+</div>
+</body>
+</html>

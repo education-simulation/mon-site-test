@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DPU — Adhésifs · Formu au labo</title>
+<style>
+  :root { --cat:#b45309; --texte:#3c3644; --bord:#eadfd2; --fond:#fffdf9; --fond2:#faf3ea; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:16px/1.5 system-ui,sans-serif; color:var(--texte); background:var(--fond); }
+  header.mod { padding:18px 20px 0; }
+  .chip { display:inline-block; background:var(--cat); color:#fff; font-size:12px; font-weight:700; padding:3px 10px; border-radius:999px; }
+  h1 { font-size:26px; margin:8px 0 2px; } h1 .emoji { display:inline-block; animation: pop .5s cubic-bezier(.2,1.6,.4,1) both; }
+  .sous { color:#8a7f70; margin:0 0 12px; font-size:14.5px; }
+  .tabs { display:flex; gap:6px; border-bottom:2px solid var(--bord); }
+  .tab { font:inherit; font-weight:600; font-size:14.5px; padding:8px 16px; border:0; background:none; color:#8a7f70; cursor:pointer; border-radius:10px 10px 0 0; transition: background .15s; }
+  .tab.actif { background:var(--cat); color:#fff; }
+  main { padding:16px 20px 30px; }
+  section.anim { animation: fadeUp .3s ease both; }
+  .colonnes { display:flex; flex-wrap:wrap; gap:16px; align-items:flex-start; }
+  .gauche { flex:1 1 460px; min-width:300px; }
+  .droite { flex:0 1 320px; min-width:250px; background:var(--fond2); border-radius:14px; padding:12px 14px; }
+  .carte { border:1px solid var(--bord); background:#fff; border-radius:14px; padding:12px 14px; margin-bottom:14px; }
+  .carte h2 { font-size:15px; margin:0 0 8px; }
+  button { font:inherit; padding:8px 14px; border:0; border-radius:10px; background:var(--cat); color:#fff; cursor:pointer; transition: transform .12s, filter .12s; }
+  button:hover { filter:brightness(1.08); } button:active { transform:scale(.96); }
+  input, select { font:inherit; padding:6px 8px; border:1px solid var(--bord); border-radius:8px; background:#fff; color:var(--texte); }
+  input[type=number] { width:120px; }
+  .ligne { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:6px 0; }
+  canvas { width:100%; max-width:560px; border:1px solid var(--bord); border-radius:10px; background:#fff; }
+  .chrono { font-size:30px; font-weight:700; font-variant-numeric:tabular-nums; color:var(--cat); background:#17141c; color:#ffd27d;
+           border-radius:10px; padding:4px 14px; display:inline-block; }
+  .visco { font-size:22px; font-weight:700; font-variant-numeric:tabular-nums; color:#7dffb0; background:#17141c; border-radius:10px; padding:4px 12px; display:inline-block; }
+  .etape { display:flex; gap:8px; padding:6px; border-radius:8px; font-size:14px; align-items:baseline; }
+  .etape .num { flex:0 0 22px; height:22px; border-radius:50%; background:#e3ddd2; display:inline-flex; align-items:center; justify-content:center; font-size:13px; }
+  .etape.fait .num { background:#1f9d55; color:#fff; animation: pop .35s cubic-bezier(.2,1.8,.4,1) both; }
+  .etape.fait { color:#9a9284; text-decoration:line-through; }
+  .etape.courante { background:#fff; outline:2px solid var(--cat); font-weight:600; text-decoration:none; }
+  .ok { color:#1f9d55; font-weight:700; } .ko { color:#c0392b; font-weight:600; }
+  #resultat { font-size:19px; font-weight:700; color:var(--cat); }
+  .petit { font-size:13px; color:#8a7f70; }
+  details { border:1px solid var(--bord); border-radius:10px; padding:8px 12px; background:#fff; }
+  summary { cursor:pointer; font-weight:600; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(12px);} to { opacity:1; transform:none;} }
+  @keyframes pop { from { opacity:0; transform:scale(.5);} to { opacity:1; transform:scale(1);} }
+</style>
+</head>
+<body>
+<header class="mod">
+  <span class="chip">🩹 ADHÉSIFS · BTS MÉTIERS DE LA CHIMIE</span>
+  <h1><span class="emoji">⏳</span> Durée pratique d'utilisation (DPU)</h1>
+  <p class="sous">Adhésifs à deux composants : temps pour que la viscosité double</p>
+  <nav class="tabs">
+    <button class="tab actif" data-tab="essentiel">📖 L'essentiel</button>
+    <button class="tab" data-tab="simulation">🧪 Simulation</button>
+    <button class="tab" data-tab="exercices">✏️ Exercices</button>
+  </nav>
+</header>
+<main>
+  <section id="tab-essentiel">
+    <h3>De quoi parle-t-on ?</h3>
+    <p>La durée de vie en pot, « pot life » ou DPU (durée pratique d'utilisation), ne concerne que les adhésifs à deux composants : c'est la durée pendant laquelle la colle peut être mise en œuvre à partir du mélange des deux composants. La réaction avançant, la colle épaissit puis devient inutilisable.</p>
+    <h3>Définition</h3>
+    <p>La DPU est le temps nécessaire pour que la viscosité (à bas gradient de vitesse) voie sa valeur doubler : <strong>η(DPU) = 2 η₀</strong>.</p>
+    <h3>Influence de la température</h3>
+    <p>La DPU diminue lorsque la température augmente, et avec la réactivité chimique des deux composants.</p>
+    <h3>Protocole type</h3>
+    <ol>
+      <li>Fixer la température de l'essai.</li>
+      <li>Mélanger les deux composants et déclencher le chronomètre.</li>
+      <li>Mesurer la viscosité initiale η₀ à bas gradient de vitesse.</li>
+      <li>Mesurer la viscosité à intervalles réguliers.</li>
+      <li>Noter le temps au bout duquel la viscosité a doublé : c'est la DPU.</li>
+    </ol>
+  </section>
+
+  <section id="tab-simulation" hidden>
+    <div class="ligne">
+      <button id="lancer">🔄 Lancer une nouvelle simulation</button>
+      <span id="systeme" class="petit"></span>
+      <span class="chrono" id="chrono">0,0 min</span>
+    </div>
+    <div class="colonnes">
+      <div class="gauche">
+        <div class="carte">
+          <h2>Viscosimètre — η(t) à bas gradient</h2>
+          <canvas id="courbe" width="560" height="280"></canvas>
+          <div class="ligne" style="margin-top:8px;">
+            <span>η₀ mesurée :</span><span class="visco" id="eta0">—</span>
+            <span>η(t) :</span><span class="visco" id="etaT">—</span>
+          </div>
+          <div id="action"><p class="petit">Lance une simulation pour commencer.</p></div>
+        </div>
+      </div>
+      <div class="droite">
+        <h2 style="font-size:15px;margin:0 0 8px;">Étapes du protocole <span id="progres" style="float:right;"></span></h2>
+        <div id="etapes"></div>
+        <p id="resultat"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-exercices" hidden>
+    <h3>Exercice</h3>
+    <p>À 25 °C, un bicomposant a une viscosité initiale η₀ = 3,0 Pa·s et sa viscosité suit η(t) = η₀·e<sup>k t</sup> avec k = 0,0462 min⁻¹. Quelle est la DPU ?</p>
+    <details><summary>Voir la correction</summary>
+      <p>η(DPU) = 2 η₀ donc e<sup>k·DPU</sup> = 2, d'où DPU = ln 2 / k = 0,693 / 0,0462 ≈ <strong>15,0 min</strong>.</p>
+    </details>
+  </section>
+</main>
+<script>
+"use strict";
+document.querySelectorAll(".tab").forEach((b) => (b.onclick = () => {
+  document.querySelectorAll(".tab").forEach((x) => x.classList.toggle("actif", x === b));
+  document.querySelectorAll("main section").forEach((s) => (s.hidden = true));
+  const p = document.getElementById("tab-" + b.dataset.tab);
+  p.hidden = false; p.classList.remove("anim"); void p.offsetWidth; p.classList.add("anim");
+}));
+
+const SYSTEMES = [
+  { id: "ep",  nom: "système époxy",            k25: 0.030 },
+  { id: "mma", nom: "système acrylate (MMA)",   k25: 0.046 },
+  { id: "pu",  nom: "système polyuréthane",     k25: 0.020 }
+];
+const TEMPS = [20, 25, 30, 35];
+const ETAPES = [
+  "Fixer la température de l'essai.",
+  "Mélanger les deux composants et déclencher le chronomètre.",
+  "Mesurer la viscosité initiale η₀ à bas gradient de vitesse.",
+  "Suivre η(t) et noter le temps où la viscosité a doublé : c'est la DPU."
+];
+function calcK(k25, T) { return k25 * Math.pow(2, (T - 25) / 10); }   // Q10 ≈ 2
+function calcDPU(k) { return Math.LN2 / k; }
+
+let S = null;
+const $ = (id) => document.getElementById(id);
+const rnd = (a, b) => a + Math.random() * (b - a);
+const nb = (v) => parseFloat(String(v).replace(",", "."));
+const fmt = (v, d) => v.toLocaleString("fr-FR", { minimumFractionDigits: d, maximumFractionDigits: d });
+
+function lancer() {
+  const sys = SYSTEMES[Math.floor(Math.random() * SYSTEMES.length)];
+  S = { sys, T: 25, k: sys.k25, eta0: rnd(1.5, 4.0), etape: 0, anim: false };
+  S.dpu = calcDPU(S.k);
+  $("systeme").textContent = "Système bicomposant : " + sys.nom;
+  $("chrono").textContent = "0,0 min"; $("eta0").textContent = "—"; $("etaT").textContent = "—";
+  $("resultat").textContent = "";
+  const c = $("courbe").getContext("2d"); c.clearRect(0, 0, 560, 280);
+  afficherEtapes(); afficherAction();
+}
+
+function afficherEtapes() {
+  $("etapes").innerHTML = ETAPES.map((t, i) => {
+    const cls = !S ? "" : (i < S.etape ? "etape fait" : i === S.etape ? "etape courante" : "etape");
+    const num = !S ? i + 1 : (i < S.etape ? "✓" : i + 1);
+    return '<div class="' + cls + '"><span class="num">' + num + "</span><span>" + t + "</span></div>";
+  }).join("");
+  $("progres").textContent = S ? (Math.min(S.etape, ETAPES.length) + "/" + ETAPES.length) : "";
+}
+function valider() { S.etape++; afficherEtapes(); afficherAction(); }
+
+function afficherAction() {
+  const a = $("action");
+  if (!S) { a.innerHTML = '<p class="petit">Lance une simulation pour commencer.</p>'; return; }
+  const i = S.etape;
+  if (i >= ETAPES.length) { a.innerHTML = '<p class="ok">✔ Simulation terminée !</p>'; return; }
+  switch (i) {
+    case 0: {
+      const opts = TEMPS.map(t => '<option value="' + t + '"' + (t === 25 ? " selected" : "") + ">" + t + " °C</option>").join("");
+      a.innerHTML = '<div class="ligne"><span>Température de l\'essai :</span><select id="selT">' + opts + '</select><button onclick="validerT()">Fixer</button></div><p id="msg"></p>'; break;
+    }
+    case 1: a.innerHTML = '<div class="ligne"><button onclick="melanger()">🧪 Mélanger les deux composants et lancer le chrono</button></div>'; break;
+    case 2: a.innerHTML = '<div class="ligne"><button onclick="mesurerEta0()">Mesurer η₀</button></div>'; break;
+    case 3: a.innerHTML = '<div class="ligne"><span>Temps où η a doublé (η = 2η₀) :</span><input id="inT" type="number" step="0.1" placeholder="min"> min<button onclick="validerDPU()">Valider</button></div><p id="msg"></p>'; break;
+  }
+}
+
+window.validerT = () => {
+  S.T = parseInt($("selT").value, 10); S.k = calcK(S.sys.k25, S.T); S.dpu = calcDPU(S.k);
+  $("systeme").textContent = "Système : " + S.sys.nom + " · essai à " + S.T + " °C";
+  valider();
+};
+window.melanger = () => {
+  valider();
+  const tmax = 3 * S.dpu; const duree = 6000; const t0 = performance.now();
+  const c = $("courbe").getContext("2d");
+  function dessiner(p) {
+    const t = p * tmax;
+    c.clearRect(0, 0, 560, 280);
+    c.strokeStyle = "#eadfd2"; c.fillStyle = "#8a7f70"; c.font = "12px system-ui";
+    for (let g = 1; g <= 4; g++) { const y = 250 - (g - 1) * 55; c.beginPath(); c.moveTo(50, y); c.lineTo(540, y); c.stroke(); c.fillText("×" + g, 22, y + 4); }
+    for (let m = 0; m <= tmax; m += tmax / 6) { const x = 50 + m / tmax * 490; c.fillText(fmt(m, 1), x - 8, 268); }
+    c.fillText("t (min)", 500, 268); c.fillText("η / η₀", 8, 20);
+    c.strokeStyle = "#eadfd2"; c.beginPath(); c.moveTo(50, 250); c.lineTo(50, 30); c.lineTo(540, 250); c.stroke();
+    c.strokeStyle = "#2563eb"; c.lineWidth = 2.5; c.beginPath();
+    const n = Math.max(2, Math.floor(p * 200));
+    for (let i = 0; i <= n; i++) {
+      const tt = tmax * i / n; const y = 250 - (Math.exp(S.k * tt) - 1) * 55;
+      const x = 50 + tt / tmax * 490;
+      i === 0 ? c.moveTo(x, y) : c.lineTo(x, y);
+    }
+    c.stroke(); c.lineWidth = 1;
+    c.strokeStyle = "#b45309"; c.setLineDash([5, 4]); c.beginPath(); c.moveTo(50, 195); c.lineTo(540, 195); c.stroke(); c.setLineDash([]);
+    c.fillStyle = "#b45309"; c.fillText("2 η₀", 510, 190);
+    const eta = S.eta0 * Math.exp(S.k * t);
+    $("chrono").textContent = fmt(t, 1) + " min";
+    if ($("eta0").textContent !== "—") $("etaT").textContent = fmt(eta, 2) + " Pa·s";
+    if (p < 1 && S.anim) requestAnimationFrame((tt) => dessiner(Math.min(1, (tt - t0) / duree)));
+  }
+  S.anim = true; requestAnimationFrame((tt) => dessiner(Math.min(1, (tt - t0) / duree)));
+};
+window.mesurerEta0 = () => { $("eta0").textContent = fmt(S.eta0, 2) + " Pa·s"; valider(); };
+window.validerDPU = () => {
+  const v = nb($("inT").value);
+  if (isNaN(v)) { $("msg").innerHTML = '<span class="ko">✘ Entre un nombre de minutes.</span>'; return; }
+  if (Math.abs(v - S.dpu) <= 0.08 * S.dpu) {
+    const ok = Math.abs(v - S.dpu) <= 0.03 * S.dpu;
+    $("resultat").innerHTML = "DPU = " + fmt(v, 1) + " min &nbsp;" +
+      (ok ? '<span class="ok">✔ conforme (attendu ≈ ' + fmt(S.dpu, 1) + " min à " + S.T + " °C)</span>"
+           : '<span class="ko">✘ attendu ≈ ' + fmt(S.dpu, 1) + " min — relis la courbe au niveau 2 η₀.</span>");
+    valider();
+  } else $("msg").innerHTML = '<span class="ko">✘ La courbe coupe 2 η₀ vers ' + fmt(S.dpu, 1) + " min — relis le graphique.</span>";
+};
+
+$("lancer").onclick = lancer;
+afficherEtapes();
+</script>
+</body>
+</html>

@@ -7,3 +7,4 @@
 - [ ] Étape 5 — Ouvrir le site en ligne
 - [ ] Étape 6 — Ajouter sa première vraie page
 - [x] Rubrique « Simulations » → sous-menu « Adhésifs » (cours + simulations embarquées de reula.fr) — 2026-11-10
+- [x] Refonte UI façon reula.fr : menu Simulations seul, tuiles Adhésifs animées, 4 modules à onglets (L'essentiel / Simulation / Exercices) avec animations — 2026-11-10

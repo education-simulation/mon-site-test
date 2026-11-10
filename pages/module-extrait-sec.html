@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Extrait sec — Adhésifs · Formu au labo</title>
+<style>
+  :root { --cat:#b45309; --texte:#3c3644; --bord:#eadfd2; --fond:#fffdf9; --fond2:#faf3ea; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:16px/1.5 system-ui,sans-serif; color:var(--texte); background:var(--fond); }
+  header.mod { padding:18px 20px 0; }
+  .chip { display:inline-block; background:var(--cat); color:#fff; font-size:12px; font-weight:700; padding:3px 10px; border-radius:999px; }
+  h1 { font-size:26px; margin:8px 0 2px; } h1 .emoji { display:inline-block; animation: pop .5s cubic-bezier(.2,1.6,.4,1) both; }
+  .sous { color:#8a7f70; margin:0 0 12px; font-size:14.5px; }
+  .tabs { display:flex; gap:6px; border-bottom:2px solid var(--bord); }
+  .tab { font:inherit; font-weight:600; font-size:14.5px; padding:8px 16px; border:0; background:none; color:#8a7f70; cursor:pointer; border-radius:10px 10px 0 0; }
+  .tab.actif { background:var(--cat); color:#fff; }
+  main { padding:16px 20px 30px; }
+  section.anim { animation: fadeUp .3s ease both; }
+  .colonnes { display:flex; flex-wrap:wrap; gap:16px; align-items:flex-start; }
+  .gauche { flex:1 1 460px; min-width:300px; }
+  .droite { flex:0 1 320px; min-width:250px; background:var(--fond2); border-radius:14px; padding:12px 14px; }
+  .carte { border:1px solid var(--bord); background:#fff; border-radius:14px; padding:12px 14px; margin-bottom:14px; }
+  .carte h2 { font-size:15px; margin:0 0 8px; }
+  button { font:inherit; padding:8px 14px; border:0; border-radius:10px; background:var(--cat); color:#fff; cursor:pointer; transition: transform .12s, filter .12s; }
+  button:hover { filter:brightness(1.08); } button:active { transform:scale(.96); }
+  input, select { font:inherit; padding:6px 8px; border:1px solid var(--bord); border-radius:8px; background:#fff; color:var(--texte); }
+  input[type=number] { width:120px; }
+  .ligne { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:6px 0; }
+  canvas { width:100%; max-width:560px; border:1px solid var(--bord); border-radius:10px; background:#fff; }
+  .etuve { display:inline-block; width:120px; height:90px; border:3px solid #9aa; border-radius:12px; position:relative; background:#f4f2f7; overflow:hidden; vertical-align:middle; }
+  .etuve .res { position:absolute; bottom:0; left:0; right:0; height:0%; background:linear-gradient(#ffb26b,#e2571e); transition: height 2.5s ease; }
+  .etuveT { font-size:24px; font-weight:700; font-variant-numeric:tabular-nums; background:#17141c; color:#ff9d5c; border-radius:10px; padding:4px 12px; display:inline-block; }
+  .balance { font-size:22px; font-weight:700; font-variant-numeric:tabular-nums; background:#17141c; color:#7dffb0; border-radius:10px; padding:4px 12px; display:inline-block; }
+  .etape { display:flex; gap:8px; padding:6px; border-radius:8px; font-size:14px; align-items:baseline; }
+  .etape .num { flex:0 0 22px; height:22px; border-radius:50%; background:#e3ddd2; display:inline-flex; align-items:center; justify-content:center; font-size:13px; }
+  .etape.fait .num { background:#1f9d55; color:#fff; animation: pop .35s cubic-bezier(.2,1.8,.4,1) both; }
+  .etape.fait { color:#9a9284; text-decoration:line-through; }
+  .etape.courante { background:#fff; outline:2px solid var(--cat); font-weight:600; text-decoration:none; }
+  .ok { color:#1f9d55; font-weight:700; } .ko { color:#c0392b; font-weight:600; }
+  #resultat { font-size:19px; font-weight:700; color:var(--cat); }
+  .petit { font-size:13px; color:#8a7f70; }
+  details { border:1px solid var(--bord); border-radius:10px; padding:8px 12px; background:#fff; }
+  summary { cursor:pointer; font-weight:600; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(12px);} to { opacity:1; transform:none;} }
+  @keyframes pop { from { opacity:0; transform:scale(.5);} to { opacity:1; transform:scale(1);} }
+</style>
+</head>
+<body>
+<header class="mod">
+  <span class="chip">🩹 ADHÉSIFS · BTS MÉTIERS DE LA CHIMIE</span>
+  <h1><span class="emoji">🔥</span> Extrait sec</h1>
+  <p class="sous">Extrait sec conventionnel (norme) ou à masse constante</p>
+  <nav class="tabs">
+    <button class="tab actif" data-tab="essentiel">📖 L'essentiel</button>
+    <button class="tab" data-tab="simulation">🧪 Simulation</button>
+    <button class="tab" data-tab="exercices">✏️ Exercices</button>
+  </nav>
+</header>
+<main>
+  <section id="tab-essentiel">
+    <h3>Extrait sec conventionnel</h3>
+    <p>Extrait sec déterminé par passage dans une étuve dont la température et le temps sont spécifiés par une norme. Exemple : la <strong>NF EN 827</strong> impose <strong>120 °C pendant 2 h</strong> pour les adhésifs à l'eau, et <strong>105 °C pendant 3 h</strong> pour les adhésifs à solvants organiques.</p>
+    <h3>Extrait sec à masse constante</h3>
+    <p>La durée d'étuvage n'est pas fixée : on chauffe jusqu'à obtenir une masse constante.</p>
+    <h3>Calcul</h3>
+    <p><strong>ES (%) = (m<sub>sec</sub> − m<sub>capsule</sub>) / (m<sub>brut</sub> − m<sub>capsule</sub>) × 100</strong></p>
+    <p>On retire toujours la masse de la capsule, et on rapporte la masse sèche à la masse d'adhésif initiale.</p>
+  </section>
+
+  <section id="tab-simulation" hidden>
+    <div class="ligne">
+      <button id="lancer">🔄 Lancer une nouvelle simulation</button>
+      <span id="sample" class="petit"></span>
+    </div>
+    <div class="colonnes">
+      <div class="gauche">
+        <div class="carte">
+          <h2>Étuve et suivi de masse</h2>
+          <div class="ligne">
+            <span class="etuve"><span class="res" id="res"></span></span>
+            <span class="etuveT" id="etuveT">—</span>
+            <span class="balance" id="balance" data-v="0">—</span>
+          </div>
+          <canvas id="courbe" width="560" height="240"></canvas>
+          <div id="action"><p class="petit">Lance une simulation pour commencer.</p></div>
+        </div>
+      </div>
+      <div class="droite">
+        <h2 style="font-size:15px;margin:0 0 8px;">Étapes du protocole <span id="progres" style="float:right;"></span></h2>
+        <div id="etapes"></div>
+        <p id="resultat"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-exercices" hidden>
+    <h3>Exercice</h3>
+    <p>On pèse une capsule vide (m<sub>capsule</sub> = 12,000 g), puis capsule + adhésif (m<sub>brut</sub> = 15,250 g), puis après étuvage (m<sub>sec</sub> = 13,940 g). Calculer l'extrait sec.</p>
+    <details><summary>Voir la correction</summary>
+      <p>ES (%) = (13,940 − 12,000) / (15,250 − 12,000) × 100 = 1,940 / 3,250 × 100 ≈ <strong>59,7 %</strong>.</p>
+    </details>
+  </section>
+</main>
+<script>
+"use strict";
+document.querySelectorAll(".tab").forEach((b) => (b.onclick = () => {
+  document.querySelectorAll(".tab").forEach((x) => x.classList.toggle("actif", x === b));
+  document.querySelectorAll("main section").forEach((s) => (s.hidden = true));
+  const p = document.getElementById("tab-" + b.dataset.tab);
+  p.hidden = false; p.classList.remove("anim"); void p.offsetWidth; p.classList.add("anim");
+}));
+
+const SAMPLES = [
+  { type: "eau",     nom: "colle acrylique en émulsion aqueuse",            es: [40, 60] },
+  { type: "eau",     nom: "latex de caoutchouc naturel en dispersion",     es: [45, 65] },
+  { type: "eau",     nom: "colle vinylique en dispersion aqueuse",         es: [50, 70] },
+  { type: "solvant", nom: "colle polychloroprène en solution organique",    es: [30, 55] },
+  { type: "solvant", nom: "colle polyuréthane en solution organique",       es: [35, 60] },
+  { type: "solvant", nom: "colle caoutchouc SBS en solution organique",     es: [30, 50] }
+];
+const NORMS = {
+  en827: { label: "NF EN 827 (conventionnel)", eau: { T: 120, h: 2 }, solvant: { T: 105, h: 3 } },
+  constante: { label: "À masse constante", eau: { T: 120, h: 0 }, solvant: { T: 105, h: 0 } }
+};
+const ETAPES = [
+  "Tarer la capsule vide (m_capsule).",
+  "Déposer l'adhésif et peser capsule + échantillon (m_brut).",
+  "Choisir les conditions d'étuvage (norme ou masse constante).",
+  "Lancer l'étuvage.",
+  "Peser à la sortie de l'étuve (m_sec).",
+  "Calculer l'extrait sec : ES (%) = (m_sec − m_capsule) / (m_brut − m_capsule) × 100."
+];
+function calcES(mc, mBrut, mSec) { return (mSec - mc) / (mBrut - mc) * 100; }
+
+let S = null;
+const $ = (id) => document.getElementById(id);
+const rnd = (a, b) => a + Math.random() * (b - a);
+const nb = (v) => parseFloat(String(v).replace(",", "."));
+const fmt = (v, d) => v.toLocaleString("fr-FR", { minimumFractionDigits: d, maximumFractionDigits: d });
+
+function tweenBalance(cible) {
+  const el = $("balance"); const from = parseFloat(el.dataset.v || "0"); const t0 = performance.now();
+  (function step(t) {
+    const p = Math.min(1, (t - t0) / 700); const v = from + (cible - from) * (1 - Math.pow(1 - p, 3));
+    el.textContent = fmt(v, 3) + " g";
+    if (p < 1) requestAnimationFrame(step); else el.dataset.v = String(cible);
+  })(t0);
+}
+
+function lancer() {
+  const s = SAMPLES[Math.floor(Math.random() * SAMPLES.length)];
+  const esVrai = rnd(s.es[0], s.es[1]);
+  const mCapsule = rnd(10, 14), mEch = rnd(2, 4);
+  S = {
+    sample: s, esVrai, mCapsule,
+    mBrut: mCapsule + mEch,
+    mSec: mCapsule + mEch * esVrai / 100,
+    norme: "", T: 0, h: 0, etape: 0, cuisson: false
+  };
+  $("sample").textContent = "Échantillon : " + s.nom + " (" + (s.type === "eau" ? "adhésif à l'eau" : "adhésif à solvants") + ")";
+  $("etuveT").textContent = "—"; $("res").style.height = "0%";
+  $("balance").textContent = "—"; $("balance").dataset.v = "0";
+  $("resultat").textContent = "";
+  const c = $("courbe").getContext("2d"); c.clearRect(0, 0, 560, 240);
+  afficherEtapes(); afficherAction();
+}
+
+function afficherEtapes() {
+  $("etapes").innerHTML = ETAPES.map((t, i) => {
+    const cls = !S ? "" : (i < S.etape ? "etape fait" : i === S.etape ? "etape courante" : "etape");
+    const num = !S ? i + 1 : (i < S.etape ? "✓" : i + 1);
+    return '<div class="' + cls + '"><span class="num">' + num + "</span><span>" + t + "</span></div>";
+  }).join("");
+  $("progres").textContent = S ? (Math.min(S.etape, ETAPES.length) + "/" + ETAPES.length) : "";
+}
+function valider() { S.etape++; afficherEtapes(); afficherAction(); }
+
+function afficherAction() {
+  const a = $("action");
+  if (!S) { a.innerHTML = '<p class="petit">Lance une simulation pour commencer.</p>'; return; }
+  const i = S.etape;
+  if (i >= ETAPES.length) { a.innerHTML = '<p class="ok">✔ Simulation terminée !</p>'; return; }
+  switch (i) {
+    case 0: a.innerHTML = '<div class="ligne"><button onclick="tare()">Tarer la capsule (m_capsule = ' + fmt(S.mCapsule, 3) + ' g)</button></div>'; break;
+    case 1: a.innerHTML = '<div class="ligne"><button onclick="peserBrut()">Déposer l\'adhésif et peser (m_brut = ' + fmt(S.mBrut, 3) + ' g)</button></div>'; break;
+    case 2: {
+      const opts = Object.keys(NORMS).map(k => '<option value="' + k + '">' + NORMS[k].label + "</option>").join("");
+      a.innerHTML = '<div class="ligne"><span>Conditions :</span><select id="selNorm">' + opts + '</select><button onclick="validerNorm()">Choisir</button></div><p id="msg"></p>'; break;
+    }
+    case 3: a.innerHTML = '<div class="ligne"><button onclick="cuire()">♨️ Lancer l\'étuvage</button></div>'; break;
+    case 4: a.innerHTML = '<div class="ligne"><button onclick="peserSec()">Peser à la sortie (m_sec = ' + fmt(S.mSec, 3) + ' g)</button></div>'; break;
+    case 5: a.innerHTML = '<div class="ligne"><span>ES (%) =</span><input id="inES" type="number" step="0.1" placeholder="%"> %<button onclick="validerES()">Valider</button></div><p id="msg"></p>'; break;
+  }
+}
+
+window.tare = () => { tweenBalance(S.mCapsule); valider(); };
+window.peserBrut = () => { tweenBalance(S.mBrut); valider(); };
+window.validerNorm = () => {
+  S.norme = $("selNorm").value;
+  if (!S.norme) { $("msg").innerHTML = '<span class="ko">✘ Choisis des conditions.</span>'; return; }
+  const cond = NORMS[S.norme][S.sample.type];
+  S.T = cond.T; S.h = cond.h;
+  valider();
+};
+window.cuire = () => {
+  valider(); S.cuisson = true;
+  $("res").style.height = "80%";
+  const t0 = performance.now(); const duree = S.h > 0 ? S.h * 1500 : 6000;
+  (function step(t) {
+    if (!S || !S.cuisson) return;
+    const p = Math.min(1, (t - t0) / duree);
+    $("etuveT").textContent = fmt(S.T * (1 - Math.pow(1 - p, 2)), 0) + " °C" + (S.h > 0 ? " · " + fmt(S.h * p, 1) + "/" + S.h + " h" : " · masse constante");
+    const c = $("courbe").getContext("2d");
+    c.clearRect(0, 0, 560, 240);
+    c.strokeStyle = "#eadfd2"; c.fillStyle = "#8a7f70"; c.font = "12px system-ui";
+    c.beginPath(); c.moveTo(50, 20); c.lineTo(50, 210); c.lineTo(540, 210); c.stroke();
+    c.fillText("m (g)", 8, 24); c.fillText("t", 530, 228);
+    const mmax = S.mBrut, mmin = S.mSec - 0.05;
+    c.strokeStyle = "#2563eb"; c.lineWidth = 2.5; c.beginPath();
+    const n = Math.max(2, Math.floor(p * 150));
+    for (let i = 0; i <= n; i++) {
+      const tt = i / 150; const m = S.mSec + (S.mBrut - S.mSec) * Math.exp(-tt * 4);
+      const x = 50 + tt * 490, y = 210 - (m - mmin) / (mmax - mmin) * 180;
+      i === 0 ? c.moveTo(x, y) : c.lineTo(x, y);
+    }
+    c.stroke(); c.lineWidth = 1;
+    if (p < 1) requestAnimationFrame(step);
+  })(t0);
+};
+window.peserSec = () => { tweenBalance(S.mSec); valider(); };
+window.validerES = () => {
+  const v = nb($("inES").value);
+  const attendu = calcES(S.mCapsule, S.mBrut, S.mSec);
+  if (isNaN(v)) { $("msg").innerHTML = '<span class="ko">✘ Entre un pourcentage.</span>'; return; }
+  if (Math.abs(v - attendu) <= 0.5) {
+    $("resultat").innerHTML = "ES = " + fmt(v, 1) + " % &nbsp;<span class='ok'>✔ conforme (attendu ≈ " + fmt(attendu, 1) + " %)</span>";
+    valider();
+  } else $("msg").innerHTML = '<span class="ko">✘ ES ≈ ' + fmt(attendu, 1) + " % — recalcule.</span>";
+};
+
+$("lancer").onclick = lancer;
+afficherEtapes();
+</script>
+</body>
+</html>
