@@ -29,9 +29,9 @@ body {
 }
 .entete {
   display: flex; align-items: center; gap: 12px;
-  padding: 10px 16px; border-bottom: 1px solid var(--bord);
+  padding: 10px 16px; border-bottom: 3px solid var(--accent);
 }
-.titre { font-weight: 600; color: var(--titre); font-size: 19px; }
+.titre { font-weight: 600; color: var(--accent); font-size: 19px; }
 .sous-titre { font-size: 14px; color: var(--discret); }
 .burger { display: none; font-size: 22px; background: none; border: 0; color: var(--titre); cursor: pointer; }
 .cadre { display: flex; min-height: calc(100vh - 110px); }

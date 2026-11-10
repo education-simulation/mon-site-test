@@ -80,7 +80,7 @@ Avance **dans l'ordre**. Avant de passer à l'étape suivante, fais la **vérifi
 
 ### Étape 2 — Personnaliser
 - Modifie `titre`, `sousTitre`, `auteur` et `couleur` dans `site.config.js`.
-- **Vérification :** donne le lien complet du site ; le nouveau titre doit apparaître en haut.
+- **Vérification :** donne le lien complet du site et dis exactement quoi regarder : « En haut à gauche, ton titre est écrit dans ta couleur, avec un trait de la même couleur sous l'en-tête. » Ne décris jamais un élément que tu n'as pas modifié.
 - Ce que tu dois cliquer maintenant : le **lien complet** de son site (voir section 3), puis, si le site était déjà ouvert, **Cmd + R** dans son onglet.
 
 ### Étape 3 — Enregistrer dans GitHub
