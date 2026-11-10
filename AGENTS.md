@@ -96,12 +96,14 @@ Avance **dans l'ordre**. Avant de passer à l'étape suivante, fais la **vérifi
   1. Dans l'onglet du navigateur où se trouve le dépôt GitHub (pas l'atelier), cliquer **Settings** (l'engrenage, en haut).
   2. Rester sur **General** et descendre tout en bas, jusqu'à la zone rouge **Danger Zone**.
   3. Ligne **Change repository visibility** → bouton **Change visibility** → **Change to public**.
-  4. Confirmer les fenêtres de GitHub (il peut demander de recopier le nom du dépôt, ou de confirmer avec le téléphone : c'est normal).
+  4. Confirmer les fenêtres de GitHub. Il peut demander de recopier le nom du dépôt.
+- **Préviens toujours** avant une action dans les réglages de GitHub (Settings) : « GitHub va peut-être afficher un **code à deux chiffres** et te demander de confirmer. Ouvre l'application **GitHub Mobile** sur ton téléphone, ouvre la notification et touche le **même code**. Si tu n'as pas l'application, choisis l'autre méthode proposée (code reçu par l'application d'authentification ou par SMS). C'est normal : c'est GitHub qui vérifie que c'est bien toi. »
 - Exception (rare) : si la personne est enseignante vérifiée GitHub Education **et** que son dépôt appartient à une **organisation** passée en GitHub Team gratuit, le dépôt peut rester privé. Le **site publié, lui, reste visible par tous**. Dans le doute, passe en public.
 - Ensuite, guide-la pour activer Pages :
   1. Dans l'onglet du navigateur où se trouve le dépôt GitHub (pas le Codespace), cliquer **Settings**.
   2. Dans la colonne de gauche, cliquer **Pages**.
   3. Sous « Build and deployment », menu **Source** : choisir **GitHub Actions**.
+  (Là aussi, GitHub peut demander de confirmer avec le code sur le téléphone : voir plus haut.)
 - Puis relance la mise en ligne : `git commit --allow-empty -m "Première mise en ligne" && git push`.
 - **Vérification :** dans l'onglet **Actions** du dépôt, la dernière « Mise en ligne » est verte **et affiche l'adresse du site** sous l'étape *deploy* (1 à 2 minutes). Si elle est verte mais montre seulement « Ton site n'est pas encore en ligne », Pages n'est pas activé, ou le dépôt est privé : refaire cette étape.
 - Ce que tu dois cliquer maintenant : Settings → Pages → Source → GitHub Actions.
