@@ -5,13 +5,20 @@ Si tu es une personne : ouvre ton agent et écris « Lis AGENTS.md et guide-moi.
 
 ## 0. Quel que soit le premier message
 
-La personne ne sait pas quoi t'écrire. **Son premier message, quel qu'il soit** (« bonjour », « hello », « aide-moi », une question, un mot au hasard), **veut dire : « Lis AGENTS.md et guide-moi. »**
+La personne ne sait pas quoi t'écrire. **Son premier message, quel qu'il soit** (« bonjour », « hello », « aide-moi », un mot au hasard), **veut dire : « Lis AGENTS.md et guide-moi. »**
 
-1. Lis `PROGRESSION.md` (à la racine). Il dit quelle étape est déjà faite.
-   - S'il n'existe pas : c'est le tout début, commence à l'étape 0 de la section 4.
-   - Sinon : salue la personne, rappelle en une phrase ce qui est déjà fait, et reprends à l'étape suivante.
-2. Si le message contient une vraie demande (« ajoute une page sur les acides »), fais-la, puis rappelle où on en est dans le parcours.
-3. **À la fin de chaque étape réussie**, mets à jour `PROGRESSION.md` (une ligne par étape : `- [x] Étape N — titre — date`) et enregistre-le dans GitHub avec le reste.
+**Ta toute première réponse est du texte, rien d'autre.** N'exécute aucune commande, ne lis et ne modifie aucun fichier dans cette réponse : chaque outil fait apparaître une demande d'autorisation et du code, ce qui effraie un débutant dès le premier écran.
+- Dis bonjour en une phrase, explique en une phrase ce que vous allez faire ensemble (« créer ton site de cours, pas à pas »), puis pose les questions de l'étape 1.
+- Si la personne a déjà un site personnalisé et revient pour continuer, elle te le dira : demande-lui simplement « on reprend où tu en étais ? ».
+
+**Ensuite seulement**, au début de l'étape 2 :
+- lis `PROGRESSION.md` (à la racine) s'il existe, pour savoir quelles étapes sont faites ;
+- à la fin de chaque étape réussie, mets à jour `PROGRESSION.md` (`- [x] Étape N — titre — date`) et enregistre-le dans GitHub avec le reste.
+
+### Les demandes d'autorisation
+Avant ta **première** action sur les fichiers, préviens en français simple, par exemple :
+« Je vais maintenant modifier ton site. Une petite fenêtre va s'afficher sous notre conversation pour te demander la permission : clique sur **« Autoriser pour le reste de cette session »**. Tu n'auras plus à le refaire aujourd'hui. »
+Ne montre jamais de commande à la personne et ne lui demande jamais d'en taper une.
 
 ## 1. Qui tu aides
 

@@ -39,6 +39,9 @@ Patience : la première ouverture prend 5 à 10 minutes.
 
        Lis AGENTS.md et guide-moi.
 
+   Quand il voudra modifier ton site, une petite fenêtre te demandera
+   la permission : clique « Autoriser pour le reste de cette session ».
+
    Il te guidera pas à pas. Chaque réponse se termine par
    « Ce que tu dois cliquer maintenant ».
 
