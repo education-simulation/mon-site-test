@@ -13,18 +13,31 @@
       ],
       "settings": {
         "workbench.startupEditor": "none",
-        "files.autoSave": "afterDelay"
+        "files.autoSave": "afterDelay",
+        // Les fichiers .md s'ouvrent mis en forme (pas en code brut).
+        "workbench.editorAssociations": { "*.md": "vscode.markdown.preview.editor" },
+        // On cache au prof les fichiers techniques ; l'agent, lui, les voit toujours.
+        "files.exclude": {
+          ".devcontainer": true,
+          ".github": true,
+          "assets": true,
+          "index.html": true,
+          "LICENSE": true,
+          "CLAUDE.md": true,
+          "README.md": true
+        }
       }
     },
     "codespaces": {
-      // Fichier ouvert automatiquement à l'arrivée.
-      "openFiles": ["AGENTS.md"]
+      // Page d'accueil du prof, ouverte (mise en forme) à l'arrivée.
+      "openFiles": ["DEMARRER.md"]
     }
   },
-  // Lance l'aperçu du site à chaque ouverture du Codespace.
+  // Lance l'aperçu du site à chaque ouverture du Codespace, dans un NOUVEL ONGLET du navigateur :
+  // l'aperçu intégré à VS Code (« Navigateur simple ») reste vide dans Chrome (testé le 10/11/2026).
   "postAttachCommand": "python3 -m http.server 5173",
   "forwardPorts": [5173],
   "portsAttributes": {
-    "5173": { "label": "Aperçu de mon site", "onAutoForward": "openPreview" }
+    "5173": { "label": "Aperçu de mon site", "onAutoForward": "openBrowser" }
   }
 }
