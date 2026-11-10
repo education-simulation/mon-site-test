@@ -1,17 +1,31 @@
-# Atelier RASF — modèle niveau 1 (GitHub Pages)
+# Atelier RASF — mon site de cours
 
-Un site de cours simple, gratuit, sans rien installer.
+Un site de cours simple et gratuit, que tu construis avec l'assistant Mistral, sans rien installer.
 
-1. Clique **Use this template → Create a new repository** (en haut de cette page).
-2. Dans ton nouveau dépôt : **Code → Codespaces → Create codespace on main**.
+---
 
-> ⏳ **La première ouverture prend 3 à 5 minutes.**
-> Pendant ce temps, l'écran reste **vide et gris** : c'est normal, ne ferme pas l'onglet et ne clique nulle part.
-> C'est prêt quand la **barre du bas devient bleue (RASF)** et qu'un texte « Bienvenue » apparaît dans le terminal.
-> Les fois suivantes, rouvre **le même** Codespace (github.com/codespaces) : 30 secondes environ.
+### Tu vois un bouton vert « Use this template » en haut de cette page ?
 
-3. Ouvre l'assistant Mistral Vibe (panneau de droite) et écris : **« Lis AGENTS.md et guide-moi. »**
+Tu es sur le **modèle**. Fais d'abord ta copie : **Use this template → Create a new repository**, donne-lui un nom, choisis **Public**, puis **Create repository**.
+Tu arrives sur ta copie : reprends cette page à l'étape suivante.
 
-Le pas-à-pas illustré, du compte GitHub jusqu'au Codespace : *(lien du site-guide, à venir)*.
+### Pas de bouton « Use this template » ?
 
-Licence : MIT.
+Tu es sur **ton** site. Ouvre ton atelier :
+
+1. Bouton vert **Code** (au-dessus de la liste des fichiers) → onglet **Codespaces** → **Create codespace on main**.
+
+   > ⏳ **La première ouverture prend 3 à 5 minutes.**
+   > Pendant ce temps, l'écran reste **vide et gris** : c'est normal, ne ferme pas l'onglet et ne clique nulle part.
+   > C'est prêt quand la **barre du bas devient bleue (RASF)** et qu'un texte « Bienvenue » apparaît dans le terminal.
+
+2. Dans le panneau de droite, **Mistral Vibe**, écris : **« Lis AGENTS.md et guide-moi. »**
+
+### Les fois suivantes
+
+Ne crée pas de nouvel atelier : rouvre **le même** sur https://github.com/codespaces (30 secondes environ).
+
+---
+
+Le pas-à-pas illustré, du compte GitHub jusqu'à l'atelier : *(lien du site-guide, à venir)*.
+Modèle proposé par le RASF · Licence MIT.
