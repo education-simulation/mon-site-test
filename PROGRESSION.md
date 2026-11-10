@@ -6,4 +6,4 @@
 - [ ] Étape 4 — Activer la mise en ligne (GitHub Pages)
 - [ ] Étape 5 — Ouvrir le site en ligne
 - [ ] Étape 6 — Ajouter sa première vraie page
-- [x] Rubrique « Simulations » → sous-menu « Adhésifs » (4 pages reprises de reula.fr/cours/adhesifs) — 2026-11-10
+- [x] Rubrique « Simulations » → sous-menu « Adhésifs » (cours + simulations embarquées de reula.fr) — 2026-11-10

@@ -43,10 +43,14 @@ window.SITE = {
     {
       rubrique: "↳ Adhésifs",
       pages: [
-        { id: "adhesifs-dpu", titre: "DPU — durée pratique d'utilisation", fichier: "pages/adhesifs-dpu.md" },
-        { id: "adhesifs-bille-anneau", titre: "Point de ramollissement bille-anneau", fichier: "pages/adhesifs-bille-anneau.md" },
-        { id: "adhesifs-extrait-sec", titre: "Extrait sec", fichier: "pages/adhesifs-extrait-sec.md" },
-        { id: "adhesifs-masse-volumique", titre: "Masse volumique", fichier: "pages/adhesifs-masse-volumique.md" },
+        { id: "sim-adhesifs-dpu", titre: "🧪 Simulation : DPU", fichier: "pages/sim-adhesifs-dpu.html" },
+        { id: "adhesifs-dpu", titre: "📄 Cours : DPU", fichier: "pages/adhesifs-dpu.md" },
+        { id: "sim-adhesifs-bille-anneau", titre: "🧪 Simulation : bille-anneau", fichier: "pages/sim-adhesifs-bille-anneau.html" },
+        { id: "adhesifs-bille-anneau", titre: "📄 Cours : bille-anneau", fichier: "pages/adhesifs-bille-anneau.md" },
+        { id: "sim-adhesifs-extrait-sec", titre: "🧪 Simulation : extrait sec", fichier: "pages/sim-adhesifs-extrait-sec.html" },
+        { id: "adhesifs-extrait-sec", titre: "📄 Cours : extrait sec", fichier: "pages/adhesifs-extrait-sec.md" },
+        { id: "sim-adhesifs-masse-volumique", titre: "🧪 Simulation : masse volumique", fichier: "pages/sim-adhesifs-masse-volumique.html" },
+        { id: "adhesifs-masse-volumique", titre: "📄 Cours : masse volumique", fichier: "pages/adhesifs-masse-volumique.md" },
       ],
     },
   ],
