@@ -1,16 +1,14 @@
 {
   // Environnement du Codespace : rien à installer pour le prof.
-  // Image « universal » = image par défaut de Codespaces : elle ne compte pas dans le stockage gratuit.
+  // Image « universal » = image par défaut de Codespaces : aucune construction, démarrage rapide,
+  // et elle ne compte pas dans le stockage gratuit. Pas de « features » : elles forcent une construction.
   "name": "Mon site (niveau 1 — GitHub Pages)",
   "image": "mcr.microsoft.com/devcontainers/universal:2",
-  "features": {
-    // Claude Code : installe l'outil ET son extension VS Code.
-    "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {}
-  },
   "customizations": {
     "vscode": {
       "extensions": [
         "GitHub.copilot-chat",
+        "anthropic.claude-code",
         "mistralai.mistral-vibe-code"
       ],
       "settings": {

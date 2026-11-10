@@ -58,7 +58,7 @@ Avance **dans l'ordre**. Avant de passer à l'étape suivante, fais la **vérifi
   2. Dans la colonne de gauche, cliquer **Pages**.
   3. Sous « Build and deployment », menu **Source** : choisir **GitHub Actions**.
 - Puis relance la mise en ligne : `git commit --allow-empty -m "Première mise en ligne" && git push`.
-- **Vérification :** dans l'onglet **Actions** du dépôt, la ligne « Mise en ligne » devient verte (1 à 2 minutes).
+- **Vérification :** dans l'onglet **Actions** du dépôt, la dernière « Mise en ligne » est verte **et affiche l'adresse du site** sous l'étape *deploy* (1 à 2 minutes). Si elle est verte mais montre seulement « Ton site n'est pas encore en ligne », Pages n'est pas activé, ou le dépôt est privé : refaire cette étape.
 - Ce que tu dois cliquer maintenant : Settings → Pages → Source → GitHub Actions.
 
 ### Étape 5 — Ouvrir le site en ligne
