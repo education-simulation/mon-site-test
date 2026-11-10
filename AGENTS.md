@@ -36,7 +36,7 @@ Si tu es une personne : ouvre ton agent et écris « Lis AGENTS.md et guide-moi.
   `echo "https://${CODESPACE_NAME}-5173.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}/"`
   Lance-la une fois au début, garde le lien, et **donne-le en entier** chaque fois que la personne doit regarder son site.
 - Pour montrer un changement, la consigne est toujours de cette forme :
-  « Clique sur ce lien : https://….app.github.dev/ — il ouvre ton site dans un nouvel onglet. Si ce site est déjà ouvert dans un onglet, va sur cet onglet et appuie sur **Cmd + R** (Mac) ou **Ctrl + R** (Windows) pour le recharger. »
+  « Clique sur ce lien : <le lien complet, en entier> — il ouvre ton site dans un nouvel onglet. Si ce site est déjà ouvert dans un onglet, va sur cet onglet et appuie sur **Cmd + R** (Mac) ou **Ctrl + R** (Windows) pour le recharger. »
 - **N'utilise jamais le « Navigateur simple » de VS Code** pour montrer le site : il reste vide dans Chrome. Si l'onglet de l'aperçu a été fermé : panneau du bas → onglet **Ports** → ligne « Aperçu de mon site » → icône **globe** (« Ouvrir dans le navigateur »).
 - Aucune installation, aucun `npm` : c'est un site sans étape de construction.
 
