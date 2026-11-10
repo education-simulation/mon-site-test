@@ -9,12 +9,12 @@
 // ============================================================
 
 window.SITE = {
-  titre: "Mon site de sciences",
-  sousTitre: "Cours et outils pour mes élèves",
-  auteur: "Prénom Nom",
+  titre: "Formu au labo",
+  sousTitre: "Chimie — BTS Métiers de la chimie",
+  auteur: "Marco Reula",
 
   // Couleur principale (boutons, liens, menu actif). Code couleur au format #RRGGBB.
-  couleur: "#aa3bff",
+  couleur: "#1f9d55",
 
   // Page affichée à l'ouverture du site.
   accueil: "accueil",
