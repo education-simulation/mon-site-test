@@ -41,6 +41,7 @@ Patience : la première ouverture prend 5 à 10 minutes.
 
    Quand il voudra modifier ton site, une petite fenêtre te demandera
    la permission : clique « Autoriser pour le reste de cette session ».
+   Elle peut revenir quelques fois (une par type d'action) : même bouton.
 
    Il te guidera pas à pas. Chaque réponse se termine par
    « Ce que tu dois cliquer maintenant ».
