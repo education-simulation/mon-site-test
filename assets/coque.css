@@ -65,6 +65,12 @@ body {
 .bandeau-apercu {
   background: #336fa3; color: #fff; padding: 10px 16px; font-size: 15px; line-height: 1.45;
 }
+.volet-etapes { background: var(--carte); border-bottom: 1px solid var(--bord); padding: 6px 16px; font-size: 14px; }
+.volet-etapes summary { cursor: pointer; font-weight: 600; color: var(--titre); padding: 4px 0; }
+.volet-etapes ol { margin: 6px 0 10px; padding-left: 22px; }
+.volet-etapes li { margin: 6px 0; }
+.volet-etapes li span { color: var(--discret); }
+.volet-etapes li.faite strong { color: #2e9e5b; }
 .discret { color: var(--discret); }
 .erreur { color: #c0392b; }
 .pied { padding: 10px 16px; font-size: 13px; color: var(--discret); border-top: 1px solid var(--bord); }

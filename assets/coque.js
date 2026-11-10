@@ -22,6 +22,38 @@
       "<br>Pour le modifier, <strong>retourne sur l'onglet « RASF — Atelier … »</strong> de ton navigateur et parle à Mistral." +
       " Ensuite, reviens ici et appuie sur <strong>Cmd + R</strong> (Mac) ou <strong>Ctrl + R</strong> (Windows) pour voir le changement.";
     document.body.prepend(b);
+
+    // Volet « Les étapes de ton site » : le parcours, au cas où la conversation est perdue.
+    // Les étapes cochées viennent de PROGRESSION.md (tenu à jour par Mistral).
+    const ETAPES = [
+      ["Faire confiance au dossier", "Dans l'atelier : « Approuver le dossier et continuer », puis dans Mistral « Dossier non approuvé » → « Faire confiance au dossier »."],
+      ["Faire connaissance", "Écris « bonjour » à Mistral et réponds à ses 4 questions."],
+      ["Personnaliser le site", "Mistral change le titre et la couleur. Toi : recharge cet onglet (Cmd + R)."],
+      ["Enregistrer dans GitHub", "Mistral s'en charge. Toi : « Autoriser pour le reste de cette session » dans la petite fenêtre."],
+      ["Mettre en ligne (une seule fois)", "Sur GitHub, dans ton dépôt : Settings → Pages → Source : « GitHub Actions ». Le dépôt doit être Public. GitHub peut demander un code sur ton téléphone (application GitHub Mobile)."],
+      ["Voir le site en ligne", "Onglet Actions du dépôt : attends la coche verte, puis ouvre https://ton-pseudo.github.io/nom-du-depot/"],
+      ["Ajouter ta première page", "Dis à Mistral le sujet de ta page."],
+    ];
+    const v = document.createElement("details");
+    v.className = "volet-etapes";
+    try { v.open = localStorage.getItem("coque.voletEtapes") === "1"; } catch (e) {}
+    v.addEventListener("toggle", () => { try { localStorage.setItem("coque.voletEtapes", v.open ? "1" : "0"); } catch (e) {} });
+    const dessiner = (faites) => {
+      v.innerHTML = "<summary>📋 Les étapes de ton site (clique pour ouvrir ou fermer)</summary><ol start='0'>" +
+        ETAPES.map((e, i) => "<li class='" + (faites.has(i) ? "faite" : "") + "'><strong>" + (faites.has(i) ? "✅ " : "") + e[0] + "</strong><br><span>" + e[1] + "</span></li>").join("") +
+        "</ol>";
+    };
+    dessiner(new Set());
+    b.after(v);
+    fetch("PROGRESSION.md", { cache: "no-cache" })
+      .then((r) => (r.ok ? r.text() : ""))
+      .then((t) => {
+        const faites = new Set([0]); // la confiance est forcément donnée si Mistral a écrit ce fichier
+        if (!t) return;
+        t.split("\n").forEach((l) => { const m = l.match(/\[x\]\s*Étape\s*(\d+)/i); if (m) faites.add(+m[1]); });
+        dessiner(faites);
+      })
+      .catch(() => {});
   }
 
   // Menu
