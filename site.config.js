@@ -34,5 +34,20 @@ window.SITE = {
         { id: "convertisseur", titre: "Convertisseur d'unités", fichier: "pages/convertisseur.html" },
       ],
     },
+    {
+      rubrique: "Simulations",
+      pages: [
+        { id: "adhesifs", titre: "Adhésifs", fichier: "pages/adhesifs.md" },
+      ],
+    },
+    {
+      rubrique: "↳ Adhésifs",
+      pages: [
+        { id: "adhesifs-dpu", titre: "DPU — durée pratique d'utilisation", fichier: "pages/adhesifs-dpu.md" },
+        { id: "adhesifs-bille-anneau", titre: "Point de ramollissement bille-anneau", fichier: "pages/adhesifs-bille-anneau.md" },
+        { id: "adhesifs-extrait-sec", titre: "Extrait sec", fichier: "pages/adhesifs-extrait-sec.md" },
+        { id: "adhesifs-masse-volumique", titre: "Masse volumique", fichier: "pages/adhesifs-masse-volumique.md" },
+      ],
+    },
   ],
 };
