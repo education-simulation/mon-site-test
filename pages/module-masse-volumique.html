@@ -5,53 +5,58 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Masse volumique — Adhésifs · Formu au labo</title>
 <style>
-  :root { --cat:#b45309; --texte:#3c3644; --bord:#eadfd2; --fond:#fffdf9; --fond2:#faf3ea; }
+  :root { --cat:#b45309; --vert:#16a34a; --texte:#332e3b; --bord:#e8e5ee; --fond:#fff; --gris:#f7f6f9; --gris2:#6f6a7a; }
   * { box-sizing:border-box; }
-  body { margin:0; font:16px/1.5 system-ui,sans-serif; color:var(--texte); background:var(--fond); }
-  header.mod { padding:18px 20px 0; }
-  .chip { display:inline-block; background:var(--cat); color:#fff; font-size:12px; font-weight:700; padding:3px 10px; border-radius:999px; }
-  h1 { font-size:26px; margin:8px 0 2px; }
-  h1 .emoji { display:inline-block; animation: pop .5s cubic-bezier(.2,1.6,.4,1) both; }
-  .sous { color:#8a7f70; margin:0 0 12px; font-size:14.5px; }
-  .tabs { display:flex; gap:6px; border-bottom:2px solid var(--bord); }
-  .tab { font:inherit; font-weight:600; font-size:14.5px; padding:8px 16px; border:0; background:none; color:#8a7f70; cursor:pointer;
-         border-radius:10px 10px 0 0; transition: background .15s, color .15s; }
-  .tab:hover { background:var(--fond2); }
-  .tab.actif { background:var(--cat); color:#fff; }
-  main { padding:16px 20px 30px; }
-  section.anim { animation: fadeUp .3s ease both; }
-  h3 { margin-top:0; }
-  .colonnes { display:flex; flex-wrap:wrap; gap:16px; align-items:flex-start; }
-  .gauche { flex:1 1 430px; min-width:300px; }
-  .droite { flex:0 1 330px; min-width:260px; background:var(--fond2); border-radius:14px; padding:12px 14px; }
-  .carte { border:1px solid var(--bord); background:#fff; border-radius:14px; padding:12px 14px; margin-bottom:14px; }
-  .carte h2 { font-size:15px; margin:0 0 8px; }
-  button { font:inherit; padding:8px 14px; border:0; border-radius:10px; background:var(--cat); color:#fff; cursor:pointer; transition: transform .12s, filter .12s; }
-  button:hover { filter:brightness(1.08); } button:active { transform: scale(.96); }
+  body { margin:0; font:16px/1.55 system-ui,sans-serif; color:var(--texte); background:var(--fond); }
+  header.mod { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; padding:16px 22px 0; flex-wrap:wrap; }
+  .chip { display:inline-block; background:var(--cat); color:#fff; font-size:11.5px; font-weight:700; padding:3px 10px; border-radius:999px; letter-spacing:.3px; }
+  h1 { font-size:24px; margin:8px 0 2px; } h1 .emoji { display:inline-block; animation: pop .5s cubic-bezier(.2,1.6,.4,1) both; }
+  .sous { color:var(--gris2); margin:0; font-size:14.5px; }
+  .tabs { display:flex; gap:4px; background:var(--gris); padding:4px; border-radius:12px; }
+  .tab { border:0; background:none; font:inherit; font-size:14px; font-weight:600; padding:7px 14px; border-radius:9px; color:var(--gris2); cursor:pointer; transition: background .15s; }
+  .tab.actif { background:var(--cat); color:#fff; box-shadow:0 2px 6px rgba(180,83,9,.35); }
+  main { padding:14px 22px 30px; }
+  section.anim { animation: fadeUp .25s ease both; }
+  .banner { width:100%; display:flex; justify-content:space-between; align-items:center; gap:12px; background:var(--cat); color:#fff; border:0; border-radius:14px; padding:13px 18px; font:inherit; cursor:pointer; margin-bottom:14px; text-align:left; transition: filter .15s, transform .12s; }
+  .banner:hover { filter:brightness(1.07); } .banner:active { transform:scale(.99); }
+  .banner strong { font-size:17px; display:block; } .banner small { opacity:.85; font-size:13px; }
+  .banner .fleche { font-size:24px; }
+  .cols { display:grid; grid-template-columns: 1fr 340px; gap:16px; align-items:start; }
+  @media (max-width: 920px) { .cols { grid-template-columns: 1fr; } }
+  .card { background:#fff; border:1px solid var(--bord); border-radius:14px; padding:14px 16px; margin-bottom:14px; }
+  .card-head { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px; flex-wrap:wrap; }
+  .card h2 { font-size:15px; margin:0; }
+  .note { background:#eef4ff; border-radius:10px; padding:10px 14px; font-size:14px; margin-bottom:14px; }
+  .etapes-panel { background:var(--gris); border-radius:14px; padding:12px 14px; position:sticky; top:12px; }
+  .etapes-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+  .etapes-head h2 { font-size:15px; margin:0; }
+  #progres { font-size:13px; color:var(--gris2); font-weight:700; }
+  .etape { display:flex; gap:10px; padding:9px 10px; border-radius:10px; font-size:14px; color:#8b8698; }
+  .etape .num { flex:0 0 24px; height:24px; border-radius:50%; background:#e4e1ea; color:#6f6a7a; display:inline-flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; }
+  .etape.fait { color:#a09aae; text-decoration:line-through; }
+  .etape.fait .num { background:var(--vert); color:#fff; animation: pop .3s cubic-bezier(.2,1.8,.4,1) both; }
+  .etape.courante { background:#fff; box-shadow:0 4px 14px rgba(51,46,59,.10); outline:1.5px solid var(--cat); color:var(--texte); font-weight:600; text-decoration:none; display:block; }
+  .etape.courante .num { background:var(--cat); color:#fff; }
+  .etape-action { margin:10px 0 4px 34px; font-weight:400; }
+  button.action { background:var(--vert); color:#fff; border:0; border-radius:10px; padding:9px 16px; font:inherit; font-weight:600; cursor:pointer; transition: filter .12s, transform .12s; }
+  button.action:hover { filter:brightness(1.08); } button.action:active { transform:scale(.96); }
   input, select { font:inherit; padding:6px 8px; border:1px solid var(--bord); border-radius:8px; background:#fff; color:var(--texte); }
-  input[type=number] { width:130px; }
+  input[type=number] { width:120px; }
   .ligne { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:6px 0; }
-  .scene { display:flex; gap:22px; align-items:flex-end; flex-wrap:wrap; margin:8px 0 4px; }
-  .thermo { width:26px; height:110px; border:3px solid #b9b2c4; border-radius:13px; position:relative; background:#f4f2f7; }
-  .merc { position:absolute; bottom:0; left:0; right:0; height:0%; background:linear-gradient(#ff6a5e,#c0392b); border-radius:0 0 9px 9px; transition: height 1.2s ease; }
-  .thermoT { position:absolute; top:-24px; left:50%; transform:translateX(-50%); font-weight:700; font-size:14px; white-space:nowrap; }
-  .pyc { width:74px; height:110px; border:3px solid #b9b2c4; border-top:6px solid #b9b2c4; border-radius:6px 6px 16px 16px; position:relative; overflow:hidden; background:#f4f2f7; }
+  .scene { display:flex; gap:26px; align-items:flex-end; flex-wrap:wrap; margin:14px 0 6px; min-height:130px; }
+  .thermo { width:30px; height:120px; border:3px solid #c5c0d0; border-radius:15px; position:relative; background:#f4f2f7; }
+  .merc { position:absolute; bottom:0; left:0; right:0; height:0%; background:linear-gradient(#ff6a5e,#c0392b); border-radius:0 0 11px 11px; transition: height 1.2s ease; }
+  .thermoT { position:absolute; top:-26px; left:50%; transform:translateX(-50%); font-weight:700; font-size:14px; white-space:nowrap; }
+  .pyc { width:86px; height:120px; border:3px solid #c5c0d0; border-top:7px solid #c5c0d0; border-radius:6px 6px 18px 18px; position:relative; overflow:hidden; background:#f4f2f7; }
   .liq { position:absolute; bottom:0; left:0; right:0; height:0%; transition: height 1s ease, background-color .5s ease; }
-  .pyclabel { position:absolute; top:-24px; left:50%; transform:translateX(-50%); font-size:12px; color:#8a7f70; white-space:nowrap; }
-  .bal { text-align:left; }
-  .balance { display:inline-block; font-size:26px; font-weight:700; font-variant-numeric:tabular-nums; background:#17141c; color:#7dffb0;
-             border-radius:10px; padding:6px 14px; margin-top:2px; }
-  .etape { display:flex; gap:8px; padding:6px 6px; border-radius:8px; font-size:14px; align-items:baseline; }
-  .etape .num { flex:0 0 22px; height:22px; border-radius:50%; background:#e3ddd2; color:#6b6357; display:inline-flex; align-items:center; justify-content:center; font-size:13px; transition: background .2s; }
-  .etape.fait .num { background:#1f9d55; color:#fff; animation: pop .35s cubic-bezier(.2,1.8,.4,1) both; }
-  .etape.fait { color:#9a9284; text-decoration:line-through; }
-  .etape.courante { background:#fff; outline:2px solid var(--cat); font-weight:600; text-decoration:none; }
-  .ok { color:#1f9d55; font-weight:600; } .ko { color:#c0392b; font-weight:600; }
+  .pyclabel { position:absolute; top:-24px; left:50%; transform:translateX(-50%); font-size:12px; color:var(--gris2); white-space:nowrap; }
+  .balance { display:inline-block; font-size:26px; font-weight:700; font-variant-numeric:tabular-nums; background:#17141c; color:#7dffb0; border-radius:10px; padding:6px 14px; }
+  .ok { color:var(--vert); font-weight:700; } .ko { color:#c0392b; font-weight:600; }
   table { border-collapse:collapse; width:100%; font-size:14px; }
-  th, td { border:1px solid var(--bord); padding:4px 8px; text-align:right; }
-  th { background:var(--fond2); }
+  th, td { border:1px solid var(--bord); padding:5px 9px; text-align:right; }
+  th { background:var(--gris); }
   #resultat { font-size:19px; font-weight:700; color:var(--cat); }
-  .petit { font-size:13px; color:#8a7f70; }
+  .petit { font-size:13px; color:var(--gris2); }
   details { border:1px solid var(--bord); border-radius:10px; padding:8px 12px; background:#fff; }
   summary { cursor:pointer; font-weight:600; }
   @keyframes fadeUp { from { opacity:0; transform:translateY(12px);} to { opacity:1; transform:none;} }
@@ -60,9 +65,11 @@
 </head>
 <body>
 <header class="mod">
-  <span class="chip">🩹 ADHÉSIFS · BTS MÉTIERS DE LA CHIMIE</span>
-  <h1><span class="emoji">⚖️</span> Masse volumique</h1>
-  <p class="sous">Pycnomètre de type Hubbard — adhésifs liquides comportant des solvants volatils</p>
+  <div>
+    <span class="chip">🩹 ADHÉSIFS · BTS MÉTIERS DE LA CHIMIE</span>
+    <h1><span class="emoji">⚖️</span> Masse volumique</h1>
+    <p class="sous">Pycnomètre de type Hubbard — adhésifs liquides comportant des solvants volatils</p>
+  </div>
   <nav class="tabs">
     <button class="tab actif" data-tab="essentiel">📖 L'essentiel</button>
     <button class="tab" data-tab="simulation">🧪 Simulation</button>
@@ -71,42 +78,43 @@
 </header>
 <main>
   <section id="tab-essentiel">
-    <h3>Quand l'utiliser ?</h3>
-    <p>On utilise un pycnomètre de type Hubbard uniquement pour mesurer la masse volumique des adhésifs liquides comportant des solvants volatils. Les masses volumiques des colles pour emballages sont comprises entre 0,85 et 1,1 kg/L.</p>
-    <h3>Protocole</h3>
-    <ol>
-      <li>Nettoyer puis sécher le pycnomètre.</li>
-      <li>Le peser à 1 mg près : m₀.</li>
-      <li>Le remplir d'eau distillée à température ambiante et peser : m₁.</li>
-      <li>En déduire, à l'aide du tableau, le volume exact du pycnomètre.</li>
-      <li>Sécher le pycnomètre, le remplir avec l'adhésif liquide (à température ambiante) et peser : m₂.</li>
-      <li>Faire la moyenne de deux mesures et rendre le résultat avec un écart type.</li>
-    </ol>
-    <h3>Calculs</h3>
-    <p><strong>V = (m₁ − m₀) / ρ<sub>eau</sub>(T)</strong> &nbsp;·&nbsp; <strong>ρ = (m₂ − m₀) / V</strong> &nbsp;·&nbsp; <strong>s = √( Σᵢ (ρᵢ − ρ̄)² / (n − 1) )</strong></p>
-    <h3>Masse volumique de l'eau (fiche Cf13)</h3>
-    <table id="table-eau"><thead><tr><th>Température (°C)</th><th>ρ<sub>eau</sub> (g·mL⁻¹)</th></tr></thead><tbody></tbody></table>
+    <div class="card">
+      <h2>Quand l'utiliser ?</h2>
+      <p>On utilise un pycnomètre de type Hubbard uniquement pour mesurer la masse volumique des adhésifs liquides comportant des solvants volatils. Les masses volumiques des colles pour emballages sont comprises entre 0,85 et 1,1 kg/L.</p>
+      <h2>Protocole</h2>
+      <ol>
+        <li>Nettoyer puis sécher le pycnomètre.</li>
+        <li>Le peser à 1 mg près : m₀.</li>
+        <li>Le remplir d'eau distillée à température ambiante et peser : m₁.</li>
+        <li>En déduire, à l'aide du tableau, le volume exact du pycnomètre.</li>
+        <li>Sécher le pycnomètre, le remplir avec l'adhésif liquide (à température ambiante) et peser : m₂.</li>
+        <li>Faire la moyenne de deux mesures et rendre le résultat avec un écart type.</li>
+      </ol>
+      <h2>Calculs</h2>
+      <p><strong>V = (m₁ − m₀) / ρ<sub>eau</sub>(T)</strong> &nbsp;·&nbsp; <strong>ρ = (m₂ − m₀) / V</strong> &nbsp;·&nbsp; <strong>s = √( Σᵢ (ρᵢ − ρ̄)² / (n − 1) )</strong></p>
+      <h2>Masse volumique de l'eau (fiche Cf13)</h2>
+      <table id="table-eau"><thead><tr><th>Température (°C)</th><th>ρ<sub>eau</sub> (g·mL⁻¹)</th></tr></thead><tbody></tbody></table>
+    </div>
   </section>
 
   <section id="tab-simulation" hidden>
-    <p class="petit">Le pycnomètre Hubbard est utilisé uniquement pour les adhésifs liquides comportant des solvants volatils. Données d'échantillon fictives.</p>
-    <div class="ligne">
-      <button id="lancer">🔄 Lancer une nouvelle simulation</button>
-      <span id="echantillon" class="petit"></span>
-    </div>
-    <div class="colonnes">
-      <div class="gauche">
-        <div class="carte">
-          <h2>Zone de manipulation</h2>
+    <button class="banner" id="lancer"><span><strong>🔄 Lancer une nouvelle simulation</strong><small>Repartir de zéro avec un nouvel échantillon</small></span><span class="fleche">→</span></button>
+    <div class="cols">
+      <div>
+        <div class="card">
+          <div class="card-head">
+            <h2>Échantillon</h2>
+            <select id="selSample"></select>
+          </div>
           <div class="scene">
             <div class="thermo"><span class="thermoT" id="thermoT">—</span><div class="merc" id="merc"></div></div>
             <div class="pyc"><span class="pyclabel">pycnomètre 100 mL</span><div class="liq" id="liq"></div></div>
-            <div class="bal"><span class="petit">balance — 1 mg</span><br><span class="balance" id="balance" data-v="0">—</span></div>
+            <div><span class="petit">balance — 1 mg</span><br><span class="balance" id="balance" data-v="0">—</span></div>
           </div>
-          <div id="action"><p class="petit">Clique sur « Lancer une nouvelle simulation » pour commencer.</p></div>
         </div>
-        <div class="carte">
-          <h2>Cahier de mesures</h2>
+        <div class="note">ℹ️ Le pycnomètre Hubbard est utilisé uniquement pour les adhésifs liquides comportant des solvants volatils. Données d'échantillon fictives.</div>
+        <div class="card">
+          <div class="card-head"><h2>Cahier de mesures</h2></div>
           <table id="cahier">
             <thead><tr><th>Mesure</th><th>m₀ (g)</th><th>m₁ (g)</th><th>V (mL)</th><th>m₂ (g)</th><th>ρ (g/mL)</th></tr></thead>
             <tbody></tbody>
@@ -114,26 +122,27 @@
           <p id="resultat"></p>
         </div>
       </div>
-      <div class="droite">
-        <h2 style="font-size:15px;margin:0 0 8px;">Étapes du protocole <span id="progres" style="float:right;"></span></h2>
+      <aside class="etapes-panel">
+        <div class="etapes-head"><h2>Étapes du protocole</h2><span id="progres"></span></div>
         <div id="etapes"></div>
-      </div>
+      </aside>
     </div>
   </section>
 
   <section id="tab-exercices" hidden>
-    <h3>Exercice</h3>
-    <p>À 20 °C, on mesure avec un pycnomètre Hubbard : m₀ = 45,002 g ; m₁ = 145,010 g ; m₂ = 140,502 g. Calculer le volume du pycnomètre puis la masse volumique de l'adhésif.</p>
-    <details><summary>Voir la correction</summary>
-      <p>À 20 °C, ρ<sub>eau</sub> = 0,9982 g·mL⁻¹.<br>
-      V = (145,010 − 45,002) / 0,9982 = 100,008 / 0,9982 ≈ <strong>100,19 mL</strong>.<br>
-      ρ = (140,502 − 45,002) / 100,19 = 95,500 / 100,19 ≈ <strong>0,9532 g·mL⁻¹</strong> (soit 0,953 kg/L).</p>
-    </details>
+    <div class="card">
+      <h2>Exercice</h2>
+      <p>À 20 °C, on mesure avec un pycnomètre Hubbard : m₀ = 45,002 g ; m₁ = 145,010 g ; m₂ = 140,502 g. Calculer le volume du pycnomètre puis la masse volumique de l'adhésif.</p>
+      <details><summary>Voir la correction</summary>
+        <p>À 20 °C, ρ<sub>eau</sub> = 0,9982 g·mL⁻¹.<br>
+        V = (145,010 − 45,002) / 0,9982 = 100,008 / 0,9982 ≈ <strong>100,19 mL</strong>.<br>
+        ρ = (140,502 − 45,002) / 100,19 = 95,500 / 100,19 ≈ <strong>0,9532 g·mL⁻¹</strong> (soit 0,953 kg/L).</p>
+      </details>
+    </div>
   </section>
 </main>
 <script>
 "use strict";
-// ---------- Onglets ----------
 document.querySelectorAll(".tab").forEach((b) => (b.onclick = () => {
   document.querySelectorAll(".tab").forEach((x) => x.classList.toggle("actif", x === b));
   document.querySelectorAll("main section").forEach((s) => (s.hidden = true));
@@ -141,7 +150,6 @@ document.querySelectorAll(".tab").forEach((b) => (b.onclick = () => {
   p.hidden = false; p.classList.remove("anim"); void p.offsetWidth; p.classList.add("anim");
 }));
 
-// ---------- Données ----------
 const EAU = { 19: 0.9984, 20: 0.9982, 21: 0.9980, 22: 0.9978, 23: 0.9975, 24: 0.9973 };
 const TYPES = [
   { id: "acr", nom: "adhésif acrylique en solution" },
@@ -163,14 +171,11 @@ const ETAPES = [
   "Calculer ρ₂ sur la seconde mesure.",
   "Rendre la moyenne μ et l'écart type s (convention n − 1) : ρ = μ ± s."
 ];
-
-// ---------- Calculs (fonctions pures) ----------
 function calcV(m0, m1, rhoEau) { return (m1 - m0) / rhoEau; }
 function calcRho(m0, m2, V) { return (m2 - m0) / V; }
 function calcMoyenne(r1, r2) { return (r1 + r2) / 2; }
 function calcEcartType(r1, r2) { const m = calcMoyenne(r1, r2); return Math.sqrt(((r1 - m) ** 2 + (r2 - m) ** 2) / (2 - 1)); }
 
-// ---------- État ----------
 let S = null;
 const $ = (id) => document.getElementById(id);
 const rnd = (a, b) => a + Math.random() * (b - a);
@@ -178,12 +183,13 @@ const bruit = () => rnd(-0.002, 0.002);
 const nb = (v) => parseFloat(String(v).replace(",", "."));
 const fmt = (v, d) => v.toLocaleString("fr-FR", { minimumFractionDigits: d, maximumFractionDigits: d });
 
+const sel = $("selSample");
+sel.innerHTML = '<option value="hasard">🎲 Au hasard</option>' + TYPES.map(t => '<option value="' + t.id + '">' + t.nom + "</option>").join("");
 for (const t of Object.keys(EAU)) {
   $("table-eau").querySelector("tbody").insertAdjacentHTML("beforeend",
     "<tr><td>" + t + "</td><td>" + EAU[t].toLocaleString("fr-FR", { minimumFractionDigits: 4 }) + "</td></tr>");
 }
 
-// ---------- Animations ----------
 function tweenBalance(cible) {
   const el = $("balance"); const from = parseFloat(el.dataset.v || "0"); const t0 = performance.now();
   (function step(t) {
@@ -200,7 +206,8 @@ function remplir(kind) {
 function vider() { $("liq").style.height = "0%"; }
 
 function lancer() {
-  const type = TYPES[Math.floor(Math.random() * TYPES.length)];
+  const val = sel.value;
+  const type = val === "hasard" ? TYPES[Math.floor(Math.random() * TYPES.length)] : TYPES.find(t => t.id === val);
   const T = 19 + Math.floor(Math.random() * 6);
   const m0vrai = rnd(44.5, 45.5), Vvrai = 100, rhoVrai = rnd(0.88, 1.05);
   S = {
@@ -211,7 +218,6 @@ function lancer() {
     m2b: +(m0vrai + rhoVrai * Vvrai + bruit()).toFixed(3),
     V: null, rho1: null, rho2: null, etape: 0
   };
-  $("echantillon").textContent = "Échantillon : " + type.nom + " · salle à " + T + " °C";
   $("resultat").textContent = "";
   $("thermoT").textContent = T + " °C";
   $("merc").style.height = ((T - 15) / 15 * 100) + "%";
@@ -219,43 +225,40 @@ function lancer() {
   $("cahier").querySelector("tbody").innerHTML =
     '<tr><td>1</td><td id="c-m0">—</td><td id="c-m1">—</td><td id="c-V">—</td><td id="c-m2a">—</td><td id="c-rho1">—</td></tr>' +
     '<tr><td>2</td><td>—</td><td>—</td><td>—</td><td id="c-m2b">—</td><td id="c-rho2">—</td></tr>';
-  afficherEtapes(); afficherAction();
+  afficherEtapes();
+}
+
+function actionHTML(i) {
+  switch (i) {
+    case 0: return '<div class="ligne"><button class="action" onclick="nettoyer()">🧽 Nettoyer et sécher</button></div>';
+    case 1: return '<div class="ligne"><button class="action" onclick="releverM0()">Peser vide : m₀ = ' + fmt(S.m0, 3) + ' g</button></div>';
+    case 2: return '<div class="ligne"><button class="action" onclick="remplirEau()">💧 Remplir d\'eau distillée</button></div>';
+    case 3: return '<div class="ligne"><button class="action" onclick="releverM1()">Peser plein d\'eau : m₁ = ' + fmt(S.m1, 3) + ' g</button></div>';
+    case 4: {
+      const opts = Object.keys(EAU).map(t => '<option value="' + t + '">' + t + " °C — " + EAU[t].toLocaleString("fr-FR", { minimumFractionDigits: 4 }) + "</option>").join("");
+      return '<div class="ligne"><span>Salle à <strong>' + S.T + ' °C</strong> — ρ<sub>eau</sub> :</span><select id="selT"><option value="">— choisir —</option>' + opts + '</select><button class="action" onclick="validerT()">Valider</button></div><p id="msg"></p>';
+    }
+    case 5: return '<div class="ligne"><span>V = (m₁ − m₀) / ρ<sub>eau</sub> =</span><input id="inV" type="number" step="0.01" placeholder="V en mL"> mL<button class="action" onclick="validerV()">Valider</button></div><p id="msg"></p>';
+    case 6: return '<div class="ligne"><button class="action" onclick="remplirAdh()">🧴 Sécher et remplir d\'adhésif</button></div>';
+    case 7: return '<div class="ligne"><button class="action" onclick="releverM2a()">Peser plein d\'adhésif : m₂ = ' + fmt(S.m2a, 3) + ' g</button></div>';
+    case 8: return '<div class="ligne"><span>ρ = (m₂ − m₀) / V =</span><input id="inRho1" type="number" step="0.001" placeholder="g/mL"> g·mL⁻¹<button class="action" onclick="validerRho1()">Valider</button></div><p id="msg"></p>';
+    case 9: return '<div class="ligne"><button class="action" onclick="secondeMesure()">🔁 Seconde mesure : remplir et peser (m₂′ = ' + fmt(S.m2b, 3) + ' g)</button></div>';
+    case 10: return '<div class="ligne"><span>ρ₂ = (m₂′ − m₀) / V =</span><input id="inRho2" type="number" step="0.001" placeholder="g/mL"> g·mL⁻¹<button class="action" onclick="validerRho2()">Valider</button></div><p id="msg"></p>';
+    case 11: return '<div class="ligne"><span>μ =</span><input id="inMu" type="number" step="0.001" placeholder="moyenne"><span>s =</span><input id="inS" type="number" step="0.001" placeholder="écart type"><button class="action" onclick="validerFinal()">Valider</button></div><p id="msg"></p>';
+  }
+  return "";
 }
 
 function afficherEtapes() {
+  if (!S) { $("etapes").innerHTML = ETAPES.map((t, i) => '<div class="etape"><span class="num">' + (i + 1) + '</span><span>' + t + "</span></div>").join(""); $("progres").textContent = ""; return; }
   $("etapes").innerHTML = ETAPES.map((t, i) => {
-    const cls = !S ? "" : (i < S.etape ? "etape fait" : i === S.etape ? "etape courante" : "etape");
-    const num = !S ? i + 1 : (i < S.etape ? "✓" : i + 1);
-    return '<div class="' + cls + '"><span class="num">' + num + "</span><span>" + t + "</span></div>";
+    if (i < S.etape) return '<div class="etape fait"><span class="num">✓</span><span>' + t + "</span></div>";
+    if (i === S.etape) return '<div class="etape courante"><div style="display:flex;gap:10px;"><span class="num">' + (i + 1) + '</span><span>' + t + '</span></div><div class="etape-action">' + actionHTML(i) + "</div></div>";
+    return '<div class="etape"><span class="num">' + (i + 1) + '</span><span>' + t + "</span></div>";
   }).join("");
-  $("progres").textContent = S ? (Math.min(S.etape, ETAPES.length) + "/" + ETAPES.length) : "";
+  $("progres").textContent = Math.min(S.etape + 1, ETAPES.length) + "/" + ETAPES.length;
 }
-function valider() { S.etape++; afficherEtapes(); afficherAction(); }
-
-function afficherAction() {
-  const a = $("action");
-  if (!S) { a.innerHTML = '<p class="petit">Clique sur « Lancer une nouvelle simulation » pour commencer.</p>'; return; }
-  const i = S.etape;
-  if (i >= ETAPES.length) { a.innerHTML = '<p class="ok">✔ Simulation terminée ! Relance pour un autre échantillon.</p>'; return; }
-  switch (i) {
-    case 0: a.innerHTML = '<div class="ligne"><button onclick="nettoyer()">🧽 Nettoyer et sécher</button></div>'; break;
-    case 1: a.innerHTML = '<div class="ligne"><button onclick="releverM0()">Relever m₀ (balance : ' + fmt(S.m0,3) + ' g)</button></div>'; break;
-    case 2: a.innerHTML = '<div class="ligne"><button onclick="remplirEau()">💧 Remplir d\'eau distillée</button></div>'; break;
-    case 3: a.innerHTML = '<div class="ligne"><button onclick="releverM1()">Relever m₁ (balance : ' + fmt(S.m1,3) + ' g)</button></div>'; break;
-    case 4: {
-      const opts = Object.keys(EAU).map(t => '<option value="' + t + '">' + t + " °C — " + EAU[t].toLocaleString("fr-FR", { minimumFractionDigits: 4 }) + "</option>").join("");
-      a.innerHTML = '<div class="ligne"><span>Salle à <strong>' + S.T + ' °C</strong> — ρ<sub>eau</sub> lu dans le tableau :</span>' +
-        '<select id="selT"><option value="">— choisir —</option>' + opts + '</select><button onclick="validerT()">Valider</button></div><p id="msg"></p>'; break;
-    }
-    case 5: a.innerHTML = '<div class="ligne"><span>V = (m₁ − m₀) / ρ<sub>eau</sub> =</span><input id="inV" type="number" step="0.01" placeholder="V en mL"> mL<button onclick="validerV()">Valider</button></div><p id="msg"></p>'; break;
-    case 6: a.innerHTML = '<div class="ligne"><button onclick="remplirAdh()">🧴 Sécher et remplir d\'adhésif</button></div>'; break;
-    case 7: a.innerHTML = '<div class="ligne"><button onclick="releverM2a()">Relever m₂, 1ʳᵉ mesure (balance : ' + fmt(S.m2a,3) + ' g)</button></div>'; break;
-    case 8: a.innerHTML = '<div class="ligne"><span>ρ₁ = (m₂ − m₀) / V =</span><input id="inRho1" type="number" step="0.001" placeholder="g/mL"> g·mL⁻¹<button onclick="validerRho1()">Valider</button></div><p id="msg"></p>'; break;
-    case 9: a.innerHTML = '<div class="ligne"><button onclick="secondeMesure()">🔁 Seconde mesure : remplir et peser (balance : ' + fmt(S.m2b,3) + ' g)</button></div>'; break;
-    case 10: a.innerHTML = '<div class="ligne"><span>ρ₂ = (m₂′ − m₀) / V =</span><input id="inRho2" type="number" step="0.001" placeholder="g/mL"> g·mL⁻¹<button onclick="validerRho2()">Valider</button></div><p id="msg"></p>'; break;
-    case 11: a.innerHTML = '<div class="ligne"><span>μ =</span><input id="inMu" type="number" step="0.001" placeholder="moyenne"><span>s =</span><input id="inS" type="number" step="0.001" placeholder="écart type"><button onclick="validerFinal()">Valider</button></div><p id="msg"></p>'; break;
-  }
-}
+function valider() { S.etape++; afficherEtapes(); }
 
 window.nettoyer = () => { vider(); valider(); };
 window.remplirEau = () => { remplir("eau"); valider(); };

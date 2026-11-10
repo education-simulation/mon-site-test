@@ -5,38 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bille-anneau — Adhésifs · Formu au labo</title>
 <style>
-  :root { --cat:#b45309; --texte:#3c3644; --bord:#eadfd2; --fond:#fffdf9; --fond2:#faf3ea; }
+  :root { --cat:#b45309; --vert:#16a34a; --texte:#332e3b; --bord:#e8e5ee; --fond:#fff; --gris:#f7f6f9; --gris2:#6f6a7a; }
   * { box-sizing:border-box; }
-  body { margin:0; font:16px/1.5 system-ui,sans-serif; color:var(--texte); background:var(--fond); }
-  header.mod { padding:18px 20px 0; }
-  .chip { display:inline-block; background:var(--cat); color:#fff; font-size:12px; font-weight:700; padding:3px 10px; border-radius:999px; }
-  h1 { font-size:26px; margin:8px 0 2px; } h1 .emoji { display:inline-block; animation: pop .5s cubic-bezier(.2,1.6,.4,1) both; }
-  .sous { color:#8a7f70; margin:0 0 12px; font-size:14.5px; }
-  .tabs { display:flex; gap:6px; border-bottom:2px solid var(--bord); }
-  .tab { font:inherit; font-weight:600; font-size:14.5px; padding:8px 16px; border:0; background:none; color:#8a7f70; cursor:pointer; border-radius:10px 10px 0 0; }
-  .tab.actif { background:var(--cat); color:#fff; }
-  main { padding:16px 20px 30px; }
-  section.anim { animation: fadeUp .3s ease both; }
-  .colonnes { display:flex; flex-wrap:wrap; gap:16px; align-items:flex-start; }
-  .gauche { flex:1 1 460px; min-width:300px; }
-  .droite { flex:0 1 320px; min-width:250px; background:var(--fond2); border-radius:14px; padding:12px 14px; }
-  .carte { border:1px solid var(--bord); background:#fff; border-radius:14px; padding:12px 14px; margin-bottom:14px; }
-  .carte h2 { font-size:15px; margin:0 0 8px; }
-  button { font:inherit; padding:8px 14px; border:0; border-radius:10px; background:var(--cat); color:#fff; cursor:pointer; transition: transform .12s, filter .12s; }
-  button:hover { filter:brightness(1.08); } button:active { transform:scale(.96); }
+  body { margin:0; font:16px/1.55 system-ui,sans-serif; color:var(--texte); background:var(--fond); }
+  header.mod { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; padding:16px 22px 0; flex-wrap:wrap; }
+  .chip { display:inline-block; background:var(--cat); color:#fff; font-size:11.5px; font-weight:700; padding:3px 10px; border-radius:999px; letter-spacing:.3px; }
+  h1 { font-size:24px; margin:8px 0 2px; } h1 .emoji { display:inline-block; animation: pop .5s cubic-bezier(.2,1.6,.4,1) both; }
+  .sous { color:var(--gris2); margin:0; font-size:14.5px; }
+  .tabs { display:flex; gap:4px; background:var(--gris); padding:4px; border-radius:12px; }
+  .tab { border:0; background:none; font:inherit; font-size:14px; font-weight:600; padding:7px 14px; border-radius:9px; color:var(--gris2); cursor:pointer; }
+  .tab.actif { background:var(--cat); color:#fff; box-shadow:0 2px 6px rgba(180,83,9,.35); }
+  main { padding:14px 22px 30px; }
+  section.anim { animation: fadeUp .25s ease both; }
+  .banner { width:100%; display:flex; justify-content:space-between; align-items:center; gap:12px; background:var(--cat); color:#fff; border:0; border-radius:14px; padding:13px 18px; font:inherit; cursor:pointer; margin-bottom:14px; text-align:left; transition: filter .15s, transform .12s; }
+  .banner:hover { filter:brightness(1.07); } .banner:active { transform:scale(.99); }
+  .banner strong { font-size:17px; display:block; } .banner small { opacity:.85; font-size:13px; }
+  .banner .fleche { font-size:24px; }
+  .cols { display:grid; grid-template-columns: 1fr 340px; gap:16px; align-items:start; }
+  @media (max-width: 920px) { .cols { grid-template-columns: 1fr; } }
+  .card { background:#fff; border:1px solid var(--bord); border-radius:14px; padding:14px 16px; margin-bottom:14px; }
+  .card-head { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px; flex-wrap:wrap; }
+  .card h2 { font-size:15px; margin:0; }
+  .etapes-panel { background:var(--gris); border-radius:14px; padding:12px 14px; position:sticky; top:12px; }
+  .etapes-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+  .etapes-head h2 { font-size:15px; margin:0; }
+  #progres { font-size:13px; color:var(--gris2); font-weight:700; }
+  .etape { display:flex; gap:10px; padding:9px 10px; border-radius:10px; font-size:14px; color:#8b8698; }
+  .etape .num { flex:0 0 24px; height:24px; border-radius:50%; background:#e4e1ea; color:#6f6a7a; display:inline-flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; }
+  .etape.fait { color:#a09aae; text-decoration:line-through; }
+  .etape.fait .num { background:var(--vert); color:#fff; animation: pop .3s cubic-bezier(.2,1.8,.4,1) both; }
+  .etape.courante { background:#fff; box-shadow:0 4px 14px rgba(51,46,59,.10); outline:1.5px solid var(--cat); color:var(--texte); font-weight:600; display:block; }
+  .etape.courante .num { background:var(--cat); color:#fff; }
+  .etape-action { margin:10px 0 4px 34px; font-weight:400; }
+  button.action { background:var(--vert); color:#fff; border:0; border-radius:10px; padding:9px 16px; font:inherit; font-weight:600; cursor:pointer; transition: filter .12s, transform .12s; }
+  button.action:hover { filter:brightness(1.08); } button.action:active { transform:scale(.96); }
   input, select { font:inherit; padding:6px 8px; border:1px solid var(--bord); border-radius:8px; background:#fff; color:var(--texte); }
-  input[type=number] { width:110px; }
+  input[type=number] { width:100px; }
   .ligne { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:6px 0; }
   canvas { width:100%; max-width:560px; border:1px solid var(--bord); border-radius:10px; background:#fff; }
-  .thermo-gros { font-size:26px; font-weight:700; font-variant-numeric:tabular-nums; background:#17141c; color:#ff9d5c; border-radius:10px; padding:4px 14px; display:inline-block; }
-  .etape { display:flex; gap:8px; padding:6px; border-radius:8px; font-size:14px; align-items:baseline; }
-  .etape .num { flex:0 0 22px; height:22px; border-radius:50%; background:#e3ddd2; display:inline-flex; align-items:center; justify-content:center; font-size:13px; }
-  .etape.fait .num { background:#1f9d55; color:#fff; animation: pop .35s cubic-bezier(.2,1.8,.4,1) both; }
-  .etape.fait { color:#9a9284; text-decoration:line-through; }
-  .etape.courante { background:#fff; outline:2px solid var(--cat); font-weight:600; text-decoration:none; }
-  .ok { color:#1f9d55; font-weight:700; } .ko { color:#c0392b; font-weight:600; }
-  #resultat { font-size:19px; font-weight:700; color:var(--cat); }
-  .petit { font-size:13px; color:#8a7f70; }
+  .thermo-gros { font-size:24px; font-weight:700; font-variant-numeric:tabular-nums; background:#17141c; color:#ff9d5c; border-radius:10px; padding:4px 14px; display:inline-block; }
+  .ok { color:var(--vert); font-weight:700; } .ko { color:#c0392b; font-weight:600; }
+  #resultat { font-size:18px; font-weight:700; color:var(--cat); }
+  .petit { font-size:13px; color:var(--gris2); }
   details { border:1px solid var(--bord); border-radius:10px; padding:8px 12px; background:#fff; }
   summary { cursor:pointer; font-weight:600; }
   @keyframes fadeUp { from { opacity:0; transform:translateY(12px);} to { opacity:1; transform:none;} }
@@ -45,9 +55,11 @@
 </head>
 <body>
 <header class="mod">
-  <span class="chip">🩹 ADHÉSIFS · BTS MÉTIERS DE LA CHIMIE</span>
-  <h1><span class="emoji">🟠</span> Point de ramollissement bille-anneau</h1>
-  <p class="sous">Point de fusion conventionnel d'un hot melt</p>
+  <div>
+    <span class="chip">🩹 ADHÉSIFS · BTS MÉTIERS DE LA CHIMIE</span>
+    <h1><span class="emoji">🟠</span> Point de ramollissement bille-anneau</h1>
+    <p class="sous">Point de fusion conventionnel d'un hot melt</p>
+  </div>
   <nav class="tabs">
     <button class="tab actif" data-tab="essentiel">📖 L'essentiel</button>
     <button class="tab" data-tab="simulation">🧪 Simulation</button>
@@ -56,49 +68,51 @@
 </header>
 <main>
   <section id="tab-essentiel">
-    <h3>Pourquoi un point de ramollissement ?</h3>
-    <p>Les résines solides utilisées dans certains adhésifs ne sont pas des produits purs : elles n'ont pas de température de fusion précise. On parle de point de ramollissement, ou de point de fusion conventionnel : une zone de température dans laquelle la résine se ramollit.</p>
-    <h3>L'appareil</h3>
-    <p>Un cadre support pour deux anneaux (deux essais simultanés), un bécher en pyrex rempli de liquide, un thermomètre normalisé (demi-degré, 30 à 200 °C) et un agitateur magnétique chauffant.</p>
-    <h3>Protocole</h3>
-    <ol>
-      <li>Remplir l'anneau de l'échantillon à tester.</li>
-      <li>Placer une bille en acier sur la pastille de la prise d'essai, au milieu de l'anneau.</li>
-      <li>Immerger le cadre support dans le bain (eau déminéralisée de 30 à 80 °C, glycérol ou huile silicone au-delà).</li>
-      <li>Chauffer le bain avec une élévation régulière de 5 °C·min⁻¹ ± 0,5 °C.</li>
-      <li>Noter la température quand la matière entourant la bille touche la plaque inférieure du support.</li>
-      <li>Faire la moyenne des deux températures et vérifier qu'elles ne diffèrent pas de plus de 1 °C.</li>
-    </ol>
+    <div class="card">
+      <h2>Pourquoi un point de ramollissement ?</h2>
+      <p>Les résines solides utilisées dans certains adhésifs ne sont pas des produits purs : elles n'ont pas de température de fusion précise. On parle de point de ramollissement, ou de point de fusion conventionnel : une zone de température dans laquelle la résine se ramollit.</p>
+      <h2>L'appareil</h2>
+      <p>Un cadre support pour deux anneaux (deux essais simultanés), un bécher en pyrex rempli de liquide, un thermomètre normalisé (demi-degré, 30 à 200 °C) et un agitateur magnétique chauffant.</p>
+      <h2>Protocole</h2>
+      <ol>
+        <li>Remplir l'anneau de l'échantillon à tester.</li>
+        <li>Placer une bille en acier sur la pastille de la prise d'essai, au milieu de l'anneau.</li>
+        <li>Immerger le cadre support dans le bain (eau déminéralisée de 30 à 80 °C, glycérol ou huile silicone au-delà).</li>
+        <li>Chauffer le bain avec une élévation régulière de 5 °C·min⁻¹ ± 0,5 °C.</li>
+        <li>Noter la température quand la matière entourant la bille touche la plaque inférieure du support.</li>
+        <li>Faire la moyenne des deux températures et vérifier qu'elles ne diffèrent pas de plus de 1 °C.</li>
+      </ol>
+    </div>
   </section>
 
   <section id="tab-simulation" hidden>
-    <div class="ligne">
-      <button id="lancer">🔄 Lancer une nouvelle simulation</button>
-      <span id="sample" class="petit"></span>
-      <span class="thermo-gros" id="temp">30,0 °C</span>
-    </div>
-    <div class="colonnes">
-      <div class="gauche">
-        <div class="carte">
-          <h2>Bain chauffant — deux anneaux</h2>
+    <button class="banner" id="lancer"><span><strong>🔄 Lancer une nouvelle simulation</strong><small>Repartir de zéro avec un nouvel échantillon</small></span><span class="fleche">→</span></button>
+    <div class="cols">
+      <div>
+        <div class="card">
+          <div class="card-head">
+            <h2>Échantillon</h2>
+            <span class="ligne"><select id="selSample"></select><span class="thermo-gros" id="temp">30,0 °C</span></span>
+          </div>
           <canvas id="bain" width="560" height="300"></canvas>
-          <div id="action"><p class="petit">Lance une simulation pour commencer.</p></div>
         </div>
       </div>
-      <div class="droite">
-        <h2 style="font-size:15px;margin:0 0 8px;">Étapes du protocole <span id="progres" style="float:right;"></span></h2>
+      <aside class="etapes-panel">
+        <div class="etapes-head"><h2>Étapes du protocole</h2><span id="progres"></span></div>
         <div id="etapes"></div>
         <p id="resultat"></p>
-      </div>
+      </aside>
     </div>
   </section>
 
   <section id="tab-exercices" hidden>
-    <h3>Exercice</h3>
-    <p>Deux essais simultanés donnent 74,5 °C et 75,0 °C. Quel est le point de ramollissement retenu ? Les deux essais sont-ils concordants ?</p>
-    <details><summary>Voir la correction</summary>
-      <p>Moyenne = (74,5 + 75,0) / 2 = <strong>74,75 °C ≈ 74,8 °C</strong>. Écart = 0,5 °C ≤ 1 °C : <strong>essais concordants</strong>, on retient 74,8 °C.</p>
-    </details>
+    <div class="card">
+      <h2>Exercice</h2>
+      <p>Deux essais simultanés donnent 74,5 °C et 75,0 °C. Quel est le point de ramollissement retenu ? Les deux essais sont-ils concordants ?</p>
+      <details><summary>Voir la correction</summary>
+        <p>Moyenne = (74,5 + 75,0) / 2 = <strong>74,75 °C ≈ 74,8 °C</strong>. Écart = 0,5 °C ≤ 1 °C : <strong>essais concordants</strong>, on retient 74,8 °C.</p>
+      </details>
+    </div>
   </section>
 </main>
 <script>
@@ -111,13 +125,13 @@ document.querySelectorAll(".tab").forEach((b) => (b.onclick = () => {
 }));
 
 const SAMPLES = [
-  { id: "apao",  nom: "hot melt polyoléfine (APAO)",        t: 90 },
-  { id: "eva1",  nom: "hot melt EVA pour emballage",        t: 75 },
-  { id: "eva2",  nom: "hot melt EVA haute performance",     t: 85 },
-  { id: "pa",    nom: "hot melt polyamide",                 t: 135 },
+  { id: "apao",  nom: "hot melt polyoléfine (APAO)",           t: 90 },
+  { id: "eva1",  nom: "hot melt EVA pour emballage",           t: 75 },
+  { id: "eva2",  nom: "hot melt EVA haute performance",        t: 85 },
+  { id: "pa",    nom: "hot melt polyamide",                    t: 135 },
   { id: "psa",   nom: "hot melt sensible à la pression (SBC)", t: 65 },
-  { id: "rosin", nom: "ester de colophane",                 t: 78 },
-  { id: "resin", nom: "résine tackifiante",                 t: 88 }
+  { id: "rosin", nom: "ester de colophane",                    t: 78 },
+  { id: "resin", nom: "résine tackifiante",                    t: 88 }
 ];
 const BAINS = { eau: "eau déminéralisée (30–80 °C)", glycerol: "glycérol (> 80 °C)", silicone: "huile silicone (> 80 °C)" };
 const ETAPES = [
@@ -136,71 +150,69 @@ const rnd = (a, b) => a + Math.random() * (b - a);
 const nb = (v) => parseFloat(String(v).replace(",", "."));
 const fmt = (v, d) => v.toLocaleString("fr-FR", { minimumFractionDigits: d, maximumFractionDigits: d });
 
-function lancer() {
-  const s = SAMPLES[Math.floor(Math.random() * SAMPLES.length)];
-  const t1 = s.t + rnd(-0.3, 0.3);
-  const t2 = t1 + rnd(-0.7, 0.7);
-  S = { sample: s, T1: t1, T2: t2, bain: "", rate: 5, etape: 0, temp: 30, chauffe: false, t1vue: false, t2vue: false, b1y: 0, b2y: 0 };
-  $("sample").textContent = "Échantillon : " + s.nom;
-  $("temp").textContent = "30,0 °C";
-  $("resultat").textContent = "";
-  dessiner();
-  afficherEtapes(); afficherAction();
-}
+const sel = $("selSample");
+sel.innerHTML = '<option value="hasard">🎲 Au hasard</option>' + SAMPLES.map(s => '<option value="' + s.id + '">' + s.nom + "</option>").join("");
 
 function dessiner() {
   const c = $("bain").getContext("2d");
   c.clearRect(0, 0, 560, 300);
-  c.fillStyle = "#f6efe6"; c.fillRect(0, 0, 560, 300);
+  c.fillStyle = "#f6f5f8"; c.fillRect(0, 0, 560, 300);
   const liq = S && S.bain === "eau" ? "rgba(124,196,255,.55)" : S && S.bain ? "rgba(232,163,61,.45)" : "rgba(200,200,210,.3)";
   c.fillStyle = liq; c.fillRect(40, 60, 480, 200);
   c.strokeStyle = "#9aa"; c.lineWidth = 3; c.strokeRect(40, 60, 480, 200);
   c.fillStyle = "#5b5468"; c.font = "12px system-ui";
-  c.fillText(S ? (S.bain ? BAINS[S.bain] : "bain") : "bain", 46, 78);
+  c.fillText(S && S.bain ? BAINS[S.bain] : "bain", 46, 78);
   [160, 360].forEach((x) => {
     c.strokeStyle = "#7d7688"; c.lineWidth = 4;
-    c.beginPath(); c.arc(x, 120, 26, 0, Math.PI * 2); c.stroke();       // anneau
-    c.fillStyle = "#c9c2d4"; c.fillRect(x - 30, 218, 60, 8);              // plaque inférieure
-    const y1 = x === 160 ? S.b1y : S.b2y;
-    const yBall = 120 - 18 + y1;
-    c.fillStyle = "#444"; c.beginPath(); c.arc(x, yBall, 9, 0, Math.PI * 2); c.fill(); // bille
+    c.beginPath(); c.arc(x, 120, 26, 0, Math.PI * 2); c.stroke();
+    c.fillStyle = "#c9c2d4"; c.fillRect(x - 30, 218, 60, 8);
+    const y1 = x === 160 ? (S ? S.b1y : 0) : (S ? S.b2y : 0);
+    c.fillStyle = "#444"; c.beginPath(); c.arc(x, 120 - 18 + y1, 9, 0, Math.PI * 2); c.fill();
     c.fillStyle = "#5b5468"; c.fillText(x === 160 ? "anneau 1" : "anneau 2", x - 24, 250);
   });
-  if (S && S.chauffe) { c.fillStyle = "#c0392b"; c.fillRect(250, 262, 60, 10); } // agitateur chauffant
+  if (S && S.chauffe) { c.fillStyle = "#c0392b"; c.fillRect(250, 262, 60, 10); }
 }
 
-function afficherEtapes() {
-  $("etapes").innerHTML = ETAPES.map((t, i) => {
-    const cls = !S ? "" : (i < S.etape ? "etape fait" : i === S.etape ? "etape courante" : "etape");
-    const num = !S ? i + 1 : (i < S.etape ? "✓" : i + 1);
-    return '<div class="' + cls + '"><span class="num">' + num + "</span><span>" + t + "</span></div>";
-  }).join("");
-  $("progres").textContent = S ? (Math.min(S.etape, ETAPES.length) + "/" + ETAPES.length) : "";
+function lancer() {
+  const val = sel.value;
+  const s = val === "hasard" ? SAMPLES[Math.floor(Math.random() * SAMPLES.length)] : SAMPLES.find(x => x.id === val);
+  const t1 = s.t + rnd(-0.3, 0.3);
+  S = { sample: s, T1: t1, T2: t1 + rnd(-0.7, 0.7), bain: "", rate: 5, etape: 0, temp: 30, chauffe: false, t1vue: false, t2vue: false, b1y: 0, b2y: 0 };
+  $("temp").textContent = "30,0 °C";
+  $("resultat").textContent = "";
+  dessiner(); afficherEtapes();
 }
-function valider() { S.etape++; afficherEtapes(); afficherAction(); }
 
-function afficherAction() {
-  const a = $("action");
-  if (!S) { a.innerHTML = '<p class="petit">Lance une simulation pour commencer.</p>'; return; }
-  const i = S.etape;
-  if (i >= ETAPES.length) { a.innerHTML = '<p class="ok">✔ Simulation terminée !</p>'; return; }
+function actionHTML(i) {
   switch (i) {
     case 0: {
       const opts = Object.keys(BAINS).map(k => '<option value="' + k + '">' + BAINS[k] + "</option>").join("");
-      a.innerHTML = '<div class="ligne"><span>Liquide du bain :</span><select id="selBain"><option value="">— choisir —</option>' + opts + '</select><button onclick="validerBain()">Valider</button></div><p id="msg"></p>'; break;
+      return '<div class="ligne"><span>Liquide du bain :</span><select id="selBain"><option value="">— choisir —</option>' + opts + '</select><button class="action" onclick="validerBain()">Valider</button></div><p id="msg"></p>';
     }
-    case 1: a.innerHTML = '<div class="ligne"><span>Vitesse de chauffe :</span><input id="inRate" type="number" step="0.1" value="5"> °C·min⁻¹<button onclick="validerRate()">Régler</button></div><p id="msg"></p>'; break;
-    case 2: a.innerHTML = '<div class="ligne"><button onclick="chauffer()">🔥 Lancer le chauffage</button></div>'; break;
-    case 3: a.innerHTML = '<div class="ligne"><button onclick="noterT1()">Noter T₁ (bille de l\'anneau 1)</button></div><p id="msg"></p>'; break;
-    case 4: a.innerHTML = '<div class="ligne"><button onclick="noterT2()">Noter T₂ (bille de l\'anneau 2)</button></div><p id="msg"></p>'; break;
-    case 5: a.innerHTML = '<div class="ligne"><span>Moyenne :</span><input id="inMoy" type="number" step="0.1" placeholder="°C"><button onclick="validerMoy()">Valider</button></div><p id="msg"></p>'; break;
+    case 1: return '<div class="ligne"><span>Vitesse :</span><input id="inRate" type="number" step="0.1" value="5"> °C·min⁻¹<button class="action" onclick="validerRate()">Régler</button></div><p id="msg"></p>';
+    case 2: return '<div class="ligne"><button class="action" onclick="chauffer()">🔥 Lancer le chauffage</button></div>';
+    case 3: return '<div class="ligne"><button class="action" onclick="noterT1()">Noter T₁ (bille anneau 1)</button></div><p id="msg"></p>';
+    case 4: return '<div class="ligne"><button class="action" onclick="noterT2()">Noter T₂ (bille anneau 2)</button></div><p id="msg"></p>';
+    case 5: return '<div class="ligne"><span>Moyenne :</span><input id="inMoy" type="number" step="0.1" placeholder="°C"><button class="action" onclick="validerMoy()">Valider</button></div><p id="msg"></p>';
   }
+  return "";
 }
+
+function afficherEtapes() {
+  if (!S) { $("etapes").innerHTML = ETAPES.map((t, i) => '<div class="etape"><span class="num">' + (i + 1) + '</span><span>' + t + "</span></div>").join(""); $("progres").textContent = ""; return; }
+  $("etapes").innerHTML = ETAPES.map((t, i) => {
+    if (i < S.etape) return '<div class="etape fait"><span class="num">✓</span><span>' + t + "</span></div>";
+    if (i === S.etape) return '<div class="etape courante"><div style="display:flex;gap:10px;"><span class="num">' + (i + 1) + '</span><span>' + t + '</span></div><div class="etape-action">' + actionHTML(i) + "</div></div>";
+    return '<div class="etape"><span class="num">' + (i + 1) + '</span><span>' + t + "</span></div>";
+  }).join("");
+  $("progres").textContent = Math.min(S.etape + 1, ETAPES.length) + "/" + ETAPES.length;
+}
+function valider() { S.etape++; afficherEtapes(); }
 
 window.validerBain = () => {
   S.bain = $("selBain").value;
   if (!S.bain) { $("msg").innerHTML = '<span class="ko">✘ Choisis un liquide.</span>'; return; }
-  if (S.sample.t > 80 && S.bain === "eau") { $("msg").innerHTML = '<span class="ko">✘ Au-delà de 80 °C, l\'eau bout : prends glycérol ou huile silicone.</span>'; return; }
+  if (S.sample.t > 80 && S.bain === "eau") { $("msg").innerHTML = '<span class="ko">✘ Au-delà de 80 °C : glycérol ou huile silicone.</span>'; return; }
   dessiner(); valider();
 };
 window.validerRate = () => {
@@ -213,7 +225,7 @@ window.chauffer = () => {
   const t0 = performance.now();
   (function step(t) {
     if (!S || !S.chauffe) return;
-    const minutes = (t - t0) / 1000 * 8;              // accéléré : 8 min simulées par seconde
+    const minutes = (t - t0) / 1000 * 8;
     S.temp = 30 + S.rate * minutes;
     $("temp").textContent = fmt(Math.min(S.temp, 200), 1) + " °C";
     if (!S.t1vue && S.temp >= S.T1) { S.t1vue = true; S.b1y = 100; }
@@ -224,11 +236,11 @@ window.chauffer = () => {
 };
 window.noterT1 = () => {
   if (!S.t1vue) { $("msg").innerHTML = '<span class="ko">✘ La bille de l\'anneau 1 n\'est pas encore tombée.</span>'; return; }
-  $("msg").innerHTML = '<span class="ok">✔ T₁ notée à ' + fmt(S.T1, 1) + " °C.</span>"; valider();
+  $("msg").innerHTML = '<span class="ok">✔ T₁ = ' + fmt(S.T1, 1) + " °C.</span>"; valider();
 };
 window.noterT2 = () => {
   if (!S.t2vue) { $("msg").innerHTML = '<span class="ko">✘ La bille de l\'anneau 2 n\'est pas encore tombée.</span>'; return; }
-  $("msg").innerHTML = '<span class="ok">✔ T₂ notée à ' + fmt(S.T2, 1) + " °C.</span>"; valider();
+  $("msg").innerHTML = '<span class="ok">✔ T₂ = ' + fmt(S.T2, 1) + " °C.</span>"; valider();
 };
 window.validerMoy = () => {
   const m = nb($("inMoy").value); const attendu = calcMoyenne(S.T1, S.T2);
@@ -236,14 +248,15 @@ window.validerMoy = () => {
   const diff = Math.abs(S.T1 - S.T2);
   if (Math.abs(m - attendu) <= 0.1) {
     $("resultat").innerHTML = "Point de ramollissement = " + fmt(m, 1) + " °C &nbsp;" +
-      (diff <= 1 ? '<span class="ok">✔ |T₁−T₂| = ' + fmt(diff, 1) + " °C ≤ 1 °C : essais concordants.</span>"
-                 : '<span class="ko">✘ |T₁−T₂| = ' + fmt(diff, 1) + " °C > 1 °C : essais non concordants.</span>");
+      (diff <= 1 ? '<span class="ok">✔ |T₁−T₂| = ' + fmt(diff, 1) + " °C ≤ 1 °C : concordants.</span>"
+                 : '<span class="ko">✘ |T₁−T₂| = ' + fmt(diff, 1) + " °C > 1 °C : non concordants.</span>");
     valider();
   } else $("msg").innerHTML = '<span class="ko">✘ Moyenne ≈ ' + fmt(attendu, 1) + " °C — recalcule.</span>";
 };
 
 $("lancer").onclick = lancer;
 afficherEtapes();
+dessiner();
 </script>
 </body>
 </html>
