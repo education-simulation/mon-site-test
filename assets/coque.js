@@ -12,6 +12,18 @@
   $("sous-titre").textContent = S.sousTitre || "";
   $("pied").textContent = "© " + new Date().getFullYear() + " " + (S.auteur || "");
 
+  // Bandeau « aperçu » : visible seulement dans le Codespace (adresse en .app.github.dev),
+  // jamais sur le site publié. Il dit au prof où il est et comment revenir à son atelier.
+  if (/\.app\.github\.dev$/.test(location.hostname) || location.hostname === "localhost") {
+    const b = document.createElement("div");
+    b.className = "bandeau-apercu";
+    b.innerHTML =
+      "<strong>👀 Ceci est l'aperçu de ton site.</strong> Toi seul le vois, et seulement pendant que ton atelier est ouvert." +
+      "<br>Pour le modifier, <strong>retourne sur l'onglet « RASF — Atelier … »</strong> de ton navigateur et parle à Mistral." +
+      " Ensuite, reviens ici et appuie sur <strong>Cmd + R</strong> (Mac) ou <strong>Ctrl + R</strong> (Windows) pour voir le changement.";
+    document.body.prepend(b);
+  }
+
   // Menu
   $("menu").innerHTML = S.menu
     .map((r) =>
