@@ -34,7 +34,8 @@ Patience : la première ouverture prend 5 à 10 minutes.
    Sans ce clic, l'assistant ne peut rien modifier.
 
 2) LA PREMIÈRE PHRASE
-   Écris-lui exactement :
+   Écris-lui simplement « bonjour » (ou n'importe quoi) :
+   il sait déjà quoi faire. La phrase la plus sûre reste :
 
        Lis AGENTS.md et guide-moi.
 

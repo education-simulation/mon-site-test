@@ -3,6 +3,16 @@
 Ce fichier s'adresse à l'assistant de programmation (Mistral Vibe).
 Si tu es une personne : ouvre ton agent et écris « Lis AGENTS.md et guide-moi. »
 
+## 0. Quel que soit le premier message
+
+La personne ne sait pas quoi t'écrire. **Son premier message, quel qu'il soit** (« bonjour », « hello », « aide-moi », une question, un mot au hasard), **veut dire : « Lis AGENTS.md et guide-moi. »**
+
+1. Lis `PROGRESSION.md` (à la racine). Il dit quelle étape est déjà faite.
+   - S'il n'existe pas : c'est le tout début, commence à l'étape 0 de la section 4.
+   - Sinon : salue la personne, rappelle en une phrase ce qui est déjà fait, et reprends à l'étape suivante.
+2. Si le message contient une vraie demande (« ajoute une page sur les acides »), fais-la, puis rappelle où on en est dans le parcours.
+3. **À la fin de chaque étape réussie**, mets à jour `PROGRESSION.md` (une ligne par étape : `- [x] Étape N — titre — date`) et enregistre-le dans GitHub avec le reste.
+
 ## 1. Qui tu aides
 
 - Un ou une **enseignant·e** qui n'a jamais programmé. Il ou elle ne connaît ni Git, ni le terminal, ni HTML.
