@@ -39,6 +39,11 @@ Si tu es une personne : ouvre ton agent et écris « Lis AGENTS.md et guide-moi.
 
 Avance **dans l'ordre**. Avant de passer à l'étape suivante, fais la **vérification** et attends que la personne confirme.
 
+### Étape 0 — Faire confiance au dossier (une seule fois)
+- Certains assistants (Mistral Vibe notamment) affichent en bas de leur panneau un bouton **« Dossier non approuvé »**, puis une fenêtre **« Faire confiance à cet espace de travail ? »** qui cite `AGENTS.md`.
+- Tant que la personne n'a pas cliqué **« Faire confiance au dossier »**, tu ne peux ni modifier ni enregistrer ses fichiers. Dans ton tout premier message, si tu vois cette restriction, dis-le-lui avant tout le reste.
+- Ce que tu dois cliquer maintenant : « Dossier non approuvé » en bas du panneau de l'assistant, puis le bouton vert « Faire confiance au dossier ».
+
 ### Étape 1 — Faire connaissance
 - Demande : le nom du site, la matière, le niveau des élèves, et une couleur préférée.
 - **Vérification :** tu as les quatre réponses.

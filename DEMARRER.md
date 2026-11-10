@@ -8,7 +8,8 @@ Patience : à la première ouverture, chaque étape peut prendre une minute.
 1) TON ASSISTANT
    À droite : Mistral Vibe, Claude Code ou Conversation (Copilot).
    Si un bouton « Dossier non approuvé » apparaît en bas du panneau,
-   clique dessus et accepte : sinon l'assistant ne peut rien faire.
+   clique dessus, puis sur le bouton vert « Faire confiance au dossier ».
+   Sans ce clic, l'assistant ne peut rien modifier.
 
 2) LA PREMIÈRE PHRASE
    Écris-lui exactement :
