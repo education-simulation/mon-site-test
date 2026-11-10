@@ -26,6 +26,9 @@ Patience : la première ouverture prend 5 à 10 minutes.
    (par exemple avec ton adresse académique). Sur l'écran
    « Autoriser Mistral Vibe Code ? », clique sur « Autoriser ».
    Puis REVIENS sur l'onglet de ton atelier « RASF — Atelier … ».
+   Fais ces clics d'une traite : la demande expire au bout de
+   quelques minutes. Message « Browser sign-in failed » ?
+   Recommence simplement « Continuer avec Mistral AI ».
    Si un bouton « Dossier non approuvé » apparaît en bas du panneau,
    clique dessus, puis sur le bouton vert « Faire confiance au dossier ».
    Sans ce clic, l'assistant ne peut rien modifier.
