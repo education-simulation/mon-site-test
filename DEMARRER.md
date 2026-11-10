@@ -3,8 +3,17 @@ RASF · ATELIER DE SITE POUR PROFS
 
 Tu n'as rien à installer. Tout se passe dans cet onglet.
 Patience : la première ouverture prend 5 à 10 minutes.
-Si une fenêtre demande « Faites-vous confiance aux auteurs des fichiers ? »,
-clique sur le bouton vert « Approuver le dossier et continuer ».
+
+
+0) D'ABORD : APPROUVER LE DOSSIER  (une seule fois)
+   Une fenêtre demande « Faites-vous confiance aux auteurs des fichiers
+   de ce dossier ? ». Clique sur le bouton vert :
+
+       Approuver le dossier et continuer
+
+   Pas de fenêtre, mais un bandeau « mode Restreint » tout en haut ?
+   Clique sur « Gérer » dans ce bandeau, puis sur « Approuver ».
+   Sans ce clic, ton site ne démarre pas et Mistral reste éteint.
 
 
 1) TON ASSISTANT
