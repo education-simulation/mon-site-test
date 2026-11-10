@@ -5,62 +5,99 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Masse volumique — Adhésifs · Formu au labo</title>
 <style>
-  :root { --cat:#b45309; --vert:#16a34a; --texte:#332e3b; --bord:#e8e5ee; --fond:#fff; --gris:#f7f6f9; --gris2:#6f6a7a; }
+  :root {
+    --cat:#b45309; --vert:#16a34a; --texte:#332e3b; --bord:#e8e5ee; --fond:#ffffff;
+    --gris:#f7f6f9; --gris2:#6f6a7a; --eau:#93c5fd; --ambre:#f59e0b; --ko:#c0392b;
+    --carte:#ffffff; --ombre:0 4px 14px rgba(51,46,59,.10);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --texte:#e6e2ee; --bord:#3a3547; --fond:#17141d; --gris:#211d2b; --gris2:#a49db8; --carte:#1e1a28; --ombre:0 4px 14px rgba(0,0,0,.5); }
+  }
   * { box-sizing:border-box; }
-  body { margin:0; font:16px/1.55 system-ui,sans-serif; color:var(--texte); background:var(--fond); }
-  header.mod { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; padding:16px 22px 0; flex-wrap:wrap; }
-  .chip { display:inline-block; background:var(--cat); color:#fff; font-size:11.5px; font-weight:700; padding:3px 10px; border-radius:999px; letter-spacing:.3px; }
-  h1 { font-size:24px; margin:8px 0 2px; } h1 .emoji { display:inline-block; animation: pop .5s cubic-bezier(.2,1.6,.4,1) both; }
-  .sous { color:var(--gris2); margin:0; font-size:14.5px; }
+  body { margin:0; font:15px/1.5 system-ui,sans-serif; color:var(--texte); background:var(--fond); }
+  header.mod { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; padding:12px 16px 0; flex-wrap:wrap; }
+  .chip { display:inline-block; background:var(--cat); color:#fff; font-size:11px; font-weight:700; padding:3px 10px; border-radius:999px; letter-spacing:.3px; }
+  h1 { font-size:22px; margin:6px 0 2px; } h1 .emoji { display:inline-block; animation: pop .5s cubic-bezier(.2,1.6,.4,1) both; }
+  .sous { color:var(--gris2); margin:0; font-size:13.5px; }
   .tabs { display:flex; gap:4px; background:var(--gris); padding:4px; border-radius:12px; }
-  .tab { border:0; background:none; font:inherit; font-size:14px; font-weight:600; padding:7px 14px; border-radius:9px; color:var(--gris2); cursor:pointer; transition: background .15s; }
+  .tab { border:0; background:none; font:inherit; font-size:13.5px; font-weight:600; padding:7px 13px; border-radius:9px; color:var(--gris2); cursor:pointer; }
   .tab.actif { background:var(--cat); color:#fff; box-shadow:0 2px 6px rgba(180,83,9,.35); }
-  main { padding:14px 22px 30px; }
+  main { padding:10px 16px 24px; }
   section.anim { animation: fadeUp .25s ease both; }
-  .banner { width:100%; display:flex; justify-content:space-between; align-items:center; gap:12px; background:var(--cat); color:#fff; border:0; border-radius:14px; padding:13px 18px; font:inherit; cursor:pointer; margin-bottom:14px; text-align:left; transition: filter .15s, transform .12s; }
+  .banner { width:100%; display:flex; justify-content:space-between; align-items:center; gap:12px; background:var(--cat); color:#fff; border:0; border-radius:14px; padding:12px 16px; font:inherit; cursor:pointer; margin-bottom:12px; text-align:left; transition: filter .15s, transform .12s; }
   .banner:hover { filter:brightness(1.07); } .banner:active { transform:scale(.99); }
-  .banner strong { font-size:17px; display:block; } .banner small { opacity:.85; font-size:13px; }
-  .banner .fleche { font-size:24px; }
-  .cols { display:grid; grid-template-columns: 1fr 340px; gap:16px; align-items:start; }
+  .banner strong { font-size:16px; display:block; } .banner small { opacity:.85; font-size:12.5px; }
+  .banner .fleche { font-size:22px; }
+  .cols { display:grid; grid-template-columns: 1fr 330px; gap:14px; align-items:start; }
   @media (max-width: 920px) { .cols { grid-template-columns: 1fr; } }
-  .card { background:#fff; border:1px solid var(--bord); border-radius:14px; padding:14px 16px; margin-bottom:14px; }
+  .card { background:var(--carte); border:1px solid var(--bord); border-radius:14px; padding:12px 14px; margin-bottom:12px; }
   .card-head { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px; flex-wrap:wrap; }
-  .card h2 { font-size:15px; margin:0; }
-  .note { background:#eef4ff; border-radius:10px; padding:10px 14px; font-size:14px; margin-bottom:14px; }
-  .etapes-panel { background:var(--gris); border-radius:14px; padding:12px 14px; position:sticky; top:12px; }
-  .etapes-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
-  .etapes-head h2 { font-size:15px; margin:0; }
-  #progres { font-size:13px; color:var(--gris2); font-weight:700; }
-  .etape { display:flex; gap:10px; padding:9px 10px; border-radius:10px; font-size:14px; color:#8b8698; }
-  .etape .num { flex:0 0 24px; height:24px; border-radius:50%; background:#e4e1ea; color:#6f6a7a; display:inline-flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; }
-  .etape.fait { color:#a09aae; text-decoration:line-through; }
-  .etape.fait .num { background:var(--vert); color:#fff; animation: pop .3s cubic-bezier(.2,1.8,.4,1) both; }
-  .etape.courante { background:#fff; box-shadow:0 4px 14px rgba(51,46,59,.10); outline:1.5px solid var(--cat); color:var(--texte); font-weight:600; text-decoration:none; display:block; }
+  .card h2 { font-size:14.5px; margin:0; }
+  .note { background:#eef4ff; color:#1e3a5f; border-radius:10px; padding:9px 13px; font-size:13.5px; margin-bottom:12px; }
+  @media (prefers-color-scheme: dark) { .note { background:#1c2b45; color:#bcd3f5; } }
+  .etapes-panel { background:var(--gris); border-radius:14px; padding:10px 12px; position:sticky; top:10px; }
+  .etapes-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
+  .etapes-head h2 { font-size:14.5px; margin:0; }
+  #progres { font-size:12.5px; color:var(--gris2); font-weight:700; }
+  .etape { border-radius:10px; font-size:13.5px; color:var(--gris2); margin-bottom:4px; }
+  .etape .entete { display:flex; gap:9px; padding:8px 9px; align-items:baseline; width:100%; }
+  .etape .num { flex:0 0 22px; height:22px; border-radius:50%; background:#e4e1ea; color:var(--gris2); display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; }
+  @media (prefers-color-scheme: dark) { .etape .num { background:#332e40; } }
+  .etape.fait { color:var(--gris2); }
+  .etape.fait .num { background:var(--vert); color:#fff; }
+  .etape.fait .entete { cursor:pointer; }
+  .etape.courante { background:var(--carte); box-shadow:var(--ombre); outline:1.5px solid var(--cat); color:var(--texte); display:block; }
   .etape.courante .num { background:var(--cat); color:#fff; }
-  .etape-action { margin:10px 0 4px 34px; font-weight:400; }
-  button.action { background:var(--vert); color:#fff; border:0; border-radius:10px; padding:9px 16px; font:inherit; font-weight:600; cursor:pointer; transition: filter .12s, transform .12s; }
+  .etape .consigne { padding:0 9px 0 40px; color:var(--gris2); margin:0 0 6px; }
+  .etape .action { padding:0 9px 10px 40px; }
+  .etape .resume { padding:0 9px 8px 40px; color:var(--vert); font-weight:600; font-size:13px; }
+  .etape.locked { opacity:.55; }
+  button.action { background:var(--vert); color:#fff; border:0; border-radius:10px; padding:9px 15px; font:inherit; font-weight:600; cursor:pointer; transition: filter .12s, transform .12s; }
   button.action:hover { filter:brightness(1.08); } button.action:active { transform:scale(.96); }
-  input, select { font:inherit; padding:6px 8px; border:1px solid var(--bord); border-radius:8px; background:#fff; color:var(--texte); }
-  input[type=number] { width:120px; }
+  button.action:disabled { opacity:.5; cursor:default; }
+  button.sec { background:var(--gris); color:var(--texte); border:1px solid var(--bord); border-radius:10px; padding:8px 13px; font:inherit; font-weight:600; cursor:pointer; }
+  input, select { font:inherit; padding:6px 8px; border:1px solid var(--bord); border-radius:8px; background:var(--carte); color:var(--texte); }
+  input[type=number], input[type=text] { width:110px; }
   .ligne { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:6px 0; }
-  .scene { display:flex; gap:26px; align-items:flex-end; flex-wrap:wrap; margin:14px 0 6px; min-height:130px; }
-  .thermo { width:30px; height:120px; border:3px solid #c5c0d0; border-radius:15px; position:relative; background:#f4f2f7; }
-  .merc { position:absolute; bottom:0; left:0; right:0; height:0%; background:linear-gradient(#ff6a5e,#c0392b); border-radius:0 0 11px 11px; transition: height 1.2s ease; }
-  .thermoT { position:absolute; top:-26px; left:50%; transform:translateX(-50%); font-weight:700; font-size:14px; white-space:nowrap; }
-  .pyc { width:86px; height:120px; border:3px solid #c5c0d0; border-top:7px solid #c5c0d0; border-radius:6px 6px 18px 18px; position:relative; overflow:hidden; background:#f4f2f7; }
-  .liq { position:absolute; bottom:0; left:0; right:0; height:0%; transition: height 1s ease, background-color .5s ease; }
-  .pyclabel { position:absolute; top:-24px; left:50%; transform:translateX(-50%); font-size:12px; color:var(--gris2); white-space:nowrap; }
-  .balance { display:inline-block; font-size:26px; font-weight:700; font-variant-numeric:tabular-nums; background:#17141c; color:#7dffb0; border-radius:10px; padding:6px 14px; }
-  .ok { color:var(--vert); font-weight:700; } .ko { color:#c0392b; font-weight:600; }
-  table { border-collapse:collapse; width:100%; font-size:14px; }
-  th, td { border:1px solid var(--bord); padding:5px 9px; text-align:right; }
+  table { border-collapse:collapse; width:100%; font-size:13.5px; }
+  th, td { border:1px solid var(--bord); padding:5px 8px; text-align:right; }
   th { background:var(--gris); }
-  #resultat { font-size:19px; font-weight:700; color:var(--cat); }
-  .petit { font-size:13px; color:var(--gris2); }
-  details { border:1px solid var(--bord); border-radius:10px; padding:8px 12px; background:#fff; }
+  tr.ligne-ok td { background:rgba(22,163,74,.18); }
+  .ok { color:var(--vert); font-weight:700; } .ko { color:var(--ko); font-weight:600; }
+  .vert { color:var(--vert); font-weight:700; }
+  #resultat { font-size:17px; font-weight:700; color:var(--vert); }
+  .petit { font-size:12.5px; color:var(--gris2); }
+  details { border:1px solid var(--bord); border-radius:10px; padding:8px 12px; background:var(--carte); }
   summary { cursor:pointer; font-weight:600; }
-  @keyframes fadeUp { from { opacity:0; transform:translateY(12px);} to { opacity:1; transform:none;} }
-  @keyframes pop { from { opacity:0; transform:scale(.5);} to { opacity:1; transform:scale(1);} }
+  /* modale */
+  #modale { position:fixed; inset:0; background:rgba(0,0,0,.45); display:none; align-items:center; justify-content:center; z-index:50; padding:16px; }
+  #modale.ouverte { display:flex; }
+  #modale .contenu { background:var(--carte); color:var(--texte); border-radius:14px; max-width:560px; width:100%; max-height:85vh; overflow:auto; padding:16px 18px; box-shadow:var(--ombre); animation: pop .25s ease both; }
+  #modale h3 { margin-top:0; }
+  .encadre { border:2px solid var(--cat); border-radius:10px; padding:8px 12px; font-weight:700; display:inline-block; margin:8px 0; }
+  /* secousse erreur */
+  @keyframes secoue { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-6px);} 75%{transform:translateX(6px);} }
+  .secoue { animation: secoue .3s ease; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(10px);} to { opacity:1; transform:none;} }
+  @keyframes pop { from { opacity:0; transform:scale(.6);} to { opacity:1; transform:scale(1);} }
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } }
+  /* rapport d'impression */
+  #rapport { display:none; }
+  @media print {
+    body * { visibility:hidden; }
+    #rapport, #rapport * { visibility:visible; }
+    #rapport { display:block; position:absolute; inset:0; background:#fff; color:#000; padding:20px; }
+  }
+  .formule { font-size:13.5px; background:var(--gris); border-radius:8px; padding:6px 10px; margin:4px 0; }
+  .exo-panel { display:none; } .exo-panel.ouvert { display:block; animation: fadeUp .25s ease both; }
+  .phrase { display:block; width:100%; text-align:left; background:var(--carte); border:1px solid var(--bord); border-radius:10px; padding:8px 12px; margin:5px 0; cursor:pointer; font:inherit; color:var(--texte); }
+  .phrase.selectionnee { outline:2px solid var(--cat); }
+  .phrase.bonne { border-color:var(--vert); background:rgba(22,163,74,.12); }
+  .ordre-item { display:flex; align-items:center; gap:8px; background:var(--carte); border:1px solid var(--bord); border-radius:10px; padding:7px 10px; margin:5px 0; }
+  .ordre-item .fleches { display:flex; flex-direction:column; gap:2px; }
+  .ordre-item .fleches button { font-size:11px; padding:2px 7px; border:1px solid var(--bord); background:var(--gris); color:var(--texte); border-radius:6px; cursor:pointer; }
+  .champ-ko { border-color:var(--ko) !important; background:rgba(192,57,43,.12) !important; }
+  .champ-ok { border-color:var(--vert) !important; background:rgba(22,163,74,.12) !important; }
 </style>
 </head>
 <body>
@@ -70,17 +107,19 @@
     <h1><span class="emoji">⚖️</span> Masse volumique</h1>
     <p class="sous">Pycnomètre de type Hubbard — adhésifs liquides comportant des solvants volatils</p>
   </div>
-  <nav class="tabs">
-    <button class="tab actif" data-tab="essentiel">📖 L'essentiel</button>
-    <button class="tab" data-tab="simulation">🧪 Simulation</button>
+  <nav class="tabs" aria-label="Onglets du module">
+    <button class="tab" data-tab="essentiel">📖 L'essentiel</button>
+    <button class="tab actif" data-tab="simulation">🧪 Simulation</button>
     <button class="tab" data-tab="exercices">✏️ Exercices</button>
   </nav>
 </header>
 <main>
-  <section id="tab-essentiel">
+  <section id="tab-essentiel" hidden>
     <div class="card">
       <h2>Quand l'utiliser ?</h2>
       <p>On utilise un pycnomètre de type Hubbard uniquement pour mesurer la masse volumique des adhésifs liquides comportant des solvants volatils. Les masses volumiques des colles pour emballages sont comprises entre 0,85 et 1,1 kg/L.</p>
+    </div>
+    <div class="card">
       <h2>Protocole</h2>
       <ol>
         <li>Nettoyer puis sécher le pycnomètre.</li>
@@ -90,27 +129,55 @@
         <li>Sécher le pycnomètre, le remplir avec l'adhésif liquide (à température ambiante) et peser : m₂.</li>
         <li>Faire la moyenne de deux mesures et rendre le résultat avec un écart type.</li>
       </ol>
+    </div>
+    <div class="card">
       <h2>Calculs</h2>
-      <p><strong>V = (m₁ − m₀) / ρ<sub>eau</sub>(T)</strong> &nbsp;·&nbsp; <strong>ρ = (m₂ − m₀) / V</strong> &nbsp;·&nbsp; <strong>s = √( Σᵢ (ρᵢ − ρ̄)² / (n − 1) )</strong></p>
+      <p class="formule">V = (m₁ − m₀) / ρ<sub>eau</sub>(T)</p>
+      <p class="formule">ρ = (m₂ − m₀) / V</p>
+      <p>Résultat : moyenne de deux mesures, avec l'écart type expérimental (convention n − 1) :</p>
+      <p class="formule">s = √[ Σᵢ (ρᵢ − ρ̄)² / (n − 1) ]</p>
+    </div>
+    <div class="card">
       <h2>Masse volumique de l'eau (fiche Cf13)</h2>
-      <table id="table-eau"><thead><tr><th>Température (°C)</th><th>ρ<sub>eau</sub> (g·mL⁻¹)</th></tr></thead><tbody></tbody></table>
+      <table id="table-eau-ess"><thead><tr><th>Température (°C)</th><th>ρ<sub>eau</sub> (g·mL⁻¹)</th></tr></thead><tbody></tbody></table>
     </div>
   </section>
 
-  <section id="tab-simulation" hidden>
+  <section id="tab-simulation">
     <button class="banner" id="lancer"><span><strong>🔄 Lancer une nouvelle simulation</strong><small>Repartir de zéro avec un nouvel échantillon</small></span><span class="fleche">→</span></button>
     <div class="cols">
       <div>
         <div class="card">
           <div class="card-head">
             <h2>Échantillon</h2>
-            <select id="selSample"></select>
+            <select id="selSample" aria-label="Type d'adhésif"></select>
           </div>
-          <div class="scene">
-            <div class="thermo"><span class="thermoT" id="thermoT">—</span><div class="merc" id="merc"></div></div>
-            <div class="pyc"><span class="pyclabel">pycnomètre 100 mL</span><div class="liq" id="liq"></div></div>
-            <div><span class="petit">balance — 1 mg</span><br><span class="balance" id="balance" data-v="0">—</span></div>
-          </div>
+          <svg id="banc" viewBox="0 0 520 210" width="100%" role="img" aria-label="Banc d'essai : thermomètre d'ambiance, pycnomètre 100 mL sur une balance au milligramme">
+            <!-- thermomètre d'ambiance -->
+            <rect x="30" y="30" width="18" height="120" rx="9" fill="none" stroke="#8b8698" stroke-width="3"/>
+            <rect id="mercure" x="33" y="145" width="12" height="2" rx="6" fill="#e0342b"/>
+            <circle cx="39" cy="152" r="12" fill="#e0342b"/>
+            <text id="tempTxt" x="39" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">—</text>
+            <text x="39" y="185" text-anchor="middle" font-size="11" fill="#6f6a7a">salle</text>
+            <!-- balance -->
+            <rect x="150" y="140" width="180" height="14" rx="4" fill="#c9c2d4"/>
+            <rect x="150" y="154" width="180" height="34" rx="6" fill="#17141c"/>
+            <text id="afficheur" x="240" y="177" text-anchor="middle" font-size="17" font-weight="700" fill="#7dffb0" font-family="ui-monospace,monospace">—</text>
+            <text x="240" y="205" text-anchor="middle" font-size="11" fill="#6f6a7a">balance — 1 mg</text>
+            <!-- pycnomètre -->
+            <g id="gPyc">
+              <rect id="bouchon" x="196" y="52" width="28" height="10" rx="3" fill="#8b8698"/>
+              <rect id="pycCorps" x="186" y="62" width="48" height="78" rx="6" fill="#d7d3e0" stroke="#8b8698" stroke-width="2"/>
+              <rect id="liquide" x="189" y="137" width="42" height="0" fill="#93c5fd"/>
+              <text x="210" y="105" text-anchor="middle" font-size="11" fill="#5b5468">100 mL</text>
+            </g>
+            <!-- animations -->
+            <g id="animGouttes" style="display:none" fill="#7cc4ff">
+              <circle class="goutte" cx="210" cy="130" r="3"/><circle class="goutte" cx="204" cy="120" r="2.4"/><circle class="goutte" cx="216" cy="112" r="2"/>
+            </g>
+            <text id="animEtincelles" x="210" y="40" text-anchor="middle" font-size="16" style="display:none">✨</text>
+            <line id="animFilet" x1="150" y1="70" x2="200" y2="80" stroke="#7cc4ff" stroke-width="3" stroke-dasharray="6 5" style="display:none"/>
+          </svg>
         </div>
         <div class="note">ℹ️ Le pycnomètre Hubbard est utilisé uniquement pour les adhésifs liquides comportant des solvants volatils. Données d'échantillon fictives.</div>
         <div class="card">
@@ -119,191 +186,530 @@
             <thead><tr><th>Mesure</th><th>m₀ (g)</th><th>m₁ (g)</th><th>V (mL)</th><th>m₂ (g)</th><th>ρ (g/mL)</th></tr></thead>
             <tbody></tbody>
           </table>
+          <div id="formules"></div>
           <p id="resultat"></p>
         </div>
       </div>
       <aside class="etapes-panel">
         <div class="etapes-head"><h2>Étapes du protocole</h2><span id="progres"></span></div>
         <div id="etapes"></div>
+        <button class="sec" id="voirPrev" style="display:none; margin-top:6px;">Voir les étapes précédentes</button>
       </aside>
     </div>
   </section>
 
   <section id="tab-exercices" hidden>
     <div class="card">
-      <h2>Exercice</h2>
-      <p>À 20 °C, on mesure avec un pycnomètre Hubbard : m₀ = 45,002 g ; m₁ = 145,010 g ; m₂ = 140,502 g. Calculer le volume du pycnomètre puis la masse volumique de l'adhésif.</p>
-      <details><summary>Voir la correction</summary>
-        <p>À 20 °C, ρ<sub>eau</sub> = 0,9982 g·mL⁻¹.<br>
-        V = (145,010 − 45,002) / 0,9982 = 100,008 / 0,9982 ≈ <strong>100,19 mL</strong>.<br>
-        ρ = (140,502 − 45,002) / 100,19 = 95,500 / 100,19 ≈ <strong>0,9532 g·mL⁻¹</strong> (soit 0,953 kg/L).</p>
-      </details>
+      <div class="card-head">
+        <h2>Exercices</h2>
+        <span class="ligne">
+          <select id="selExo" aria-label="Type d'exercice">
+            <option value="calcul">🧮 Calcul</option>
+            <option value="erreur">🔍 Trouver l'erreur</option>
+            <option value="ordre">↕️ Remettre en ordre</option>
+          </select>
+          <button class="sec" id="nouvelExo">🎲 Nouvel exercice</button>
+        </span>
+      </div>
+      <p class="petit">Les exercices sont tirés au hasard à chaque « Nouvel exercice ». Aucun score n'est enregistré pour l'instant.</p>
+      <div id="exo-calcul" class="exo-panel"></div>
+      <div id="exo-erreur" class="exo-panel"></div>
+      <div id="exo-ordre" class="exo-panel"></div>
     </div>
   </section>
 </main>
+
+<div id="modale" role="dialog" aria-modal="true">
+  <div class="contenu">
+    <h3 id="modaleTitre">Calcul</h3>
+    <div id="modaleCorps"></div>
+    <div class="ligne" style="margin-top:12px; justify-content:flex-end;">
+      <button class="sec" id="modaleFermer">Fermer</button>
+      <button class="action" id="modaleSuivant">Étape suivante</button>
+    </div>
+  </div>
+</div>
+<div id="rapport"></div>
+
 <script>
 "use strict";
-document.querySelectorAll(".tab").forEach((b) => (b.onclick = () => {
-  document.querySelectorAll(".tab").forEach((x) => x.classList.toggle("actif", x === b));
-  document.querySelectorAll("main section").forEach((s) => (s.hidden = true));
-  const p = document.getElementById("tab-" + b.dataset.tab);
-  p.hidden = false; p.classList.remove("anim"); void p.offsetWidth; p.classList.add("anim");
-}));
-
+/* ================= Données ================= */
 const EAU = { 19: 0.9984, 20: 0.9982, 21: 0.9980, 22: 0.9978, 23: 0.9975, 24: 0.9973 };
-const TYPES = [
-  { id: "acr", nom: "adhésif acrylique en solution" },
-  { id: "pc",  nom: "adhésif polychloroprène en solution" },
-  { id: "pu",  nom: "adhésif polyuréthane en solution" },
-  { id: "sbs", nom: "adhésif caoutchouc SBS en solution" }
-];
+const ADH_TYPES = {
+  pc:  "adhésif polychloroprène en solution",
+  pu:  "adhésif polyuréthane en solution",
+  sbs: "adhésif caoutchouc SBS en solution",
+  acr: "adhésif acrylique en solution"
+};
 const ETAPES = [
-  "Nettoyer puis sécher le pycnomètre.",
-  "Peser le pycnomètre vide à 1 mg près : m₀.",
-  "Remplir le pycnomètre d'eau distillée à température ambiante.",
-  "Peser le pycnomètre plein d'eau : m₁.",
-  "Lire dans le tableau la masse volumique de l'eau à la température de la salle.",
-  "En déduire le volume exact du pycnomètre : V = (m₁ − m₀) / ρeau.",
-  "Sécher le pycnomètre et le remplir avec l'adhésif liquide (à température ambiante).",
-  "Peser le pycnomètre plein d'adhésif : m₂.",
-  "Calculer la masse volumique de l'adhésif : ρ = (m₂ − m₀) / V.",
-  "La fiche demande deux mesures : refaire la mesure complète (remplir + peser).",
-  "Calculer ρ₂ sur la seconde mesure.",
-  "Rendre la moyenne μ et l'écart type s (convention n − 1) : ρ = μ ± s."
+  { t: "Nettoyer et sécher", c: "Nettoyer puis sécher le pycnomètre." },
+  { t: "Peser vide : m₀", c: "Peser le pycnomètre vide à 1 mg près : m₀." },
+  { t: "Remplir d'eau distillée", c: "Remplir le pycnomètre d'eau distillée à température ambiante." },
+  { t: "Peser plein d'eau : m₁", c: "Peser le pycnomètre rempli d'eau : m₁." },
+  { t: "Lire ρeau à la température de la salle", c: "Lire dans le tableau la masse volumique de l'eau à la température de la salle." },
+  { t: "Calculer le volume V", c: "En déduire le volume exact du pycnomètre : V = (m₁ − m₀) / ρeau." },
+  { t: "Sécher et remplir d'adhésif", c: "Sécher le pycnomètre et le remplir avec l'adhésif liquide (à température ambiante)." },
+  { t: "Peser plein d'adhésif : m₂", c: "Peser le pycnomètre rempli d'adhésif : m₂." },
+  { t: "Calculer ρ", c: "Calculer la masse volumique de l'adhésif : ρ = (m₂ − m₀) / V." },
+  { t: "Seconde mesure", c: "La fiche demande deux mesures : refaire la mesure complète." },
+  { t: "Moyenne et écart type", c: "Calculer la moyenne des deux mesures et l'écart type." },
+  { t: "Résultat", c: "Résultat rendu avec son écart type." }
 ];
-function calcV(m0, m1, rhoEau) { return (m1 - m0) / rhoEau; }
-function calcRho(m0, m2, V) { return (m2 - m0) / V; }
-function calcMoyenne(r1, r2) { return (r1 + r2) / 2; }
-function calcEcartType(r1, r2) { const m = calcMoyenne(r1, r2); return Math.sqrt(((r1 - m) ** 2 + (r2 - m) ** 2) / (2 - 1)); }
+const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const LS_KEY = "formu-mv-v1";
 
-let S = null;
+/* ================= Utilitaires ================= */
 const $ = (id) => document.getElementById(id);
 const rnd = (a, b) => a + Math.random() * (b - a);
-const bruit = () => rnd(-0.002, 0.002);
+function gauss(sigma) {
+  let u = 0, v = 0;
+  while (u === 0) u = Math.random();
+  while (v === 0) v = Math.random();
+  return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v) * sigma;
+}
+const weigh = (x) => Math.round((x + gauss(0.0007)) * 1000) / 1000;
 const nb = (v) => parseFloat(String(v).replace(",", "."));
 const fmt = (v, d) => v.toLocaleString("fr-FR", { minimumFractionDigits: d, maximumFractionDigits: d });
+const calcV = (m0, m1, r) => (m1 - m0) / r;
+const calcRho = (m0, m2, V) => (m2 - m0) / V;
+const calcMoy = (a, b) => (a + b) / 2;
+const calcET = (a, b) => Math.abs(a - b) / Math.SQRT2;
+function animHauteur(el, yCible, hCible, duree) {
+  return new Promise((res) => {
+    if (RM || duree <= 0) { el.setAttribute("y", yCible); el.setAttribute("height", hCible); return res(); }
+    const y0 = parseFloat(el.getAttribute("y")), h0 = parseFloat(el.getAttribute("height"));
+    const t0 = performance.now();
+    (function step(t) {
+      const p = Math.min(1, (t - t0) / duree);
+      el.setAttribute("y", y0 + (yCible - y0) * p);
+      el.setAttribute("height", h0 + (hCible - h0) * p);
+      if (p < 1) requestAnimationFrame(step); else res();
+    })(t0);
+  });
+}
+function secouer(el) { el.classList.remove("secoue"); void el.offsetWidth; el.classList.add("secoue"); }
 
+/* ================= Onglets ================= */
+let onglet = "simulation";
+document.querySelectorAll(".tab").forEach((b) => (b.onclick = () => setTab(b.dataset.tab)));
+function setTab(t) {
+  onglet = t;
+  document.querySelectorAll(".tab").forEach((x) => x.classList.toggle("actif", x.dataset.tab === t));
+  document.querySelectorAll("main section").forEach((s) => (s.hidden = s.id !== "tab-" + t));
+  const p = $("tab-" + t);
+  if (p && !p.hidden) { p.classList.remove("anim"); void p.offsetWidth; p.classList.add("anim"); }
+  save();
+}
+
+/* ================= Simulation ================= */
+let S = null;
 const sel = $("selSample");
-sel.innerHTML = '<option value="hasard">🎲 Au hasard</option>' + TYPES.map(t => '<option value="' + t.id + '">' + t.nom + "</option>").join("");
-for (const t of Object.keys(EAU)) {
-  $("table-eau").querySelector("tbody").insertAdjacentHTML("beforeend",
-    "<tr><td>" + t + "</td><td>" + EAU[t].toLocaleString("fr-FR", { minimumFractionDigits: 4 }) + "</td></tr>");
-}
+sel.innerHTML = '<option value="hasard">🎲 Au hasard</option>' + Object.keys(ADH_TYPES).map(k => '<option value="' + k + '">' + ADH_TYPES[k] + "</option>").join("");
+sel.onchange = () => { if (S) lancer(); };
 
-function tweenBalance(cible) {
-  const el = $("balance"); const from = parseFloat(el.dataset.v || "0"); const t0 = performance.now();
-  (function step(t) {
-    const p = Math.min(1, (t - t0) / 700); const v = from + (cible - from) * (1 - Math.pow(1 - p, 3));
-    el.textContent = fmt(v, 3) + " g";
-    if (p < 1) requestAnimationFrame(step); else el.dataset.v = String(cible);
-  })(t0);
-}
-function remplir(kind) {
-  const liq = $("liq");
-  liq.style.backgroundColor = kind === "eau" ? "#7cc4ff" : "#e8a33d";
-  liq.style.height = "92%";
-}
-function vider() { $("liq").style.height = "0%"; }
-
-function lancer() {
-  const val = sel.value;
-  const type = val === "hasard" ? TYPES[Math.floor(Math.random() * TYPES.length)] : TYPES.find(t => t.id === val);
+function nouveauTirage() {
   const T = 19 + Math.floor(Math.random() * 6);
-  const m0vrai = rnd(44.5, 45.5), Vvrai = 100, rhoVrai = rnd(0.88, 1.05);
-  S = {
-    type, T, rhoEau: EAU[T], rhoVrai,
-    m0: +(m0vrai + bruit()).toFixed(3),
-    m1: +(m0vrai + EAU[T] * Vvrai + bruit()).toFixed(3),
-    m2a: +(m0vrai + rhoVrai * Vvrai + bruit()).toFixed(3),
-    m2b: +(m0vrai + rhoVrai * Vvrai + bruit()).toFixed(3),
-    V: null, rho1: null, rho2: null, etape: 0
+  return {
+    type: sel.value === "hasard" ? Object.keys(ADH_TYPES)[Math.floor(Math.random() * 4)] : sel.value,
+    T, Vvrai: +rnd(99.85, 100.15).toFixed(3), m0vrai: +rnd(140, 190).toFixed(3), rhoVrai: +rnd(0.85, 1.10).toFixed(4)
   };
+}
+function peser(m0vrai, Vvrai, T, rhoVrai) {
+  const m0 = weigh(m0vrai);
+  const m1 = weigh(m0 + Vvrai * EAU[T]);
+  const m2 = weigh(m0 + Vvrai * (rhoVrai + gauss(0.0010)));
+  return { m0, m1, m2 };
+}
+function lancer() {
+  const base = nouveauTirage();
+  S = { ...base, etape: 0, res: {}, mesures: [peser(base.m0vrai, base.Vvrai, base.T, base.rhoVrai)], V: null, rhoT: null, rho: [null, null], mu: null, s: null, showPrev: false };
   $("resultat").textContent = "";
-  $("thermoT").textContent = T + " °C";
-  $("merc").style.height = ((T - 15) / 15 * 100) + "%";
-  vider(); $("balance").textContent = "—"; $("balance").dataset.v = "0";
-  $("cahier").querySelector("tbody").innerHTML =
-    '<tr><td>1</td><td id="c-m0">—</td><td id="c-m1">—</td><td id="c-V">—</td><td id="c-m2a">—</td><td id="c-rho1">—</td></tr>' +
-    '<tr><td>2</td><td>—</td><td>—</td><td>—</td><td id="c-m2b">—</td><td id="c-rho2">—</td></tr>';
-  afficherEtapes();
+  $("afficheur").textContent = "—";
+  $("tempTxt").textContent = S.T + " °C";
+  $("mercure").setAttribute("y", 150 - (S.T - 19) / 5 * 100);
+  $("mercure").setAttribute("height", 2 + (S.T - 19) / 5 * 100);
+  animHauteur($("liquide"), 137, 0, 0).then(() => { $("liquide").setAttribute("fill", "#93c5fd"); });
+  $("bouchon").setAttribute("y", 52);
+  renderCahier(); renderEtapes(); renderFormules(); save();
 }
 
+function renderCahier() {
+  const tb = $("cahier").querySelector("tbody");
+  let html = '<tr><td>1</td><td>' + (S.mesures[0].m0 != null ? fmt(S.mesures[0].m0, 3) : "…") + "</td><td>" + (S.mesures[0].m1 != null ? fmt(S.mesures[0].m1, 3) : "…") + "</td><td>" + (S.V != null ? fmt(S.V, 2) : "…") + "</td><td>" + (S.mesures[0].m2 != null ? fmt(S.mesures[0].m2, 3) : "…") + "</td><td>" + (S.rho[0] != null ? fmt(S.rho[0], 4) : "…") + "</td></tr>";
+  if (S.mesures[1]) html += '<tr><td>2</td><td>' + fmt(S.mesures[1].m0, 3) + "</td><td>" + fmt(S.mesures[1].m1, 3) + "</td><td>" + (S.V2 != null ? fmt(S.V2, 2) : "…") + "</td><td>" + (S.mesures[1].m2 != null ? fmt(S.mesures[1].m2, 3) : "…") + "</td><td>" + (S.rho[1] != null ? fmt(S.rho[1], 4) : "…") + "</td></tr>";
+  tb.innerHTML = html;
+}
+function renderFormules() {
+  let h = "";
+  if (S && S.etape >= 6 && S.V != null) h += '<p class="formule">V = (m₁ − m₀) / ρ<sub>eau</sub> = (' + fmt(S.mesures[0].m1, 3) + " − " + fmt(S.mesures[0].m0, 3) + ") / " + fmt(EAU[S.T], 4) + " = " + fmt(S.V, 2) + " mL</p>";
+  if (S && S.etape >= 9 && S.rho[0] != null) h += '<p class="formule">ρ = (m₂ − m₀) / V = (' + fmt(S.mesures[0].m2, 3) + " − " + fmt(S.mesures[0].m0, 3) + ") / " + fmt(S.V, 2) + " = " + fmt(S.rho[0], 4) + " g/mL</p>";
+  $("formules").innerHTML = h;
+}
+
+/* ---- accordéon ---- */
 function actionHTML(i) {
+  const m = S.mesures[0];
   switch (i) {
-    case 0: return '<div class="ligne"><button class="action" onclick="nettoyer()">🧽 Nettoyer et sécher</button></div>';
-    case 1: return '<div class="ligne"><button class="action" onclick="releverM0()">Peser vide : m₀ = ' + fmt(S.m0, 3) + ' g</button></div>';
-    case 2: return '<div class="ligne"><button class="action" onclick="remplirEau()">💧 Remplir d\'eau distillée</button></div>';
-    case 3: return '<div class="ligne"><button class="action" onclick="releverM1()">Peser plein d\'eau : m₁ = ' + fmt(S.m1, 3) + ' g</button></div>';
-    case 4: {
-      const opts = Object.keys(EAU).map(t => '<option value="' + t + '">' + t + " °C — " + EAU[t].toLocaleString("fr-FR", { minimumFractionDigits: 4 }) + "</option>").join("");
-      return '<div class="ligne"><span>Salle à <strong>' + S.T + ' °C</strong> — ρ<sub>eau</sub> :</span><select id="selT"><option value="">— choisir —</option>' + opts + '</select><button class="action" onclick="validerT()">Valider</button></div><p id="msg"></p>';
-    }
-    case 5: return '<div class="ligne"><span>V = (m₁ − m₀) / ρ<sub>eau</sub> =</span><input id="inV" type="number" step="0.01" placeholder="V en mL"> mL<button class="action" onclick="validerV()">Valider</button></div><p id="msg"></p>';
-    case 6: return '<div class="ligne"><button class="action" onclick="remplirAdh()">🧴 Sécher et remplir d\'adhésif</button></div>';
-    case 7: return '<div class="ligne"><button class="action" onclick="releverM2a()">Peser plein d\'adhésif : m₂ = ' + fmt(S.m2a, 3) + ' g</button></div>';
-    case 8: return '<div class="ligne"><span>ρ = (m₂ − m₀) / V =</span><input id="inRho1" type="number" step="0.001" placeholder="g/mL"> g·mL⁻¹<button class="action" onclick="validerRho1()">Valider</button></div><p id="msg"></p>';
-    case 9: return '<div class="ligne"><button class="action" onclick="secondeMesure()">🔁 Seconde mesure : remplir et peser (m₂′ = ' + fmt(S.m2b, 3) + ' g)</button></div>';
-    case 10: return '<div class="ligne"><span>ρ₂ = (m₂′ − m₀) / V =</span><input id="inRho2" type="number" step="0.001" placeholder="g/mL"> g·mL⁻¹<button class="action" onclick="validerRho2()">Valider</button></div><p id="msg"></p>';
-    case 11: return '<div class="ligne"><span>μ =</span><input id="inMu" type="number" step="0.001" placeholder="moyenne"><span>s =</span><input id="inS" type="number" step="0.001" placeholder="écart type"><button class="action" onclick="validerFinal()">Valider</button></div><p id="msg"></p>';
+    case 0: return '<button class="action" data-act="nettoyer">🧽 Nettoyer et sécher</button>';
+    case 1: return '<button class="action" data-act="peser0">⚖️ Peser</button>';
+    case 2: return '<button class="action" data-act="eau">💧 Remplir d\'eau distillée</button>';
+    case 3: return '<button class="action" data-act="peser1">⚖️ Peser</button>';
+    case 4: return '<div class="ligne"><span>La salle est à <strong>' + S.T + ' °C</strong> : clique la bonne ligne du tableau.</span></div>' +
+      '<table id="table-clic"><thead><tr><th>Température (°C)</th><th>ρ<sub>eau</sub> (g·mL⁻¹)</th></tr></thead><tbody>' +
+      Object.keys(EAU).map(t => '<tr data-t="' + t + '" style="cursor:pointer"><td>' + t + "</td><td>" + fmt(EAU[t], 4) + "</td></tr>").join("") +
+      '</tbody></table><p class="petit">Tableau de la fiche Cf13.</p><p id="msg"></p>';
+    case 5: return '<button class="action" data-act="calcV">🧮 Montrer le calcul</button>';
+    case 6: return '<button class="action" data-act="adh">🫗 Sécher et remplir d\'adhésif</button>';
+    case 7: return '<button class="action" data-act="peser2">⚖️ Peser</button>';
+    case 8: return '<button class="action" data-act="calcRho">🧮 Montrer le calcul</button>';
+    case 9: return '<button class="action" data-act="seconde">🔁 Seconde mesure</button>';
+    case 10: return '<button class="action" data-act="calcMS">🧮 Montrer le calcul</button>';
+    case 11: return '<p class="vert" style="font-size:16px;">✅ ρ = ' + fmt(S.mu, 4) + " ± " + fmt(S.s, 4) + " g/mL &nbsp;(" + fmt(S.mu, 4) + " kg/L)</p>" +
+      '<div class="ligne"><button class="sec" data-act="revoir">🧮 Revoir le calcul</button><button class="action" data-act="export">📄 Exporter le compte rendu</button></div>';
   }
   return "";
 }
-
-function afficherEtapes() {
-  if (!S) { $("etapes").innerHTML = ETAPES.map((t, i) => '<div class="etape"><span class="num">' + (i + 1) + '</span><span>' + t + "</span></div>").join(""); $("progres").textContent = ""; return; }
-  $("etapes").innerHTML = ETAPES.map((t, i) => {
-    if (i < S.etape) return '<div class="etape fait"><span class="num">✓</span><span>' + t + "</span></div>";
-    if (i === S.etape) return '<div class="etape courante"><div style="display:flex;gap:10px;"><span class="num">' + (i + 1) + '</span><span>' + t + '</span></div><div class="etape-action">' + actionHTML(i) + "</div></div>";
-    return '<div class="etape"><span class="num">' + (i + 1) + '</span><span>' + t + "</span></div>";
+function renderEtapes() {
+  if (!S) { $("etapes").innerHTML = ""; $("progres").textContent = ""; $("voirPrev").style.display = "none"; return; }
+  $("etapes").innerHTML = ETAPES.map((e, i) => {
+    if (i < S.etape) {
+      const ouvert = S.showPrev;
+      return '<div class="etape fait" data-i="' + i + '"><div class="entete"><span class="num">✓</span><span><strong>' + (i + 1) + ". " + e.t + "</strong></span></div>" +
+        (ouvert ? '<p class="consigne">' + e.c + '</p><p class="resume">✔ ' + (S.res[i] || "") + "</p>" : '<p class="resume" style="padding-left:40px;margin:0 0 4px;">✔ ' + (S.res[i] || "") + "</p>") + "</div>";
+    }
+    if (i === S.etape) return '<div class="etape courante"><div class="entete"><span class="num">' + (i + 1) + '</span><span><strong>' + e.t + "</strong></span></div><p class='consigne'>" + e.c + '</p><div class="action">' + actionHTML(i) + "</div></div>";
+    return '<div class="etape locked"><div class="entete"><span class="num">' + (i + 1) + '</span><span>' + e.t + "</span></div></div>";
   }).join("");
-  $("progres").textContent = Math.min(S.etape + 1, ETAPES.length) + "/" + ETAPES.length;
+  $("progres").textContent = Math.min(S.etape + 1, 12) + "/12";
+  $("voirPrev").style.display = S.etape > 0 ? "" : "none";
+  $("voirPrev").textContent = (S.showPrev ? "Masquer" : "Voir") + " les étapes précédentes (" + S.etape + ")";
+  // branchements
+  document.querySelectorAll("#etapes [data-act]").forEach((b) => (b.onclick = () => faire(b.dataset.act)));
+  document.querySelectorAll("#table-clic tr").forEach((tr) => (tr.onclick = () => choisirLigne(tr)));
+  document.querySelectorAll(".etape.fait .entete").forEach((h) => (h.onclick = () => { S.showPrev = !S.showPrev; renderEtapes(); save(); }));
 }
-function valider() { S.etape++; afficherEtapes(); }
+function choisirLigne(tr) {
+  const t = tr.dataset.t;
+  if (t === String(S.T)) {
+    S.rhoT = EAU[S.T];
+    S.res[4] = "ρ<sub>eau</sub>(" + S.T + " °C) = " + fmt(EAU[S.T], 4) + " g/mL — bonne ligne surlignée en vert.";
+    document.querySelectorAll("#table-clic tr").forEach((x) => (x.style.background = x === tr ? "rgba(22,163,74,.25)" : ""));
+    setTimeout(() => { S.etape = 5; renderEtapes(); save(); }, RM ? 0 : 500);
+  } else {
+    secouer(tr);
+    $("msg").innerHTML = '<span class="ko">Ce n\'est pas la bonne ligne : la salle est à ' + S.T + " °C.</span>";
+  }
+}
+function peserEtAfficher(v) { $("afficheur").textContent = fmt(v, 3) + " g"; }
 
-window.nettoyer = () => { vider(); valider(); };
-window.remplirEau = () => { remplir("eau"); valider(); };
-window.remplirAdh = () => { vider(); setTimeout(() => remplir("adh"), 350); valider(); };
-window.secondeMesure = () => { vider(); setTimeout(() => { remplir("adh"); tweenBalance(S.m2b); $("c-m2b").textContent = fmt(S.m2b, 3); }, 350); valider(); };
-window.releverM0 = () => { tweenBalance(S.m0); $("c-m0").textContent = fmt(S.m0, 3); valider(); };
-window.releverM1 = () => { tweenBalance(S.m1); $("c-m1").textContent = fmt(S.m1, 3); valider(); };
-window.releverM2a = () => { tweenBalance(S.m2a); $("c-m2a").textContent = fmt(S.m2a, 3); valider(); };
-window.validerT = () => {
-  if ($("selT").value === String(S.T)) valider();
-  else $("msg").innerHTML = '<span class="ko">✘ Mauvaise température : la salle est à ' + S.T + " °C.</span>";
-};
-window.validerV = () => {
-  const v = nb($("inV").value); const attendu = calcV(S.m0, S.m1, S.rhoEau);
-  if (isNaN(v)) { $("msg").innerHTML = '<span class="ko">✘ Entre un nombre.</span>'; return; }
-  if (Math.abs(v - attendu) <= 0.05) { S.V = v; $("c-V").textContent = fmt(v, 2); valider(); }
-  else $("msg").innerHTML = '<span class="ko">✘ V ≈ ' + fmt(attendu, 2) + " mL — recalcule.</span>";
-};
-window.validerRho1 = () => {
-  const r = nb($("inRho1").value); const attendu = calcRho(S.m0, S.m2a, calcV(S.m0, S.m1, S.rhoEau));
-  if (isNaN(r)) { $("msg").innerHTML = '<span class="ko">✘ Entre un nombre.</span>'; return; }
-  if (Math.abs(r - attendu) <= 0.003) { S.rho1 = r; $("c-rho1").textContent = fmt(r, 4); valider(); }
-  else $("msg").innerHTML = '<span class="ko">✘ ρ₁ ≈ ' + fmt(attendu, 4) + " g·mL⁻¹ — recalcule.</span>";
-};
-window.validerRho2 = () => {
-  const r = nb($("inRho2").value); const attendu = calcRho(S.m0, S.m2b, calcV(S.m0, S.m1, S.rhoEau));
-  if (isNaN(r)) { $("msg").innerHTML = '<span class="ko">✘ Entre un nombre.</span>'; return; }
-  if (Math.abs(r - attendu) <= 0.003) { S.rho2 = r; $("c-rho2").textContent = fmt(r, 4); valider(); }
-  else $("msg").innerHTML = '<span class="ko">✘ ρ₂ ≈ ' + fmt(attendu, 4) + " g·mL⁻¹ — recalcule.</span>";
-};
-window.validerFinal = () => {
-  const mu = nb($("inMu").value), s = nb($("inS").value);
-  const muA = calcMoyenne(S.rho1, S.rho2), sA = calcEcartType(S.rho1, S.rho2);
-  if (isNaN(mu) || isNaN(s)) { $("msg").innerHTML = '<span class="ko">✘ Entre les deux nombres.</span>'; return; }
-  if (Math.abs(mu - muA) <= 0.003 && Math.abs(s - sA) <= 0.003) {
-    const ok = Math.abs(mu - S.rhoVrai) <= 0.01;
-    $("resultat").innerHTML = "ρ = " + fmt(mu, 4) + " ± " + fmt(s, 4) + " g·mL⁻¹ (n = 2) &nbsp;" +
-      (ok ? '<span class="ok">✔ conforme à la valeur attendue (' + fmt(S.rhoVrai, 4) + ")</span>"
-           : '<span class="ko">✘ valeur attendue ≈ ' + fmt(S.rhoVrai, 4) + " g·mL⁻¹ — vérifie tes calculs.</span>");
-    valider();
-  } else $("msg").innerHTML = '<span class="ko">✘ μ ≈ ' + fmt(muA, 4) + " et s ≈ " + fmt(sA, 4) + " — recalcule.</span>";
-};
+async function faire(act) {
+  if (!S) return;
+  document.querySelectorAll("#etapes [data-act]").forEach((b) => (b.disabled = true));
+  const m = S.mesures[0];
+  const duree = RM ? 0 : 900;
+  if (act === "nettoyer") {
+    const g = $("animGouttes"), e = $("animEtincelles");
+    g.style.display = ""; e.style.display = "";
+    await new Promise((r) => setTimeout(r, duree));
+    g.style.display = "none"; e.style.display = "none";
+    S.res[0] = "Pycnomètre propre et sec.";
+    S.etape = 1;
+  } else if (act === "peser0") {
+    await animHauteur($("gPyc"), 0, 0, 0); // no-op
+    $("gPyc").setAttribute("transform", "translate(0,4)");
+    await new Promise((r) => setTimeout(r, RM ? 0 : 250));
+    $("gPyc").setAttribute("transform", "");
+    peserEtAfficher(m.m0); S.res[1] = "m₀ = " + fmt(m.m0, 3) + " g";
+    S.etape = 2;
+  } else if (act === "eau") {
+    $("bouchon").setAttribute("y", 44);
+    const f = $("animFilet"); f.style.display = "";
+    await new Promise((r) => setTimeout(r, duree));
+    f.style.display = ""; $("bouchon").setAttribute("y", 52);
+    $("liquide").setAttribute("fill", "#93c5fd");
+    await animHauteur($("liquide"), 66, 71, duree);
+    S.res[2] = "Rempli d'eau distillée à température ambiante (" + S.T + " °C).";
+    S.etape = 3;
+  } else if (act === "peser1") {
+    $("gPyc").setAttribute("transform", "translate(0,4)");
+    await new Promise((r) => setTimeout(r, RM ? 0 : 250));
+    $("gPyc").setAttribute("transform", "");
+    peserEtAfficher(m.m1); S.res[3] = "m₁ = " + fmt(m.m1, 3) + " g";
+    S.etape = 4;
+  } else if (act === "calcV") {
+    S.V = calcV(m.m0, m.m1, EAU[S.T]);
+    ouvrirModale(5);
+    document.querySelectorAll("#etapes [data-act]").forEach((b) => (b.disabled = false));
+    return;
+  } else if (act === "adh") {
+    await animHauteur($("liquide"), 137, 0, duree / 2);
+    const f = $("animFilet"); f.setAttribute("stroke", "#f59e0b"); f.style.display = "";
+    await new Promise((r) => setTimeout(r, duree / 2));
+    f.style.display = "";
+    $("liquide").setAttribute("fill", "#f59e0b");
+    await animHauteur($("liquide"), 66, 71, duree);
+    S.res[6] = "Pycnomètre séché, rempli d'adhésif à température ambiante.";
+    S.etape = 7;
+  } else if (act === "peser2") {
+    $("gPyc").setAttribute("transform", "translate(0,4)");
+    await new Promise((r) => setTimeout(r, RM ? 0 : 250));
+    $("gPyc").setAttribute("transform", "");
+    peserEtAfficher(m.m2); S.res[7] = "m₂ = " + fmt(m.m2, 3) + " g";
+    S.etape = 8;
+  } else if (act === "calcRho") {
+    S.rho[0] = calcRho(m.m0, m.m2, S.V);
+    S.res[8] = "ρ₁ = " + fmt(S.rho[0], 4) + " g/mL.";
+    ouvrirModale(8);
+    document.querySelectorAll("#etapes [data-act]").forEach((b) => (b.disabled = false));
+    return;
+  } else if (act === "seconde") {
+    S.mesures[1] = peser(S.m0vrai, S.Vvrai, S.T, S.rhoVrai);
+    S.V2 = calcV(S.mesures[1].m0, S.mesures[1].m1, EAU[S.T]);
+    S.rho[1] = calcRho(S.mesures[1].m0, S.mesures[1].m2, S.V2);
+    peserEtAfficher(S.mesures[1].m2);
+    S.res[9] = "ρ₂ = " + fmt(S.rho[1], 4) + " g/mL.";
+    S.etape = 10;
+  } else if (act === "calcMS") {
+    S.mu = calcMoy(S.rho[0], S.rho[1]); S.s = calcET(S.rho[0], S.rho[1]);
+    S.res[10] = "ρ̄ = " + fmt(S.mu, 4) + " g/mL, s = " + fmt(S.s, 4) + " g/mL.";
+    ouvrirModale(10);
+    document.querySelectorAll("#etapes [data-act]").forEach((b) => (b.disabled = false));
+    return;
+  } else if (act === "revoir") { ouvrirModale(10); document.querySelectorAll("#etapes [data-act]").forEach((b) => (b.disabled = false)); return; }
+  else if (act === "export") { exporter(); document.querySelectorAll("#etapes [data-act]").forEach((b) => (b.disabled = false)); return; }
+  renderCahier(); renderEtapes(); renderFormules();
+  if (S.etape === 11) { /* résultat géré au rendu */ }
+  save();
+}
 
+/* ---- modale calcul ---- */
+function ouvrirModale(etape) {
+  const m = S.mesures[0], m2 = S.mesures[1];
+  let titre = "", corps = "";
+  if (etape === 5) {
+    titre = "Volume exact du pycnomètre";
+    corps = '<p>Tableau de la fiche, ligne ' + S.T + " °C : ρ<sub>eau</sub> = " + fmt(EAU[S.T], 4) + " g/mL.</p>" +
+      '<p class="formule">V = (m₁ − m₀) / ρ<sub>eau</sub> = (' + fmt(m.m1, 3) + " − " + fmt(m.m0, 3) + ") / " + fmt(EAU[S.T], 4) + " = " + fmt(m.m1 - m.m0, 3) + " / " + fmt(EAU[S.T], 4) + "</p>" +
+      '<p class="encadre">V = ' + fmt(S.V, 2) + " mL</p>";
+  } else if (etape === 8) {
+    titre = "Masse volumique de l'adhésif";
+    corps = '<p class="formule">ρ = (m₂ − m₀) / V = (' + fmt(m.m2, 3) + " − " + fmt(m.m0, 3) + ") / " + fmt(S.V, 2) + " = " + fmt(m.m2 - m.m0, 3) + " / " + fmt(S.V, 2) + "</p>" +
+      '<p class="encadre">ρ₁ = ' + fmt(S.rho[0], 4) + " g/mL</p>";
+  } else {
+    titre = "Moyenne et écart type";
+    corps = "<p>ρ₁ = " + fmt(S.rho[0], 4) + " g/mL &nbsp;·&nbsp; ρ₂ = " + fmt(S.rho[1] != null ? S.rho[1] : 0, 4) + " g/mL</p>" +
+      '<p class="formule">ρ̄ = (ρ₁ + ρ₂) / 2 = ' + fmt(S.mu, 4) + " g/mL</p>" +
+      '<p>Écart type expérimental (n − 1) : s = √[Σ(ρᵢ − ρ̄)² / (n − 1)] — avec deux mesures, s = |ρ₁ − ρ₂| / √2.</p>' +
+      '<p class="formule">s = |' + fmt(S.rho[0], 4) + " − " + fmt(S.rho[1], 4) + "| / √2 = " + fmt(S.s, 4) + " g/mL</p>" +
+      '<p class="encadre" style="border-color:var(--vert);">ρ = ' + fmt(S.mu, 4) + " ± " + fmt(S.s, 4) + " g/mL</p>";
+  }
+  $("modaleTitre").textContent = titre;
+  $("modaleCorps").innerHTML = corps;
+  $("modale").classList.add("ouverte");
+  $("modaleSuivant").style.display = etape === 5 || etape === 8 || etape === 10 ? "" : "none";
+  $("modaleSuivant").onclick = () => {
+    $("modale").classList.remove("ouverte");
+    if (etape === 5) { S.res[5] = "V = " + fmt(S.V, 2) + " mL."; S.etape = 6; }
+    else if (etape === 8) { S.etape = 9; }
+    else if (etape === 10) { S.etape = 11; }
+    renderCahier(); renderEtapes(); renderFormules(); save();
+  };
+}
+$("modaleFermer").onclick = () => $("modale").classList.remove("ouverte");
+$("modale").addEventListener("click", (e) => { if (e.target === $("modale")) $("modale").classList.remove("ouverte"); });
+
+/* ---- export compte rendu ---- */
+function exporter() {
+  const m = S.mesures[0], m2 = S.mesures[1];
+  $("rapport").innerHTML =
+    "<h1>Compte rendu — Masse volumique (pycnomètre Hubbard)</h1>" +
+    "<p><strong>Échantillon :</strong> " + ADH_TYPES[S.type] + " · salle à " + S.T + " °C · ρ<sub>eau</sub>(" + S.T + " °C) = " + fmt(EAU[S.T], 4) + " g/mL</p>" +
+    "<table border='1' cellpadding='5' cellspacing='0'><tr><th>Mesure</th><th>m₀ (g)</th><th>m₁ (g)</th><th>V (mL)</th><th>m₂ (g)</th><th>ρ (g/mL)</th></tr>" +
+    "<tr><td>1</td><td>" + fmt(m.m0, 3) + "</td><td>" + fmt(m.m1, 3) + "</td><td>" + fmt(S.V, 2) + "</td><td>" + fmt(m.m2, 3) + "</td><td>" + fmt(S.rho[0], 4) + "</td></tr>" +
+    (m2 ? "<tr><td>2</td><td>" + fmt(m2.m0, 3) + "</td><td>" + fmt(m2.m1, 3) + "</td><td>" + fmt(S.V2, 2) + "</td><td>" + fmt(m2.m2, 3) + "</td><td>" + fmt(S.rho[1], 4) + "</td></tr>" : "") +
+    "</table>" +
+    "<p><strong>Calculs :</strong> V = (m₁ − m₀)/ρ<sub>eau</sub> = " + fmt(S.V, 2) + " mL · ρ₁ = " + fmt(S.rho[0], 4) + " g/mL · ρ₂ = " + fmt(S.rho[1], 4) + " g/mL · ρ̄ = " + fmt(S.mu, 4) + " g/mL · s = " + fmt(S.s, 4) + " g/mL</p>" +
+    "<p><strong>Résultat :</strong> ρ = " + fmt(S.mu, 4) + " ± " + fmt(S.s, 4) + " g/mL (soit " + fmt(S.mu, 4) + " kg/L)</p>" +
+    "<p class='petit'>Formu au labo — simulation fictive, BTS Métiers de la Chimie.</p>";
+  window.print();
+}
+
+/* ================= Exercices ================= */
+let exo = null;
+$("selExo").onchange = () => { genererExo(); save(); };
+$("nouvelExo").onclick = () => { genererExo(); save(); };
+function genererExo() {
+  const type = $("selExo").value;
+  document.querySelectorAll(".exo-panel").forEach((p) => p.classList.remove("ouvert"));
+  $("exo-" + type).classList.add("ouvert");
+  if (type === "calcul") exo = { type, ...tirageExo() };
+  else if (type === "erreur") exo = { type, ...tirageErreur() };
+  else exo = { type, ordre: melangerOrdre() };
+  renderExo(); save();
+}
+function tirageExo() {
+  const T = 19 + Math.floor(Math.random() * 6);
+  const Vvrai = +rnd(99.85, 100.15).toFixed(3), m0vrai = +rnd(140, 190).toFixed(3), rhoVrai = +rnd(0.85, 1.10).toFixed(4);
+  const m0 = weigh(m0vrai), m1 = weigh(m0 + Vvrai * EAU[T]);
+  const m2a = weigh(m0 + Vvrai * (rhoVrai + gauss(0.0010))), m2b = weigh(m0 + Vvrai * (rhoVrai + gauss(0.0010)));
+  const V = calcV(m0, m1, EAU[T]), r1 = calcRho(m0, m2a, V), r2 = calcRho(m0, m2b, V);
+  return { T, m0, m1, m2a, m2b, V, r1, r2, mu: calcMoy(r1, r2), s: calcET(r1, r2) };
+}
+const PHRASES = [
+  "Je nettoie puis je sèche le pycnomètre.",
+  "Je le pèse vide sur la balance au milligramme : m₀ = {m0} g.",
+  "Je le remplis d'eau distillée à température ambiante ({T} °C) et je le pèse : m₁.",
+  "Je lis dans le tableau la masse volumique de l'eau à la température de la salle : {rho} g/mL, et j'en déduis V = (m₁ − m₀) / ρeau.",
+  "Je sèche le pycnomètre, je le remplis d'adhésif à température ambiante et je le pèse : m₂.",
+  "Je calcule ρ = (m₂ − m₀) / V, je refais une seconde mesure et je rends la moyenne avec un écart type."
+];
+const ERREURS = [
+  { i: 1, faux: (d) => "Je le pèse vide sur la balance au décigramme : m₀ = " + fmt(d.m0, 1) + " g (une seule décimale).", expl: "Les pesées se font à 1 mg près : au décigramme, l'incertitude sur les masses ruine la précision sur ρ." },
+  { i: 2, faux: (d) => "Je le remplis d'eau distillée sortie du réfrigérateur et je le pèse aussitôt : m₁ (la salle est à " + d.T + " °C).", expl: "L'eau doit être à température ambiante : c'est la température de la salle qui sert à lire ρeau dans le tableau." },
+  { i: 3, faux: (d) => { const autre = Object.keys(EAU).map(Number).filter(t => Math.abs(t - d.T) >= 2); const t2 = autre[Math.floor(Math.random() * autre.length)]; return "La salle est à " + d.T + " °C ; je prends ρeau = " + fmt(EAU[t2], 4) + " g/mL (ligne " + t2 + " °C) et j'en déduis V."; }, expl: (d) => "Mauvaise ligne du tableau : à " + d.T + " °C il faut prendre ρeau = " + fmt(EAU[d.T], 4) + " g/mL." },
+  { i: 4, faux: () => "Je vide l'eau et je verse aussitôt l'adhésif, sans sécher le pycnomètre, puis je pèse : m₂.", expl: "Il faut sécher le pycnomètre avant d'y mettre l'adhésif : l'eau restante fausse m₂ et dilue l'échantillon." },
+  { i: 5, faux: () => "Je calcule ρ = (m₂ − m₀) / (m₁ − m₀), je refais une seconde mesure…", expl: "(m₂ − m₀)/(m₁ − m₀) donne une densité par rapport à l'eau, pas une masse volumique : il faut diviser par V = (m₁ − m₀)/ρeau." },
+  { i: 5, alt: true, faux: (d) => "Je calcule ρ = (m₂ − m₀) / V et je rends directement ρ = " + fmt(d.r1, 4) + " g/mL.", expl: "La fiche demande la moyenne de deux mesures et un résultat rendu avec un écart type." }
+];
+function tirageErreur() {
+  const d = tirageExo();
+  const e = ERREURS[Math.floor(Math.random() * ERREURS.length)];
+  return { d, err: e, sel: -1 };
+}
+const ORDRE = [
+  "Nettoyer puis sécher le pycnomètre.",
+  "Le peser à 1 mg près : m₀.",
+  "Le remplir d'eau distillée à température ambiante et peser : m₁.",
+  "En déduire, à l'aide du tableau, le volume exact du pycnomètre.",
+  "Sécher le pycnomètre, le remplir avec l'adhésif liquide (à température ambiante) et peser : m₂.",
+  "Faire la moyenne de deux mesures et rendre le résultat avec un écart type."
+];
+function melangerOrdre() {
+  let o;
+  do { o = ORDRE.map((v, i) => ({ v, i })).sort(() => Math.random() - 0.5); } while (o.every((x, k) => x.i === k));
+  return o;
+}
+function renderExo() {
+  if (!exo) return;
+  if (exo.type === "calcul") {
+    const d = exo;
+    $("exo-calcul").innerHTML =
+      "<p><strong>Masse volumique d'un adhésif liquide au pycnomètre Hubbard.</strong> La salle (et l'eau distillée) est à " + d.T + " °C. Pesées : m₀ = " + fmt(d.m0, 3) + " g ; m₁ = " + fmt(d.m1, 3) + " g ; m₂ (mesure 1) = " + fmt(d.m2a, 3) + " g ; m₂ (mesure 2) = " + fmt(d.m2b, 3) + " g.</p>" +
+      "<table style='max-width:340px;margin-bottom:8px;'><thead><tr><th>Température (°C)</th><th>ρ<sub>eau</sub> (g·mL⁻¹)</th></tr></thead><tbody>" +
+      Object.keys(EAU).map(t => "<tr><td>" + t + "</td><td>" + fmt(EAU[t], 4) + "</td></tr>").join("") + "</tbody></table>" +
+      "<p class='petit'>Aide : donne ρeau avec 4 décimales, V au centième de mL, les masses volumiques avec 4 décimales. Écart type expérimental (n − 1).</p>" +
+      ["rhoEau|ρeau (g/mL)", "V|V (mL)", "r1|ρ₁ (g/mL)", "r2|ρ₂ (g/mL)", "mu|Moyenne ρ̄ (g/mL)", "s|Écart type s (g/mL)"].map(f => { const p = f.split("|"); return '<div class="ligne"><label style="width:150px;">' + p[1] + '</label><input type="text" id="ex-' + p[0] + '"></div>'; }).join("") +
+      '<div class="ligne"><button class="action" id="ex-verif">Vérifier</button><button class="sec" id="ex-corr">Correction étape suivante</button><button class="sec" id="ex-tout">Tout afficher</button></div><p id="ex-msg"></p><div id="ex-detail"></div>';
+    $("ex-verif").onclick = () => {
+      const champs = [
+        ["rhoEau", EAU[d.T], 0.00005], ["V", d.V, 0.015], ["r1", d.r1, 0.0006], ["r2", d.r2, 0.0006], ["mu", d.mu, 0.0006], ["s", d.s, Math.max(0.00008, 0.12 * d.s)]
+      ];
+      let ok = 0;
+      champs.forEach(([id, att, tol]) => {
+        const el = $("ex-" + id), v = nb(el.value);
+        el.classList.remove("champ-ok", "champ-ko");
+        if (!isNaN(v) && Math.abs(v - att) <= tol) { el.classList.add("champ-ok"); ok++; } else el.classList.add("champ-ko");
+      });
+      $("ex-msg").innerHTML = ok === 6 ? '<span class="ok">Tout est juste, bravo !</span>' : '<span class="ko">' + ok + " réponses justes — corrige les cases en rouge ou affiche la correction.</span>";
+    };
+    const etapes = [
+      "Ligne du tableau : à " + d.T + " °C, ρ<sub>eau</sub> = " + fmt(EAU[d.T], 4) + " g/mL.",
+      "V = (m₁ − m₀)/ρ<sub>eau</sub> = (" + fmt(d.m1, 3) + " − " + fmt(d.m0, 3) + ")/" + fmt(EAU[d.T], 4) + " = " + fmt(d.V, 2) + " mL.",
+      "ρ₁ = (m₂ − m₀)/V = (" + fmt(d.m2a, 3) + " − " + fmt(d.m0, 3) + ")/" + fmt(d.V, 2) + " = " + fmt(d.r1, 4) + " g/mL.",
+      "ρ₂ = (" + fmt(d.m2b, 3) + " − " + fmt(d.m0, 3) + ")/" + fmt(d.V, 2) + " = " + fmt(d.r2, 4) + " g/mL.",
+      "ρ̄ = (ρ₁ + ρ₂)/2 = " + fmt(d.mu, 4) + " g/mL.",
+      "s = |ρ₁ − ρ₂|/√2 = " + fmt(d.s, 4) + " g/mL.",
+      "On rend la moyenne avec son écart type : ρ = " + fmt(d.mu, 4) + " ± " + fmt(d.s, 4) + " g/mL — soit la même valeur en kg/L, dans la plage 0,85–1,1 kg/L des colles pour emballages."
+    ];
+    let k = 0;
+    const aff = (n) => { k = Math.min(etapes.length, k + n); $("ex-detail").innerHTML = etapes.slice(0, k).map(e => '<p class="formule">' + e + "</p>").join(""); };
+    $("ex-corr").onclick = () => aff(1);
+    $("ex-tout").onclick = () => aff(99);
+  } else if (exo.type === "erreur") {
+    const d = exo.d, e = exo.err;
+    const phrases = PHRASES.map((p, i) => {
+      let txt = p.replace("{m0}", fmt(d.m0, 3)).replace("{T}", d.T).replace("{rho}", fmt(EAU[d.T], 4));
+      if (i === e.i) txt = e.faux(d);
+      return { i, txt };
+    });
+    $("exo-erreur").innerHTML =
+      "<p>Voici le compte rendu d'un élève (salle à " + d.T + " °C). <strong>Une seule phrase contient une erreur : laquelle ?</strong> Clique sur la phrase, puis Vérifier.</p>" +
+      phrases.map((p, k) => '<button class="phrase" data-k="' + k + '"><strong>' + p.i + ".</strong> " + p.txt + "</button>").join("") +
+      '<div class="ligne"><button class="action" id="ex-verif2">Vérifier</button></div><p id="ex-msg2"></p>';
+    document.querySelectorAll("#exo-erreur .phrase").forEach((b) => (b.onclick = () => {
+      exo.sel = parseInt(b.dataset.k, 10);
+      document.querySelectorAll("#exo-erreur .phrase").forEach((x) => x.classList.toggle("selectionnee", x === b));
+    }));
+    $("ex-verif2").onclick = () => {
+      const selP = PHRASES[exo.sel] ? exo.sel : -1;
+      const bonne = selP === e.i;
+      $("ex-msg2").innerHTML = (bonne ? '<span class="ok">Juste.</span> ' : '<span class="ko">Non.</span> ') +
+        (typeof e.expl === "function" ? e.expl(d) : e.expl);
+      document.querySelectorAll("#exo-erreur .phrase").forEach((x, k) => { if (k === e.i) x.classList.add("bonne"); });
+    };
+  } else {
+    $("exo-ordre").innerHTML =
+      "<p><strong>Remets les étapes du protocole dans l'ordre</strong> (flèches ↑ ↓) :</p>" +
+      '<div id="liste-ordre">' + exo.ordre.map((x, k) => '<div class="ordre-item" data-k="' + k + '"><span class="fleches"><button data-dir="-1">↑</button><button data-dir="1">↓</button></span><span>' + x.v + "</span></div>").join("") + "</div>" +
+      '<div class="ligne"><button class="action" id="ex-verif3">Vérifier</button><button class="sec" id="ex-corr3">Correction</button></div><p id="ex-msg3"></p>';
+    document.querySelectorAll("#liste-ordre .fleches button").forEach((b) => (b.onclick = () => {
+      const item = b.closest(".ordre-item"), k = parseInt(item.dataset.k, 10), j = k + parseInt(b.dataset.dir, 10);
+      if (j < 0 || j >= exo.ordre.length) return;
+      const t = exo.ordre[k]; exo.ordre[k] = exo.ordre[j]; exo.ordre[j] = t;
+      renderExo(); save();
+    }));
+    $("ex-verif3").onclick = () => {
+      let ok = 0;
+      document.querySelectorAll("#liste-ordre .ordre-item").forEach((el, k) => {
+        const bon = exo.ordre[k].i === k;
+        el.style.borderColor = bon ? "var(--vert)" : "var(--ko)";
+        if (bon) ok++;
+      });
+      $("ex-msg3").innerHTML = ok === 6 ? '<span class="ok">Ordre correct, bravo !</span>' : '<span class="ko">' + ok + "/6 bien placées.</span>";
+    };
+    $("ex-corr3").onclick = () => {
+      exo.ordre = ORDRE.map((v, i) => ({ v, i }));
+      renderExo();
+      $("ex-msg3").innerHTML = '<span class="ok">Voici l\'ordre correct.</span>';
+    };
+  }
+}
+
+/* ================= Persistance ================= */
+function save() {
+  try { localStorage.setItem(LS_KEY, JSON.stringify({ onglet, S, exo, selSample: sel.value, selExo: $("selExo").value })); } catch (e) {}
+}
+function load() {
+  try {
+    const d = JSON.parse(localStorage.getItem(LS_KEY));
+    if (!d) return;
+    if (d.selSample) sel.value = d.selSample;
+    if (d.selExo) $("selExo").value = d.selExo;
+    if (d.exo) { exo = d.exo; document.querySelectorAll(".exo-panel").forEach((p) => p.classList.remove("ouvert")); $("exo-" + exo.type).classList.add("ouvert"); renderExo(); }
+    if (d.S) {
+      S = d.S;
+      $("resultat").textContent = "";
+      $("tempTxt").textContent = S.T + " °C";
+      $("mercure").setAttribute("y", 150 - (S.T - 19) / 5 * 100);
+      $("mercure").setAttribute("height", 2 + (S.T - 19) / 5 * 100);
+      const lastM = S.mesures[1] || S.mesures[0];
+      $("afficheur").textContent = lastM.m2 != null ? fmt(lastM.m2, 3) + " g" : (lastM.m1 != null ? fmt(lastM.m1, 3) + " g" : (lastM.m0 != null ? fmt(lastM.m0, 3) + " g" : "—"));
+      $("liquide").setAttribute("fill", S.etape >= 6 ? "#f59e0b" : "#93c5fd");
+      $("liquide").setAttribute("y", S.etape >= 2 ? 66 : 137);
+      $("liquide").setAttribute("height", S.etape >= 2 ? 71 : 0);
+      renderCahier(); renderEtapes(); renderFormules();
+    }
+    setTab(d.onglet || "simulation");
+  } catch (e) {}
+}
+
+/* ================= Init ================= */
+for (const t of Object.keys(EAU)) {
+  $("table-eau-ess").querySelector("tbody").insertAdjacentHTML("beforeend", "<tr><td>" + t + "</td><td>" + fmt(EAU[t], 4) + "</td></tr>");
+}
 $("lancer").onclick = lancer;
-afficherEtapes();
+$("voirPrev").onclick = () => { if (S) { S.showPrev = !S.showPrev; renderEtapes(); save(); } };
+if (!load()) { setTab("simulation"); renderEtapes(); }
 </script>
 </body>
 </html>
