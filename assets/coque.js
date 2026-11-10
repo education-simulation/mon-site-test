@@ -30,8 +30,8 @@
       ["Faire connaissance", "Écris « bonjour » à Mistral et réponds à ses 4 questions."],
       ["Personnaliser le site", "Mistral change le titre et la couleur. Toi : recharge cet onglet (Cmd + R)."],
       ["Enregistrer dans GitHub", "Mistral s'en charge. Toi : « Autoriser pour le reste de cette session » dans la petite fenêtre."],
-      ["Mettre en ligne (une seule fois)", "Sur GitHub, dans ton dépôt : Settings → Pages → Source : « GitHub Actions ». Le dépôt doit être Public. GitHub peut demander un code sur ton téléphone (application GitHub Mobile)."],
-      ["Voir le site en ligne", "Onglet Actions du dépôt : attends la coche verte, puis ouvre https://ton-pseudo.github.io/nom-du-depot/"],
+      ["Mettre en ligne (une seule fois)", "Sur GitHub, dans ton dépôt : Settings → Pages → Source : « GitHub Actions ». Ne clique sur aucun « Configure ». Le dépôt doit être Public. GitHub peut demander un code sur ton téléphone (application GitHub Mobile)."],
+      ["Voir le site en ligne", "Onglet Actions du dépôt : un rond orange tourne pendant environ 1 minute, patiente jusqu'à la coche verte. Puis ouvre https://ton-pseudo.github.io/nom-du-depot/"],
       ["Ajouter ta première page", "Dis à Mistral le sujet de ta page."],
     ];
     const v = document.createElement("details");

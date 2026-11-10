@@ -104,7 +104,9 @@ Avance **dans l'ordre**. Avant de passer à l'étape suivante, fais la **vérifi
   2. Dans la colonne de gauche, cliquer **Pages**.
   3. Sous « Build and deployment », menu **Source** : choisir **GitHub Actions**.
   (Là aussi, GitHub peut demander de confirmer avec le code sur le téléphone : voir plus haut.)
+  Après ce choix, GitHub propose des cartes « GitHub Pages Jekyll » / « Static HTML » avec un bouton **Configure** : **ne clique sur aucun** (le site a déjà sa recette de mise en ligne). Rien d'autre à faire sur cette page.
 - Puis relance la mise en ligne : `git commit --allow-empty -m "Première mise en ligne" && git push`.
+- **Patience :** dans l'onglet **Actions**, la ligne « Mise en ligne » commence par un **rond orange qui tourne** (« In progress ») : il faut **attendre environ 1 minute**, sans rien cliquer, jusqu'à la **coche verte**. Dis-le à la personne avant qu'elle ouvre l'onglet.
 - **Vérification :** dans l'onglet **Actions** du dépôt, la dernière « Mise en ligne » est verte **et affiche l'adresse du site** sous l'étape *deploy* (1 à 2 minutes). Si elle est verte mais montre seulement « Ton site n'est pas encore en ligne », Pages n'est pas activé, ou le dépôt est privé : refaire cette étape.
 - Ce que tu dois cliquer maintenant : Settings → Pages → Source → GitHub Actions.
 
