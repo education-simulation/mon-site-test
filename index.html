@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mon site</title>
+  <link rel="stylesheet" href="assets/coque.css">
+</head>
+<body>
+  <header class="entete">
+    <button class="burger" id="burger" aria-label="Ouvrir le menu">☰</button>
+    <div>
+      <div class="titre" id="titre"></div>
+      <div class="sous-titre" id="sous-titre"></div>
+    </div>
+  </header>
+  <div class="cadre">
+    <nav class="menu" id="menu" aria-label="Menu principal"></nav>
+    <main class="contenu" id="contenu"><p class="discret">Chargement…</p></main>
+  </div>
+  <footer class="pied" id="pied"></footer>
+
+  <!-- Ne pas modifier sous cette ligne : le moteur du site. -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script src="site.config.js"></script>
+  <script src="assets/coque.js"></script>
+</body>
+</html>

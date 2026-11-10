@@ -1,0 +1,75 @@
+/* Allure inspirée de reula.fr. Les couleurs se règlent dans site.config.js (couleur). */
+:root {
+  --accent: #aa3bff;
+  --texte: #4b4553;
+  --titre: #08060d;
+  --fond: #ffffff;
+  --carte: #faf9fb;
+  --bord: #e5e4e7;
+  --discret: #77707f;
+  --code: #f4f3ec;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --texte: #cfcad6;
+    --titre: #f5f3f7;
+    --fond: #16141a;
+    --carte: #1f1c24;
+    --bord: #34303b;
+    --discret: #9a94a3;
+    --code: #2a2630;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font: 17px/1.55 system-ui, "Segoe UI", Roboto, sans-serif;
+  color: var(--texte);
+  background: var(--fond);
+}
+.entete {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px; border-bottom: 1px solid var(--bord);
+}
+.titre { font-weight: 600; color: var(--titre); font-size: 19px; }
+.sous-titre { font-size: 14px; color: var(--discret); }
+.burger { display: none; font-size: 22px; background: none; border: 0; color: var(--titre); cursor: pointer; }
+.cadre { display: flex; min-height: calc(100vh - 110px); }
+.menu { width: 230px; flex-shrink: 0; padding: 12px 10px; border-right: 1px solid var(--bord); }
+.menu h2 {
+  font-size: 12px; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--discret); margin: 14px 8px 4px;
+}
+.menu a {
+  display: block; padding: 6px 10px; border-radius: 8px;
+  color: var(--texte); text-decoration: none; font-size: 15px;
+}
+.menu a:hover { background: var(--carte); }
+.menu a.actif {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--accent); font-weight: 600;
+}
+.contenu { flex: 1; min-width: 0; padding: 16px 24px 40px; max-width: 860px; }
+.contenu h1, .contenu h2, .contenu h3 { color: var(--titre); line-height: 1.25; }
+.contenu h1 { font-size: 26px; margin-top: 4px; }
+.contenu a { color: var(--accent); }
+.contenu code { background: var(--code); padding: 1px 5px; border-radius: 4px; font-size: 0.92em; }
+.contenu pre { background: var(--code); padding: 12px; border-radius: 8px; overflow-x: auto; }
+.contenu table { border-collapse: collapse; }
+.contenu th, .contenu td { border: 1px solid var(--bord); padding: 5px 10px; }
+.contenu blockquote {
+  margin: 12px 0; padding: 8px 14px; border-left: 3px solid var(--accent);
+  background: var(--carte); border-radius: 0;
+}
+.contenu iframe { width: 100%; border: 0; min-height: 120px; }
+.discret { color: var(--discret); }
+.erreur { color: #c0392b; }
+.pied { padding: 10px 16px; font-size: 13px; color: var(--discret); border-top: 1px solid var(--bord); }
+
+@media (max-width: 760px) {
+  .burger { display: block; }
+  .menu { display: none; position: absolute; top: 58px; left: 0; right: 0; z-index: 5;
+          background: var(--fond); border-right: 0; border-bottom: 1px solid var(--bord); width: auto; }
+  .menu.ouvert { display: block; }
+  .contenu { padding: 12px 16px 32px; }
+}

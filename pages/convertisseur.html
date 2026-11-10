@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Convertisseur d'unités</title>
+<style>
+  :root { --accent: #aa3bff; --texte: #4b4553; --bord: #e5e4e7; --fond: #fff; }
+  @media (prefers-color-scheme: dark) { :root { --texte: #cfcad6; --bord: #34303b; --fond: #16141a; } }
+  body { margin: 0; font: 16px/1.5 system-ui, sans-serif; color: var(--texte); background: var(--fond); }
+  .ligne { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 10px 0; }
+  input, select { font: inherit; padding: 6px 8px; border: 1px solid var(--bord); border-radius: 8px;
+                  background: var(--fond); color: var(--texte); }
+  input { width: 130px; }
+  .resultat { font-size: 20px; font-weight: 600; color: var(--accent); }
+</style>
+</head>
+<body>
+  <p>Exemple de page interactive : modifie la valeur ou les unités, le résultat se met à jour tout seul.</p>
+  <div class="ligne">
+    <input id="valeur" type="number" value="250" step="any" aria-label="Valeur">
+    <select id="de" aria-label="Unité de départ"></select>
+    <span>=</span>
+    <span class="resultat" id="resultat"></span>
+    <select id="vers" aria-label="Unité d'arrivée"></select>
+  </div>
+<script>
+  // Volumes, exprimés en litres.
+  const UNITES = { "L": 1, "mL": 1e-3, "µL": 1e-6, "m³": 1000, "dm³": 1, "cm³": 1e-3 };
+  const de = document.getElementById("de"), vers = document.getElementById("vers");
+  for (const u of Object.keys(UNITES)) { de.add(new Option(u, u)); vers.add(new Option(u, u)); }
+  de.value = "mL"; vers.value = "L";
+  function calculer() {
+    const v = parseFloat(document.getElementById("valeur").value.replace(",", "."));
+    const r = v * UNITES[de.value] / UNITES[vers.value];
+    document.getElementById("resultat").textContent =
+      isNaN(r) ? "—" : r.toLocaleString("fr-FR", { maximumSignificantDigits: 6 });
+  }
+  document.querySelectorAll("input, select").forEach((e) => e.addEventListener("input", calculer));
+  calculer();
+</script>
+</body>
+</html>
