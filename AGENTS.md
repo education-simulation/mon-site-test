@@ -13,13 +13,19 @@ La personne ne sait pas quoi t'écrire. **Son premier message, quel qu'il soit**
 
 **Ensuite seulement**, au début de l'étape 2 :
 - lis `PROGRESSION.md` (à la racine) s'il existe, pour savoir quelles étapes sont faites ;
-- à la fin de chaque étape réussie, mets à jour `PROGRESSION.md` (`- [x] Étape N — titre — date`) et enregistre-le dans GitHub avec le reste.
+- à la fin de chaque étape réussie, mets à jour `PROGRESSION.md` (`- [x] Étape N — titre`, **sans date**) et enregistre-le dans GitHub avec le reste, dans la même commande.
 
-### Les demandes d'autorisation
-Avant ta **première** action sur les fichiers, préviens en français simple, par exemple :
-« Je vais maintenant modifier ton site. Une petite fenêtre va s'afficher sous notre conversation pour te demander la permission : clique sur **« Autoriser pour le reste de cette session »**. »
-Attention : cette permission ne vaut que pour **le type d'action** affiché (lire, enregistrer, envoyer sur GitHub…). Chaque nouveau type d'action fera réapparaître la fenêtre une fois : **préviens à chaque fois**, en une phrase (« Nouvelle petite fenêtre : même bouton, « Autoriser pour le reste de cette session ». »).
-Ne montre jamais de commande à la personne et ne lui demande jamais d'en taper une.
+### Les demandes d'autorisation (très important)
+Chaque action que tu fais (lire, écrire un fichier, lancer une commande) fait apparaître **une petite fenêtre** sous la conversation, que la personne doit valider. Un débutant ne sait pas qu'elle existe ni quoi cliquer. Donc :
+
+1. **Juste avant CHAQUE action, sans exception**, écris une phrase seule, en gras :
+   **« 👉 Une petite fenêtre s'affiche sous notre conversation : clique sur « Autoriser pour le reste de cette session ». »**
+   Même si tu l'as déjà dit avant : la personne ne s'en souvient pas.
+2. **Fais le moins d'actions possible** :
+   - ne lis que le fichier que tu vas modifier ;
+   - **aucune commande de vérification** (`curl`, `grep`, `ls`, `cat`, `date`, `git status`, `git remote`…) : c'est la personne qui vérifie, à l'écran, avec le lien de son site ;
+   - pour enregistrer dans GitHub, **une seule commande** : `git add -A && git commit -m "…" && git push`.
+3. Ne montre jamais de commande à la personne et ne lui demande jamais d'en taper une.
 
 ## 1. Qui tu aides
 
@@ -52,7 +58,7 @@ Ne montre jamais de commande à la personne et ne lui demande jamais d'en taper 
 - Une page s'ajoute en **deux gestes** : créer `pages/<id>.md` (ou `.html`), puis ajouter `{ id, titre, fichier }` dans `menu` de `site.config.js`.
 - L'aperçu du site tourne déjà dans le Codespace. **Son lien se calcule** avec la commande :
   `echo "https://${CODESPACE_NAME}-5173.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}/"`
-  Lance-la une fois au début, garde le lien, et **donne-le en entier** chaque fois que la personne doit regarder son site.
+  Lance-la **une seule fois**, en même temps que ta première vraie action (dans la même commande si possible), garde le lien, et **donne-le en entier** chaque fois que la personne doit regarder son site.
 - Pour montrer un changement, la consigne est toujours de cette forme :
   « Clique sur ce lien : <le lien complet, en entier> — il ouvre ton site dans un nouvel onglet. Si ce site est déjà ouvert dans un onglet, va sur cet onglet et appuie sur **Cmd + R** (Mac) ou **Ctrl + R** (Windows) pour le recharger. »
 - **N'utilise jamais le « Navigateur simple » de VS Code** pour montrer le site : il reste vide dans Chrome. Si l'onglet de l'aperçu a été fermé : panneau du bas → onglet **Ports** → ligne « Aperçu de mon site » → icône **globe** (« Ouvrir dans le navigateur »).
