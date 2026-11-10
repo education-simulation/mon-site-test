@@ -23,8 +23,9 @@ Patience : la première ouverture prend 5 à 10 minutes.
    Une fenêtre demande « Voulez-vous que Code ouvre le site web externe ? »
    (console.mistral.ai) : clique sur le bouton vert « Ouvrir »,
    Un nouvel onglet s'ouvre : connecte-toi à ton compte Mistral
-   (par exemple avec ton adresse académique), puis REVIENS sur
-   l'onglet de ton atelier « RASF — Atelier … ».
+   (par exemple avec ton adresse académique). Sur l'écran
+   « Autoriser Mistral Vibe Code ? », clique sur « Autoriser ».
+   Puis REVIENS sur l'onglet de ton atelier « RASF — Atelier … ».
    Si un bouton « Dossier non approuvé » apparaît en bas du panneau,
    clique dessus, puis sur le bouton vert « Faire confiance au dossier ».
    Sans ce clic, l'assistant ne peut rien modifier.
