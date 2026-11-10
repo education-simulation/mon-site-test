@@ -6,7 +6,7 @@ Un site de cours simple et gratuit, que tu construis avec l'assistant Mistral, s
 
 ### Tu vois un bouton vert « Use this template » en haut de cette page ?
 
-Tu es sur le **modèle**. Fais d'abord ta copie : **Use this template → Create a new repository**, donne-lui un nom, choisis **Public**, puis **Create repository**.
+Tu es sur le **modèle**. Fais d'abord ta copie : **Use this template → Create a new repository**, donne-lui un nom, **laisse « Public » coché** (obligatoire pour que ton site soit en ligne gratuitement), puis **Create repository**.
 Tu arrives sur ta copie : reprends cette page à l'étape suivante.
 
 ### Pas de bouton « Use this template » ?

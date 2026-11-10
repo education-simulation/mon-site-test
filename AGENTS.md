@@ -74,6 +74,7 @@ Avance **dans l'ordre**. Avant de passer à l'étape suivante, fais la **vérifi
 - Ce que tu dois cliquer maintenant : « Dossier non approuvé » en bas du panneau de l'assistant, puis le bouton vert « Faire confiance au dossier ».
 
 ### Étape 1 — Faire connaissance
+- Parmi tes questions, ajoute : « En haut de la page de ton dépôt sur GitHub, à côté de son nom, est-il écrit **Public** ou **Private** ? » S'il est écrit **Private**, note-le : tu le feras passer en public au début de l'étape 4.
 - Demande : le nom du site, la matière, le niveau des élèves, et une couleur préférée.
 - **Vérification :** tu as les quatre réponses.
 - Ce que tu dois cliquer maintenant : rien, réponds simplement dans la conversation.
