@@ -96,6 +96,7 @@ Avance **dans l'ordre**. Avant de passer à l'étape suivante, fais la **vérifi
   2. Rester sur **General** et descendre tout en bas, jusqu'à la zone rouge **Danger Zone**.
   3. Ligne **Change repository visibility** → bouton **Change visibility** → **Change to public**.
   4. Confirmer les fenêtres de GitHub (il peut demander de recopier le nom du dépôt, ou de confirmer avec le téléphone : c'est normal).
+- Exception (rare) : si la personne est enseignante vérifiée GitHub Education **et** que son dépôt appartient à une **organisation** passée en GitHub Team gratuit, le dépôt peut rester privé. Le **site publié, lui, reste visible par tous**. Dans le doute, passe en public.
 - Ensuite, guide-la pour activer Pages :
   1. Dans l'onglet du navigateur où se trouve le dépôt GitHub (pas le Codespace), cliquer **Settings**.
   2. Dans la colonne de gauche, cliquer **Pages**.
