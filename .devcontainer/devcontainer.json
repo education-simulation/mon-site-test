@@ -2,18 +2,27 @@
   // Environnement du Codespace : rien à installer pour le prof.
   // Image « universal » = image par défaut de Codespaces : aucune construction, démarrage rapide,
   // et elle ne compte pas dans le stockage gratuit. Pas de « features » : elles forcent une construction.
-  "name": "Mon site (niveau 1 — GitHub Pages)",
+  "name": "Atelier RASF — mon site (niveau 1, GitHub Pages)",
   "image": "mcr.microsoft.com/devcontainers/universal:2",
   "customizations": {
     "vscode": {
       "extensions": [
-        "GitHub.copilot-chat",
-        "anthropic.claude-code",
         "mistralai.mistral-vibe-code"
       ],
       "settings": {
         "workbench.startupEditor": "none",
         "files.autoSave": "afterDelay",
+        // Un seul assistant : Mistral. On coupe le chat Copilot intégré à VS Code.
+        "chat.disableAIFeatures": true,
+        // Habillage RASF (couleurs du logo : bleu #336fa3, violet #666493).
+        "window.title": "RASF — Atelier ${rootName}",
+        "workbench.colorCustomizations": {
+          "statusBar.background": "#336fa3",
+          "statusBar.foreground": "#ffffff",
+          "statusBarItem.remoteBackground": "#666493",
+          "statusBarItem.remoteForeground": "#ffffff",
+          "activityBarBadge.background": "#336fa3"
+        },
         // On cache au prof les fichiers techniques ; l'agent, lui, les voit toujours.
         "files.exclude": {
           ".devcontainer": true,
@@ -21,7 +30,6 @@
           "assets": true,
           "index.html": true,
           "LICENSE": true,
-          "CLAUDE.md": true,
           "README.md": true
         }
       }
@@ -31,6 +39,8 @@
       "openFiles": ["DEMARRER.md"]
     }
   },
+  // Remplace le « Welcome to Codespaces » en anglais par le message du RASF.
+  "onCreateCommand": "sudo cp .devcontainer/bienvenue.txt /usr/local/etc/vscode-dev-containers/first-run-notice.txt || true",
   // Lance l'aperçu du site à chaque ouverture du Codespace, dans un NOUVEL ONGLET du navigateur :
   // l'aperçu intégré à VS Code (« Navigateur simple ») reste vide dans Chrome (testé le 10/11/2026).
   "postAttachCommand": "python3 -m http.server 5173",

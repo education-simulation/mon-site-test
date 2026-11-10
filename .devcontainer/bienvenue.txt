@@ -1,0 +1,12 @@
+  ┌──────────────────────────────────────────────────────┐
+  │   R A S F  ·  Atelier de site pour profs              │
+  └──────────────────────────────────────────────────────┘
+
+  Bienvenue ! Ton site démarre dans ce terminal (ne le ferme pas).
+  Il va s'ouvrir dans un autre onglet du navigateur.
+
+  Ton assistant : Mistral Vibe, dans le panneau de droite.
+  Première phrase à lui écrire :  Lis AGENTS.md et guide-moi.
+
+  Patience : la première fois, chaque étape peut prendre une minute.
+

@@ -1,6 +1,6 @@
 # AGENTS.md — mode d'emploi pour l'agent (niveau 1 : GitHub Pages)
 
-Ce fichier s'adresse à l'agent de programmation (Copilot, Claude, Mistral ou autre).
+Ce fichier s'adresse à l'assistant de programmation (Mistral Vibe).
 Si tu es une personne : ouvre ton agent et écris « Lis AGENTS.md et guide-moi. »
 
 ## 1. Qui tu aides
@@ -30,7 +30,7 @@ Si tu es une personne : ouvre ton agent et écris « Lis AGENTS.md et guide-moi.
 | `index.html`, `assets/` | Moteur du site | Non |
 | `DEMARRER.md` | Page d'accueil du Codespace (3 consignes) | Non |
 
-- Pour garder l'écran simple, l'explorateur **cache** `.devcontainer`, `.github`, `assets`, `index.html`, `LICENSE`, `CLAUDE.md` et `README.md` (réglage `files.exclude`). Ils existent toujours : tu peux les lire et les modifier.
+- Pour garder l'écran simple, l'explorateur **cache** `.devcontainer`, `.github`, `assets`, `index.html`, `LICENSE` et `README.md` (réglage `files.exclude`). Ils existent toujours : tu peux les lire et les modifier.
 - Une page s'ajoute en **deux gestes** : créer `pages/<id>.md` (ou `.html`), puis ajouter `{ id, titre, fichier }` dans `menu` de `site.config.js`.
 - L'aperçu du site tourne déjà dans le Codespace. **Son lien se calcule** avec la commande :
   `echo "https://${CODESPACE_NAME}-5173.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}/"`

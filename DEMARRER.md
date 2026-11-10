@@ -1,12 +1,13 @@
-BIENVENUE DANS TON ATELIER
-==========================
+RASF · ATELIER DE SITE POUR PROFS
+=================================
 
 Tu n'as rien à installer. Tout se passe dans cet onglet.
 Patience : à la première ouverture, chaque étape peut prendre une minute.
 
 
 1) TON ASSISTANT
-   À droite : Mistral Vibe, Claude Code ou Conversation (Copilot).
+   À droite : Mistral Vibe. Panneau fermé ? Clique sur l'icône Mistral
+   (le « M » orange) dans la barre tout à gauche.
    Si un bouton « Dossier non approuvé » apparaît en bas du panneau,
    clique dessus, puis sur le bouton vert « Faire confiance au dossier ».
    Sans ce clic, l'assistant ne peut rien modifier.
