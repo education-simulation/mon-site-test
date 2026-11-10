@@ -14,8 +14,6 @@
       "settings": {
         "workbench.startupEditor": "none",
         "files.autoSave": "afterDelay",
-        // Les fichiers .md s'ouvrent mis en forme (pas en code brut).
-        "workbench.editorAssociations": { "*.md": "vscode.markdown.preview.editor" },
         // On cache au prof les fichiers techniques ; l'agent, lui, les voit toujours.
         "files.exclude": {
           ".devcontainer": true,

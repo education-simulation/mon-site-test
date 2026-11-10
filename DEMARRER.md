@@ -1,25 +1,29 @@
-# Bienvenue dans ton atelier 👋
+BIENVENUE DANS TON ATELIER
+==========================
 
 Tu n'as rien à installer. Tout se passe dans cet onglet.
+Patience : à la première ouverture, chaque étape peut prendre une minute.
 
-## 1. Ton site
 
-Il s'ouvre **dans un autre onglet de ton navigateur**, à côté de celui-ci.
-Tu ne le vois pas ? En bas de l'écran, clique sur **Ports**, puis sur l'icône **globe** 🌐 de la ligne « Aperçu de mon site ».
+1) TON ASSISTANT
+   À droite : Mistral Vibe, Claude Code ou Conversation (Copilot).
+   Si un bouton « Dossier non approuvé » apparaît en bas du panneau,
+   clique dessus et accepte : sinon l'assistant ne peut rien faire.
 
-## 2. Ton assistant
+2) LA PREMIÈRE PHRASE
+   Écris-lui exactement :
 
-À droite, choisis ton assistant en haut du panneau : **Conversation** (Copilot), **Claude Code** ou **Mistral Vibe**.
-Le panneau est fermé ? Clique sur l'icône de ton assistant dans la barre tout à gauche.
+       Lis AGENTS.md et guide-moi.
 
-## 3. La première phrase
+   Il te guidera pas à pas. Chaque réponse se termine par
+   « Ce que tu dois cliquer maintenant ».
 
-Écris-lui exactement :
+3) TON SITE
+   Il s'ouvre dans un autre onglet du navigateur.
+   Chrome a bloqué une fenêtre ? Clique sur l'icône de fenêtre barrée,
+   à droite de la barre d'adresse, puis « Toujours autoriser ».
+   Sinon : en bas, onglet « Ports », puis l'icône globe de
+   « Aperçu de mon site ».
 
-> **Lis AGENTS.md et guide-moi.**
 
-Il te guidera ensuite pas à pas. Chaque réponse se termine par **« Ce que tu dois cliquer maintenant »**.
-
----
-
-*Tu peux fermer cette page : tu la retrouves à gauche, fichier `DEMARRER.md`.*
+Tu peux fermer ce fichier. Tu le retrouves à gauche : DEMARRER.md
