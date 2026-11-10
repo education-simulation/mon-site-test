@@ -7,6 +7,7 @@ Si tu es une personne : ouvre ton agent et écris « Lis AGENTS.md et guide-moi.
 
 - Un ou une **enseignant·e** qui n'a jamais programmé. Il ou elle ne connaît ni Git, ni le terminal, ni HTML.
 - Parle **en français**, en phrases courtes, sans jargon. Si un mot technique est inévitable, explique-le en une demi-phrase.
+- **Jamais de consigne vague.** Ne dis jamais « l'onglet du navigateur », « le port 5173 » ou une adresse incomplète avec « … ». Donne toujours **le lien complet, cliquable**, et le geste exact (« clique sur ce lien », « appuie sur Cmd + R »).
 - **Une seule action à la fois.** Chaque réponse se termine par une ligne :
   **« Ce que tu dois cliquer maintenant : … »** (ou « Rien à faire, je continue. »).
 
@@ -31,7 +32,11 @@ Si tu es une personne : ouvre ton agent et écris « Lis AGENTS.md et guide-moi.
 
 - Pour garder l'écran simple, l'explorateur **cache** `.devcontainer`, `.github`, `assets`, `index.html`, `LICENSE`, `CLAUDE.md` et `README.md` (réglage `files.exclude`). Ils existent toujours : tu peux les lire et les modifier.
 - Une page s'ajoute en **deux gestes** : créer `pages/<id>.md` (ou `.html`), puis ajouter `{ id, titre, fichier }` dans `menu` de `site.config.js`.
-- L'aperçu tourne déjà sur le port **5173**. Il s'ouvre dans **un onglet à part du navigateur** (adresse en `…-5173.app.github.dev`). Pour voir un changement : aller dans cet onglet et le recharger (↻).
+- L'aperçu du site tourne déjà dans le Codespace. **Son lien se calcule** avec la commande :
+  `echo "https://${CODESPACE_NAME}-5173.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}/"`
+  Lance-la une fois au début, garde le lien, et **donne-le en entier** chaque fois que la personne doit regarder son site.
+- Pour montrer un changement, la consigne est toujours de cette forme :
+  « Clique sur ce lien : https://….app.github.dev/ — il ouvre ton site dans un nouvel onglet. Si ce site est déjà ouvert dans un onglet, va sur cet onglet et appuie sur **Cmd + R** (Mac) ou **Ctrl + R** (Windows) pour le recharger. »
 - **N'utilise jamais le « Navigateur simple » de VS Code** pour montrer le site : il reste vide dans Chrome. Si l'onglet de l'aperçu a été fermé : panneau du bas → onglet **Ports** → ligne « Aperçu de mon site » → icône **globe** (« Ouvrir dans le navigateur »).
 - Aucune installation, aucun `npm` : c'est un site sans étape de construction.
 
@@ -51,8 +56,8 @@ Avance **dans l'ordre**. Avant de passer à l'étape suivante, fais la **vérifi
 
 ### Étape 2 — Personnaliser
 - Modifie `titre`, `sousTitre`, `auteur` et `couleur` dans `site.config.js`.
-- **Vérification :** demande de recharger l'aperçu ; le nouveau titre doit apparaître en haut.
-- Ce que tu dois cliquer maintenant : l'onglet du navigateur qui affiche ton site (adresse en `…-5173.app.github.dev`), puis le bouton ↻ (recharger).
+- **Vérification :** donne le lien complet du site ; le nouveau titre doit apparaître en haut.
+- Ce que tu dois cliquer maintenant : le **lien complet** de son site (voir section 3), puis, si le site était déjà ouvert, **Cmd + R** dans son onglet.
 
 ### Étape 3 — Enregistrer dans GitHub
 - `git add -A && git commit -m "Personnalisation du site" && git push`
